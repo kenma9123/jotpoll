@@ -21,11 +21,11 @@
 <body>
     <script type="text/template" id="poll-navigator-template">
         <div class="section form-division">
-            <!-- <h1 for="formsList" class="form-label">Form List</h1> -->
+            <!-- <h1 for="formsList" class="form-label">Form List</h1>
             <select id="formsList" class="selectpicker">
                 <%=formsOptions%>
-            </select>
-            <!-- <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">Pick a Form</button>-->
+            </select>-->
+            <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">Pick a Form</button>
         </div>
         <div class="section form-division">
             <h1 for="questionList" class="form-label">Question List</h1>
@@ -238,12 +238,12 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
-    <!--<script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>-->
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jquery.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/underscore.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/backbone.js"></script>
 
+    <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
+    <script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/clipboard/zclip.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/rawdeflate_inflate.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/base64.js"></script>

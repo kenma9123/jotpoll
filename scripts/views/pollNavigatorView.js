@@ -2,7 +2,7 @@ var PollNavigatorView = Backbone.View.extend({
     el: ".poll-navigator",
     events:
     {
-        'change #formsList': 'getFormSelected',
+        'click #pickFormWidget': 'getFormSelected',
         'change #questionList': 'getQuestionSelected',
         'click #proceedButton': 'processPoll'
     },
@@ -111,26 +111,37 @@ var PollNavigatorView = Backbone.View.extend({
      */
     getFormSelected: function(e,cb)
     {
+        var self = this;
         var form = $( (e && e.target) || this._elems.formSelect );
 
-        //set form ID
-        this.formID = form.val();
+        JFWidgets.FormPicker({
+            multiSelect: false,
+            onSelect: function(r) {
+                var selectedFormObj = r[0];
 
-        //set form title
-        this.formTitle = form.find(":selected").text();
+                //set form ID
+                self.formID = selectedFormObj.id;
 
-        console.log(this.formID, this.formTitle);
+                //set form title
+                self.formTitle = selectedFormObj.title;
 
-        //re-disable proceed button
-        this.navigatorModel.set({
-            disableButton: this.navigatorModel.defaults.disableButton
+                console.log(self.formID, self.formTitle);
+
+                //re-disable proceed button
+                self.navigatorModel.set({
+                    disableButton: self.navigatorModel.defaults.disableButton
+                });
+
+                if ( typeof cb !== 'undefined' ) {
+                    cb.call(self);
+                } else {
+                    self.renderFormQuestions();
+                }
+            },
+            onProgress: function() {
+                console.log('Fetching user forms');
+            }
         });
-
-        if ( typeof cb !== 'undefined' ) {
-            cb.call(this);
-        } else {
-            this.renderFormQuestions();
-        }
     },
 
     /**
@@ -187,5 +198,19 @@ var PollNavigatorView = Backbone.View.extend({
 
         if (cb) cb.call(this,index);
         else return index;
+    },
+
+    pickFormWidget: function()
+    {
+        JFWidgets.FormPicker({
+            sort: 'count',
+            multiSelect: false,
+            onSelect: function(selectedForms) {
+
+            },
+            onProgress: function() {
+
+            }
+        });
     }
 });

@@ -1,7 +1,11 @@
 var ChartOptionsView = Backbone.View.extend({
     el: ".poll-chart-options",
     events: {
-        "click #updatePreview": 'updatePreviewWindow'
+        "click #updatePreview": 'updatePreviewWindow',
+        'change #pollMarker': 'updatePreviewWindow',
+        'change #pollScale': 'updatePreviewWindow',
+        'change #pollNeedle': 'updatePreviewWindow',
+        'change #pollSpindle': 'updatePreviewWindow'
     },
 
     initialize: function()
