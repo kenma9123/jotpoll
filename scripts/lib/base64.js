@@ -18,7 +18,10 @@ var B64 = {
     lookup: null,
     ie: /MSIE /.test(navigator.userAgent),
     ieo: /MSIE [67]/.test(navigator.userAgent),
-    encode: function (s) {
+    encode: function (s, isArray) {
+        if ( isArray == true ) {
+            s = s.join(',');
+        }
         var buffer = B64.toUtf8(s),
             position = -1,
             len = buffer.length,
@@ -53,7 +56,7 @@ var B64 = {
             return result;
         }
     },
-    decode: function (s) {
+    decode: function (s, isArray) {
         var buffer = B64.fromUtf8(s),
             position = 0,
             len = buffer.length;
@@ -64,7 +67,11 @@ var B64 = {
                 else if (buffer[position] > 191 && buffer[position] < 224) result.push(String.fromCharCode(((buffer[position++] & 31) << 6) | (buffer[position++] & 63)));
                 else result.push(String.fromCharCode(((buffer[position++] & 15) << 12) | ((buffer[position++] & 63) << 6) | (buffer[position++] & 63)));
             }
-            return result.join('');
+            if ( isArray == true ) {
+                return result.split(',');
+            } else {
+                return result.join('');
+            }
         } else {
             result = '';
             while (position < len) {
@@ -72,7 +79,11 @@ var B64 = {
                 else if (buffer[position] > 191 && buffer[position] < 224) result += String.fromCharCode(((buffer[position++] & 31) << 6) | (buffer[position++] & 63));
                 else result += String.fromCharCode(((buffer[position++] & 15) << 12) | ((buffer[position++] & 63) << 6) | (buffer[position++] & 63));
             }
-            return result;
+            if ( isArray == true ) {
+                return result.split(',');
+            } else {
+                return result;
+            }
         }
     },
     toUtf8: function (s) {

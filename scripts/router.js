@@ -60,8 +60,12 @@ var PollRouter = Backbone.Router.extend({
     {
         var self = this;
 
-        //init JF AppName
-        JF.initialize( {appName: "Poll Results"});
+        //init JF
+        JF.init({
+            enableCookieAuth : true,
+            appName: "Poll Results",
+            accesType: "full" //default "readOnly" or "full"
+        });
 
         if ( !prompt )
         {
@@ -73,6 +77,7 @@ var PollRouter = Backbone.Router.extend({
         }
         else
         {
+            console.log('key', JF.getAPIKey());
             // JF.initialize( {apiKey: "1c4efba0d67e0e77aee4dee551b4259f"} );/
             // if(cb) cb.apply(self);
             if ( !JF.getAPIKey() )

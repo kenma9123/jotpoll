@@ -36,7 +36,7 @@ var ChartOptionsModel = Backbone.Model.extend({
                     startValue: 0,
                     endValue: 100,
                     majorTick: {
-                        color: "#ffffff",
+                        color: "#c9c9c9",
                         width: 2
                     },
                     label: {

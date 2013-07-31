@@ -49,11 +49,11 @@ var PollResultsModel = Backbone.Model.extend({
         var self = this;
 
         //get all forms submissions
-        JF.getFormSubmissions(function(submissions){
-            self.initPollResults(formID, submissions);
-        }, String(formID), {
+        JF.getFormSubmissions(String(formID), {
             offset: 0,
             limit: 1000
+        }, function(submissions){
+            self.initPollResults(formID, submissions);
         });
     }
 });

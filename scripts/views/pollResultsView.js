@@ -92,6 +92,8 @@ var PollResultsView = Backbone.View.extend({
                 //add title to legend
                 legends[index] = {};
                 legends[index].name = String(poll.data[index][poll.opt_title]);
+                legends[index].value = percent;
+                legends[index].color = gauge.bars[index].color;
 
             });
 

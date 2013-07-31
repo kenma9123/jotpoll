@@ -1,5 +1,8 @@
 var GenerateCodeView = Backbone.View.extend({
     el: ".poll-code-generator",
+    events: {
+        'click #visitLinkButton': 'visitResultData'
+    },
 
     initialize: function()
     {
@@ -13,14 +16,21 @@ var GenerateCodeView = Backbone.View.extend({
             self.global.router.currentType = "generate";
             self.render();
         });
+
+        this.on('rendered', function(){
+            this.initClip();
+        });
+
+        self.defaults = {
+            isDisabled: 'disabled="disabled"'
+        };
     },
 
     render: function()
     {
-        //reset
-        this.global.navigatorModel.resetDefaults();
+        $(this.el).html( this.template( this.defaults ) );
 
-        $(this.el).html( this.template );
+        this.trigger('rendered', this);
     },
 
     generate: function(formID, questionID)
@@ -32,6 +42,9 @@ var GenerateCodeView = Backbone.View.extend({
         }
         else
         {
+            this.defaults.isDisabled = '';
+            this.render();
+
             var formData = {
                 form: Number(formID),
                 question: Number(questionID),
@@ -48,5 +61,34 @@ var GenerateCodeView = Backbone.View.extend({
 
             console.log('new', jsonFormData);
         }
+    },
+
+    initClip: function()
+    {
+        console.log('clip');
+        var clip = $("#copyToClipboard")
+          , clipOriText = clip.text();
+
+        clip.zclip({
+            path: "scripts/lib/clipboard/ZeroClipboard.swf",
+            copy: function(){
+                return $(this).siblings('#generatedFormData').val();
+            },
+            afterCopy: function(){
+                var c = $(this);
+                c.text('Copied').attr('disabled', 'disabled').prev().select();
+                setTimeout(function(){
+                    c.text(clipOriText).removeAttr('disabled');
+                }, 2000);
+            }
+        });
+    },
+
+    visitResultData: function(e)
+    {
+        var generatedUrl = $(e.target).siblings('#generatedFormData').val();
+        if ( !generatedUrl ) return false;
+        console.log(generatedUrl);
+        $(e.target).attr('href', generatedUrl);
     }
 });

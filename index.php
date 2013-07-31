@@ -1,7 +1,5 @@
 <?php
-    define("MODE", ( $_SERVER['HTTP_HOST'] === 'localhost' ) ? 'developtment' : (( $_SERVER['HTTP_HOST'] === 'kenneth.jotform.pro' ) ? 'rds' : 'live'));
-    define("BASE_URL", (MODE==="developtment") ? '/jotform/poll/' : ((MODE==="rds") ? '/poll-results/' : '/'));
-    define("HTTP_URL", "http" . (($_SERVER['SERVER_PORT']==443) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . BASE_URL);
+    require_once("lib/init.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -23,10 +21,11 @@
 <body>
     <script type="text/template" id="poll-navigator-template">
         <div class="section form-division">
-            <h1 for="formsList" class="form-label">Form List</h1>
+            <!-- <h1 for="formsList" class="form-label">Form List</h1> -->
             <select id="formsList" class="selectpicker">
                 <%=formsOptions%>
             </select>
+            <!-- <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">Pick a Form</button>-->
         </div>
         <div class="section form-division">
             <h1 for="questionList" class="form-label">Question List</h1>
@@ -35,7 +34,7 @@
             </select>
         </div>
         <div class="section form-division">
-            <button id="proceedButton" class="btn btn-large btn-block btn-success" >Proceed</button>
+            <button id="proceedButton" class="btn btn-large btn-block btn-success" >Generate Form URL</button>
         </div>
     </script>
 
@@ -73,10 +72,14 @@
                 <span class="legend-label">Legend</span>
             </div>
             <div class="poll-legends-inner">
-                <div class="poll-legends"><div class="legends-box"></div><div class="legends-text">Option 1 - 50%</div></div>
-                <div class="poll-legends"><div class="legends-box"></div><div class="legends-text">Option 2 - 10%</div></div>
-                <div class="poll-legends"><div class="legends-box"></div><div class="legends-text">Option 3 - 20%</div></div>
-                <div class="poll-legends"><div class="legends-box"></div><div class="legends-text">Option 4 - 30%</div></div>
+            <%
+                $.each(legends, function(index, value){
+                    var lName = value.name
+                      , lValue = value.value
+                      , lColor = value.color;
+            %>
+                <div class="poll-legends"><div class="legends-box" style="background:<%=lColor%>"></div><div class="legends-text legend<%=(index+1)%>"><%=lName%> - <b><%=lValue%>%</b></div></div>
+            <% }); %>
                 <div class="clear-fix"></div>
             </div>
         </div>
@@ -170,9 +173,11 @@
 
     <script type="text/template" id="poll-code-generator-template">
         <div class="form-division code-generator">
-            <h1 for="generatedFormData" class="form-label">Form Data Generated</h1>
+            <!--<h1 for="generatedFormData" class="form-label">Form Data Generated</h1>-->
             <span>Copy the generated URL and make it as your Thank you Custom message URL, to view the poll results after a submission.</span>
-            <input type="text" id="generatedFormData" />
+            <textarea id="generatedFormData" <%=isDisabled%>></textarea>
+            <button id="copyToClipboard" class="btn btn-large btn-inverse" <%=isDisabled%>>Copy to Clipboard</button>
+            <a href="#" id="visitLinkButton" class="btn btn-large btn-primary" target="_blank" <%=isDisabled%>>Visit Link</a>
         </div>
     </script>
 
@@ -233,17 +238,27 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/JotForm.js"></script>
+    <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
+    <!--<script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>-->
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jquery.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/underscore.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/backbone.js"></script>
 
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/clipboard/zclip.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/rawdeflate_inflate.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/base64.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/dx.chartjs.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/globalize.js"></script>
 
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollDataModel.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-select.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-checkbox.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-radio.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/jquery.placeholder.js"></script>
+
+    <?php if ( MODE !== "live" ) { ?>
+<script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollDataModel.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollNavigatorModel.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/views/pollNavigatorView.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollResultsModel.js"></script>
@@ -255,12 +270,8 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/views/chartOptionsView.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/router.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/maincore.js"></script>
-
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-select.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-checkbox.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-radio.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/jquery.placeholder.js"></script>
+    <?php } else { ?>
+<script type="text/javascript" src="<?=HTTP_URL?>scripts/scripts-min.js"></script>
+    <?php } ?>
 </body>
 </html>
