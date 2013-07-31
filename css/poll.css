@@ -1,0 +1,547 @@
+/**
+ * Override CSS
+ */
+ul,
+ol {
+    padding: 0;
+    margin: 0 0 0 25px;
+}
+.brand
+{
+    font-family: 'BebasNeueRegular';
+    font-size: 1.7em !important;
+    color: #FFA047 !important
+}
+.nav
+{
+    margin-bottom: 0px;
+}
+.tab-content
+{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    height: auto;
+    /*min-height: 160px;*/
+}
+
+.tab-content .bar-settings-division
+{
+    margin: 10px 20px;
+}
+.tab-content .bar-settings-division .settings-list
+{
+    float: left;
+}
+.tab-content .bar-settings-division .bar-label
+{
+    /*float: left;*/
+    margin: 0px;
+    padding: 4px 10px 4px 20px;
+    /* vertical-align: middle; */
+    /* text-align: right; */
+    width: 120px;
+}
+.tab-content .bar-settings-division .bar-input
+{
+    /*float: left;*/
+    width: 80px; 
+    height: 10px;
+    /* margin-right: 30px; */
+}
+.tab-content .common-settings
+{
+    float: left;
+}
+.tab-content .common-settings .commons-list
+{
+    float: left;
+    width: 60px;
+    margin: 0px;
+    padding: 4px 20px;
+    font-size: 16px;
+}
+.alert-content
+{
+    padding: 0px 10px;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.marginL20
+{
+    margin-left: 20px !important;
+}
+
+.width180
+{
+    width: 180px !important;
+}
+
+.hero-unit
+{
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          
+  border-radius: 0px;
+  background-color: #f4f4f4;
+  border: 1px solid #BBB;
+  /*padding: 30px 20px;*/
+  padding: 0px;
+}
+.navbar
+{
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.45);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.45);
+}
+.navbar-inverse .navbar-inner{
+    background: #333;
+    filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled = false)")
+}
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a{
+    border: none;
+}
+.navbar .nav > li
+{
+    height: 56px;
+}
+.navbar-inverse .nav > li.active > a
+{
+    border-bottom: 5px solid #FD8F29;
+}
+.navbar-inverse .nav > li.active > a:hover, .navbar-inverse .nav > li.active > a:focus,
+.navbar-inverse .nav > li > a:hover, .navbar-inverse .nav > li > a:focus
+{
+    border-bottom: 5px solid #FD8F29;
+}
+.section
+{
+    margin-bottom: 50px;
+}
+select, textarea, input,
+.nav-tabs > li > a
+{
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}
+.container
+{
+    width: 1170px;
+}
+
+/**
+ * Poll CSS
+ */
+ body
+ {
+    margin-top: 70px;
+    background: #d2d1d0;
+ }
+.poll-panel
+{
+    border-bottom: 1px solid #BBB;
+}
+.poll-panel .poll-panel-inner
+{
+    padding: 20px 30px 10px 30px;
+    color: #FDB16A;
+    font-size: 1.5em;
+    font-weight: 800;      
+    text-transform: uppercase;
+}
+.poll-panel .poll-panel-inner .poll-subtitle
+{
+    font-size: 14px;
+    color: #34495e;
+    font-weight: normal;
+    text-transform: none;
+    margin: 0px;
+    margin-left: 10px;
+    display: inline;
+}
+.poll-result-container
+{
+    padding: 30px 20px;
+}
+.poll-divisions
+{
+    float: left;
+    margin: 0px 3%;
+}
+.poll-divisions.poll-navigator
+{
+    width: 40%;
+}
+.poll-divisions.poll-chart-preview
+{
+    width: 45%;
+}
+.poll-divisions.poll-code-generator
+{
+    width: 40%;
+}
+.poll-divisions.poll-chart-options
+{
+    width: 40%;
+}
+.poll-divisions .chart-preview-area
+{
+    padding: 0px;
+    width: 100%;
+    height: 417px;
+    border: 1px solid #DDD;
+    background-color: #fff;
+}
+.form-division
+{
+    display: block;
+    margin-bottom: 20px;
+}
+.form-division .form-label
+{
+    color: #35C0A5;
+    font-size: 1.1em;
+    font-weight: 800;
+    margin: 0 auto;
+    margin: 10px 0px 30px 0px;
+    text-transform: uppercase;
+}
+.form-division select,textarea
+{
+    border: none;
+    color: #347da8;
+    font: 400 1.25em "din-condensed-web";
+    height: 1.75em;
+    margin: 0px;
+    padding: .25em .5em;
+    resize: none;
+    width: 100% !important;
+    border: 1px solid #cfcfcf;
+}
+.form-division #generatedFormData
+{
+    font-size: 20px;
+    /* height: 200px; */
+    width: 100%;
+}
+.form-division.code-generator
+{
+    /*margin-top: 30px;*/
+}
+
+.options-divisions
+{
+    padding: 20px;
+}
+.options-divisions .options-title
+{
+    margin-bottom: 20px;
+}
+.options-divisions .inline-inputs
+{
+    display: inline-block;
+    margin-right: 20px;
+}
+.hide-elem
+{
+    display: none;
+}
+.invisible-elem
+{
+    visibility: hidden;
+}
+#formsList,
+#questionList
+{
+    width: 200px;
+}
+#questions-list-container
+{
+    display: block;
+}
+#questions-list-container .clearfix
+{
+    display: inline-block;
+}
+#questions-list-container .form-checkbox-item
+{
+    float: left;
+    width: 150px;
+}
+#questions-list-container .next-row
+{
+    clear: left;
+}
+.graph
+{
+    position: relative;
+    right: 30px;
+    width: 250px;
+}
+.bar-title
+{
+    float: left;
+    font-weight: bold;
+    line-height: 20px;
+    margin-right: 17px;
+    position: relative;
+    text-align: right;
+    width: 104px;
+}
+.bar-container
+{
+    float: left;
+    height: 10px;
+    margin: 0px 0px 15px;
+    position: relative;
+    width: 110px;
+}
+.bar-container div
+{
+    background-color: #cc4400;
+    height: 20px;
+}
+.bar-container strong
+{
+    overflow: hidden;
+    position: absolute;
+    right: -32px;
+    top: 0px;
+}
+.poll-legends-container
+{
+    /*position: absolute;*/
+    width: 100%;
+    border-top: 1px solid #ddd;
+    height: auto;
+}
+.poll-legends-label
+{
+    border-bottom: 1px solid #ddd;
+    padding: 5px 20px;
+}
+.poll-legends-label .legend-label
+{
+    font-family: 'BebasNeueRegular';
+}
+.poll-legends-inner
+{
+    padding: 20px 40px;
+}
+.legends-box
+{
+    clear:left;
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+}
+.legends-text
+{
+    float: left;
+    line-height: normal;
+    margin: 5px;
+}
+#poll-results p
+{
+    text-align: center;
+}
+.clear-fix{
+    clear:both;
+}
+
+.graph-division{
+    min-height: 300px;
+}
+#card
+{
+    display: block;
+    min-height: 292px;
+}
+@media (max-width:580px)
+{
+    #card
+    {
+        min-height: 584px;
+    }
+}
+#options
+{
+    background: #222;
+    color: #347da8;
+    display: table;
+    float: left;
+    font-size: 2.25em;
+    height: 100%;
+    width: 50%;
+}
+@media (max-width:580px)
+{
+    #options
+    {
+        float: none;
+        height: 50%;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+#options ol
+{
+    display: table-cell;
+    height: 100%;
+    list-style: none;
+    padding: 18px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+#options ol[data-voted]
+{
+    text-align: right;
+}
+@media (max-width:580px)
+{
+    #options ol[data-voted]
+    {
+        text-align: center;
+    }
+}
+#options ol li
+{
+    color: rgba(242,242,242,0.7);
+    font-family: "din-condensed-web";
+    font-weight: 400;
+    height: 70px;
+    overflow: hidden;
+    /* padding: .1em .3em 10px 0px; */
+    text-overflow: ellipsis;
+    text-transform: none;
+    webkit-transition: color .3s ease;
+    white-space: nowrap;
+    /* vertical-align: top; */
+    line-height: 50px;
+}
+#options ol li a
+{
+    text-decoration: none;
+}
+#options ol li:hover
+{
+    color: #f2f2f2;
+}
+#options ol li [data-chosen]
+{
+    color: #ebc200;
+}
+
+#options ol var
+{
+    display: none;
+}
+#results
+{
+    background: #347da8;
+    display: table;
+    float: left;
+    height: 100%;
+/*    padding: 0 1em;*/
+    text-align: center;
+    width: 50%;
+}
+@media (max-width:580px)
+{
+    #results
+    {
+        float: none;
+        height: 50%;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+#results ol
+{
+    display: table-cell;
+    height: 100%;
+    list-style: none;
+    padding: 18px;
+    text-align: center;
+    /* vertical-align: middle !important; */
+    width: 100%;
+}
+#results ol li
+{
+    color: rgba(242,242,242,0.7);
+    font-family: "din-condensed-web";
+    font-weight: 400;
+    height: 70px;
+    overflow: hidden;
+    /* padding: 10px 10px 1.5px 0px; */
+    text-overflow: ellipsis;
+    text-transform: none;
+    webkit-transition: color .3s ease;
+    white-space: nowrap;
+}
+
+#results span
+{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+#results span a
+{
+    color: #275f80;
+    font-size: 1.25em;
+    font-weight: 700;
+    letter-spacing: 2pt;
+    text-transform: uppercase;
+}
+#results span a:hover
+{
+    text-decoration: underline;
+}
+#results #chart
+{
+/*    display: table-cell;
+    height: 100%;
+    padding: 0;
+    vertical-align: middle;
+    width: 100%;*/
+}
+
+#options ol li:last-of-type,
+#results ol li:last-of-type
+{
+    height: 50px;
+}
+
+
+#flow
+{
+    clear: both;
+    font-weight: 500;
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 1em 0;
+}
+#flow menu
+{
+    max-width: 280px;
+    width: intrinsic;
+    width: -moz-max-content;
+}
+#flow .next
+{
+    float: right;
+}
+
+.bar-percent{
+    color: black;
+    margin: 5px;
+    text-align: right;
+}
