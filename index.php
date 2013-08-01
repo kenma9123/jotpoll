@@ -4,19 +4,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>JotPoll</title>
-    <base href="<?=HTTP_URL?>" />
-    <!-- <link rel="stylesheet" href="<?=HTTP_URL?>css/normal.css" type="text/css" media="screen, projection" /> -->
-    <link rel="stylesheet" href="<?=HTTP_URL?>css/font/stylesheet.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="<?=HTTP_URL?>css/bootstrap.css" type="text/css" media="screen, projection" />
-    <!-- <link rel="stylesheet" href="<?=HTTP_URL?>css/bootstrap-responsive.css" type="text/css" media="screen, projection" /> -->
-    <link rel="stylesheet" href="<?=HTTP_URL?>css/flat-ui.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="<?=HTTP_URL?>css/poll.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="<?=HTTP_URL?>css/font-awesome.css">
-    <!--[if IE 7]><link rel="stylesheet" href="<?=HTTP_URL?>css/font-awesome-ie7.css"><![endif]-->
+    <?=PAGE_HEAD?>
+    <title><?=PAGE_TITLE?></title>
+    <?=PAGE_STYLES?>
 </head>
 <body>
     <script type="text/template" id="poll-navigator-template">
@@ -186,13 +176,14 @@
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
             <span class="brand">
-                <span class="title-name">JotPoll</span>&nbsp;<i class="icon-bar-chart"></i></span>
+                <span class="title-name"><h1>JotPoll</h1></span>&nbsp;<i class="icon-bar-chart"></i></span>
             <div class="nav-collapse collapse" id="nav-collapse-01">
-<!--               <ul class="nav">
+              <ul class="nav">
                 <li></li>
-                <li class="active"><a href="#home">Home</a></li>
-                <li ><a href="#generate">Generate</a></li>
-              </ul> -->
+                <li class="active"><a href=".">Home</a></li>
+                <li ><a href="howto.php">How it Works</a></li>
+                <li ><a href="contact.php">Contact Us</a></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -212,7 +203,7 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    Poll<p class="poll-subtitle">Configure your poll look and feel. You can easily customize it by just playing some of the options given.</p>
+                    <h1 class="content-header-name">Poll</h1><p class="poll-subtitle">Configure your poll look and feel. You can easily customize it by just playing some of the options given.</p>
                 </div>
             </div>
             <div id="poll-mainContainer-A" class="poll-result-container">
@@ -224,7 +215,7 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    Form Details<p class="poll-subtitle">Where all the data is coming from. Pick a form, pick a question and click the button to generate a URL you can visit.</p>
+                    <h1 class="content-header-name">Form Details</h1><p class="poll-subtitle">Where all the data is coming from. Pick a form, pick a question and click the button to generate a URL you can visit.</p>
                 </div>
             </div>
             <div id="poll-mainContainer-B" class="poll-result-container">

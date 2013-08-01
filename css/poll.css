@@ -16,6 +16,12 @@ ol {
 {
     margin-bottom: 0px;
 }
+.navbar .title-name h1
+{
+    display: inline;
+    line-height: normal;
+    font-size: 30px;
+}
 .container
 {
     width: 1170px !important; 
@@ -558,4 +564,37 @@ select, textarea, input,
     color: black;
     margin: 5px;
     text-align: right;
+}
+
+/*misc layout*/
+.list-content
+{
+    margin: 30px;
+}
+.list-content .paragraph
+{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 20px;
+}
+.list-content .images
+{
+    margin: 10px 0px;
+}
+.list-content .images img
+{
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.45);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.45);
+}
+.contact-us
+{
+    width: 650px;
+    min-width: 650px;
+    min-height: 450px;
+}
+.content-header-name
+{
+    font-size: 25px !important;
+    display: inline;
 }
