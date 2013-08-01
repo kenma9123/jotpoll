@@ -45,28 +45,45 @@
                         - star rating<br/>
                         - scale rating<br/>
                         <br/>
-                        Each question should have at-least 5 options to make things work. In the future we will expand this.<br/>
+                        Each question should have at-least 5 options to make things work. In the future we will expand this and make use of the Horizontal bars if your options were more than 5.<br/>
                         After you created a form with one question and 5 options then we will going to start how this cool poll works.<br/>
                         <br/>
-                        The first thing you may see is a mini-dashboard where you can customize your poll look and feel.<br/>
-                        Change bars color, show markers, etc. It is limited as of now but we will going to expand it too to have more options.<br/>
-                        <div class="images"><img src="http://www.clipular.com/c?12633027=aU-Qg_2Qjp-ABBWGeqEENCS8hCU&f=.png" title="dashboard look" /></div>
+                        The first thing you may see on the Index page is a mini-dashboard where you can customize your poll look and feel. Currently we are using a Gauge Chart to show Poll results.<br/>
+                        You can customize each bars color and background( represents Bar A - Bar E tabs ), show markers, scale, etc. It is limited as of now but we will going to expand it too to have more options.<br/>
+                        <br/>
+                        Along with the options, there is a preview window next to it where you can see what's your poll should look like.<br/>
+                        You can press the "Update Preview" button to manually update the preview window.<br />
+                        <div class="images"><img src="http://www.clipular.com/c?12633027=aU-Qg_2Qjp-ABBWGeqEENCS8hCU&f=.png" title="dashboard look" alt="dashboard-look"/></div>
                         <br/>
                         At the very bottom of the page, you have to select your form containing the poll question and then select the question you wanted to show on the poll result later.<br/>
                         Just click the "Generate form URL" and a URL will be created on the text area next to it, you can visit the generated link for testing.<br/>
                         <br/>
                         Your poll should look something like this. It was divided into two divisions, top is your actual poll and the bottom is a legend helper associates with your poll.
-                        <div class="images"><img src="http://www.clipular.com/c?12638101=E6X6HE2TXR1EvwhdSHgVwZhbMwU&f=.png" title="result" /></div><br/>
+                        <div class="images"><img src="http://www.clipular.com/c?12638101=E6X6HE2TXR1EvwhdSHgVwZhbMwU&f=.png" title="Poll Result" alt="poll-result"/></div><br/>
                         Another cool thing is, if you wanted to show the poll results after a submission then you just need to copy the generated URL and make it as your "Thank You" custom URL.
-                        <div class="images"><img src="http://www.clipular.com/c?12005006=AAmytse_LaM0W2gRDyJLVGg--hM&f=.png" title="dashboard look" /></div>
+                        <div class="images"><img src="http://www.clipular.com/c?12005006=AAmytse_LaM0W2gRDyJLVGg--hM&f=.png" title="Custom URL" alt="custom-url"/></div>
                         <br/>
                         Here is a simple demo on how the whole process work.<br/>
                         <iframe src="http://www.screenr.com/embed/ahAH" width="650" height="396" frameborder="0"></iframe><br/>
                         <br/>
-                        We are in beta testing, we need some feedbacks, ideas or improvement to make it even better.<br/>
-                        If you do came up with something please don't be shy to <a href="contact.php">share</a> it with us. Or you can email me at kenma9123@gmail.com<br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-unit">
+            <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
+                <div class="poll-panel-inner">
+                    <h1 class="content-header-name">Feedbacks</h1>
+                </div>
+            </div>
+            <div id="poll-mainContainer-A" class="how-it-works">
+                <div class="list-content">
+                    <div class="paragraph">
+                        We are in beta testing, we seek help, we need some feedbacks, ideas or improvement to make it even better.<br/>
+                        If you do came up with something please don't be shy to <a href="contact.php">share</a> it with us. You can email me directly at kenma9123@gmail.com<br/>
                         <br/>
-                        Thank you for using both JotForm and JotPoll, have a nice day!
+                        Thank you for using both <a href="http://www.jotform.com" title="JotForm">JotForm</a> and <a href="http://www.jotpoll.com" title="JotPoll">JotPoll</a>, have a nice day!<br/>
+                        -JotForm Team
                     </div>
                 </div>
             </div>
