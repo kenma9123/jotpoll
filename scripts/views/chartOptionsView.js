@@ -2,6 +2,8 @@ var ChartOptionsView = Backbone.View.extend({
     el: ".poll-chart-options",
     events: {
         "click #updatePreview": 'updatePreviewWindow',
+        'click #gaugePreview': 'changeChartType',
+        'click #linearPreview': 'changeChartType',
         'change #pollMarker': 'updatePreviewWindow',
         'change #pollScale': 'updatePreviewWindow',
         'change #pollNeedle': 'updatePreviewWindow',
@@ -44,7 +46,7 @@ var ChartOptionsView = Backbone.View.extend({
      */
     buildOptionsTemplateData: function(cb)
     {
-        var gauge = this.global.chartOptionsModel.get('gauge')
+        var poll = this.global.chartOptionsModel.get('poll')
           , element = this.global.chartOptionsModel.get('element')
           , wholeGaugeTabContent = "";
 
@@ -53,29 +55,29 @@ var ChartOptionsView = Backbone.View.extend({
             switch(index)
             {
                 case 'scale':
-                    element.common[index].checked = (gauge.common[index].label.visible === true) ? 'checked="checked"' : '';
+                    element.common[index].checked = (poll.common[index].label.visible === true) ? 'checked="checked"' : '';
                 break;
                 default:
-                    element.common[index].checked = (gauge.common[index].visible === true) ? 'checked="checked"' : '';
+                    element.common[index].checked = (poll.common[index].visible === true) ? 'checked="checked"' : '';
                 break;
             }
         });
 
         //put data to another template that will build the bar TABS
         // var gaugeTabContent = $("#poll-chart-options-gaugeTab-template").html();
-        // $.each(gauge.bars, function(index,value){
+        // $.each(poll.bars, function(index,value){
         //     var jsonData = {
         //         barIndex: index + 1,
         //         colorElement: element.bars.color,
         //         bgcolorElement: element.bars.backgroundColor,
-        //         barColor: gauge.bars[index].color,
-        //         barBgColor: gauge.bars[index].backgroundColor
+        //         barColor: poll.bars[index].color,
+        //         barBgColor: poll.bars[index].backgroundColor
         //     };
 
         //     wholeGaugeTabContent += _.template( gaugeTabContent )( jsonData );
         // });
         
-        // //update gauge tab content
+        // //update poll tab content
         // this.global.chartOptionsModel.set('barTabsContent', wholeGaugeTabContent);
 
         //update common content
@@ -111,20 +113,20 @@ var ChartOptionsView = Backbone.View.extend({
         // var el = $(e.target);
         var self = this;
 
-        var gauge = this.global.chartOptionsModel.get('gauge')
+        var poll = this.global.chartOptionsModel.get('poll')
           , element = this.global.chartOptionsModel.get('element');
 
         //get data from the tabs
-        $.each(gauge.bars, function(index,value){
+        $.each(poll.bars, function(index,value){
 
             //select the element
             var i = index + 1
               , colorValue = self.elem(element.bars.color + i).val()
               , bgcolorValue = self.elem(element.bars.backgroundColor + i).val();
 
-            //update variable gauge
-            gauge.bars[index].color = colorValue;
-            gauge.bars[index].backgroundColor = bgcolorValue;
+            //update variable poll
+            poll.bars[index].color = colorValue;
+            poll.bars[index].backgroundColor = bgcolorValue;
         });
 
         //get value for common settings
@@ -137,18 +139,28 @@ var ChartOptionsView = Backbone.View.extend({
                 case 'marker':
                 case 'needle':
                 case 'spindle':
-                    gauge.common[index].visible = valBool;
+                    poll.common[index].visible = valBool;
                 break;
                 case 'scale':
-                    gauge.common[index].label.visible = valBool;
+                    poll.common[index].label.visible = valBool;
                 break;
             }
         });
 
         //update chart model
-        this.global.chartOptionsModel.set('gauge', gauge);
+        this.global.chartOptionsModel.set('poll', poll);
 
         //draw chart
         this.global.previewChartView.drawPreviewChart();
+    },
+
+    changeChartType: function(e)
+    {
+        var poll = this.global.chartOptionsModel.get('poll')
+          , val = $("input[type=radio]", e.target).val();
+
+        poll.type = val;
+        this.global.chartOptionsModel.set('poll', poll);
+        this.updatePreviewWindow();
     }
 });

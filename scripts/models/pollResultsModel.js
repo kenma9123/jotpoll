@@ -6,7 +6,7 @@ var PollResultsModel = Backbone.Model.extend({
     defaults: {
         graphTitleData: '',
         graphData: '',
-        chartGaugeElement: '',
+        chartPollElement: '',
         pollTitle: '',
         legends: {}
     },

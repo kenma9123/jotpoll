@@ -50,7 +50,7 @@ var GenerateCodeView = Backbone.View.extend({
                 question: Number(questionID),
                 apiKey: String(JF.getAPIKey()), 
                 chart: {
-                    gauge: this.global.chartOptionsModel.get('gauge'),
+                    poll: this.global.chartOptionsModel.get('poll'),
                     hbars: ''
                 }
             };
@@ -72,7 +72,10 @@ var GenerateCodeView = Backbone.View.extend({
         clip.zclip({
             path: "scripts/lib/clipboard/ZeroClipboard.swf",
             copy: function(){
-                return $(this).siblings('#generatedFormData').val();
+                if ( !$(this).is(':disabled') )
+                {
+                    return $(this).siblings('#generatedFormData').val();
+                }
             },
             afterCopy: function(){
                 var c = $(this);

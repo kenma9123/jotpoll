@@ -14,9 +14,10 @@ var ChartOptionsModel = Backbone.Model.extend({
                 spindle: { id: "pollSpindle", checked: '', text: 'Spindle' }
             }
         },
-        gauge: {
+        poll: {
+            type: 'gauge',
             bars: [
-                { value: 62, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 75, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
                 { value: 75, offset: 35, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
                 { value: 37, offset: 70, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
                 { value: 65, offset: 105, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
@@ -24,11 +25,16 @@ var ChartOptionsModel = Backbone.Model.extend({
             ],
             markers: [],
             needles: [],
+            rangeContainer: {
+                backgroundColor: "none"
+            },
             commonRangeBarSettings: {
                 size: 30,
                 backgroundColor: "#F0F0F0"
             },
             common: {
+                offsetVal: 35,
+                barSize: 30,
                 marker: {
                     visible: true
                 },
@@ -37,7 +43,7 @@ var ChartOptionsModel = Backbone.Model.extend({
                     endValue: 100,
                     majorTick: {
                         color: "#c9c9c9",
-                        width: 2
+                        width: 0
                     },
                     label: {
                         visible: true

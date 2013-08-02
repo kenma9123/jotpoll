@@ -33,46 +33,12 @@ var PreviewChartView = Backbone.View.extend({
      */
     buildPreviewData: function()
     {
-        //get the default gauge
-        var gauge = this.global.chartOptionsModel.get('gauge')
+        //get the default poll
+        var poll = this.global.chartOptionsModel.get('poll')
           , element = this.global.chartOptionsModel.get('element');
 
-        //default bars that will only be displayed on PREVIEW
-        // var gaugeBarsData = this.global.previewChartModel.get('bars');
-
-        // //modify the gauge model using the preview data model
-        // $.each(gauge.bars, function(index, value){
-
-        //     //modify value to be displayed later on the preview chart
-        //     gauge.bars[index].value = gaugeBarsData[index].value;
-
-        //     //modify the offset to be displayed later on the preview chart
-        //     gauge.bars[index].offset = gaugeBarsData[index].offset;
-
-        //     //modify the text indent to be displayed later on the preview chart
-        //     gauge.bars[index].text.indent = gaugeBarsData[index].indent;
-        // });
-
-        //get value for common settings
-        //default common that will only be displayed on PREVIEW
-        // var commonDefault = this.global.previewChartModel.get('common');
-
-        // $.each(element.common, function(index,value){
-        //     switch(index)
-        //     {
-        //         case 'marker':
-        //         case 'needle':
-        //         case 'spindle':
-        //             gauge.common[index].visible = commonDefault[index].visible;
-        //         break;
-        //         case 'scale':
-        //             gauge.common[index].label.visible = commonDefault[index].label.visible;
-        //         break;
-        //     }
-        // });
-
-        //update gauge
-        this.global.chartOptionsModel.set('gauge', gauge);
+        //update poll
+        this.global.chartOptionsModel.set('poll', poll);
 
         //draw chart
         this.drawPreviewChart();
@@ -83,22 +49,11 @@ var PreviewChartView = Backbone.View.extend({
      */
     drawPreviewChart: function()
     {
-        var self = this
-          , gauge = this.global.chartOptionsModel.get('gauge');
-          
-        this.global.drawChartView.setupGaugeChart(function(){
-            $(self.chartElemSelector).remove();
-            $("<div />").addClass("chart-preview-area").appendTo(".chart-preview");
-            $(self.chartElemSelector).dxCircularGauge({
-                preset: "preset3",
-                scale: gauge.common.scale,
-                spindle: gauge.common.spindle,
-                rangeContainer: { backgroundColor: "none" },
-                commonRangeBarSettings: gauge.commonRangeBarSettings,
-                needles: gauge.needles,
-                markers: gauge.markers,
-                rangeBars: gauge.bars
-            });
+        var self = this;
+
+        self.global.drawChartView.drawToDOM({
+            target: self.chartElemSelector,
+            fromPreview: $(".chart-preview-area")
         });
     }
 });

@@ -7,8 +7,6 @@ var PollResultsView = Backbone.View.extend({
 
         this.standAlone = false;
 
-        this.chartType = 'gauge';
-
         var self = this;
 
         Backbone.on('call-pollResultsView', function(){
@@ -36,13 +34,11 @@ var PollResultsView = Backbone.View.extend({
 
     processPoll: function(responseData)
     {
-        var r = responseData;
+        this.formID = responseData.form;
+        this.questionIndex = responseData.question;
 
-        this.formID = r.form;
-        this.questionIndex = r.question;
-
-        //set now the options of the chart gauge
-        this.global.chartOptionsModel.set('gauge', r.chart.gauge);
+        //set now the options of the chart poll
+        this.global.chartOptionsModel.set('poll', responseData.chart.poll);
 
         //get form submission from the form ID
         this.global.resultsModel.getFormSubmissions(this.formID);
@@ -69,100 +65,47 @@ var PollResultsView = Backbone.View.extend({
 
         console.log(poll.data);
 
-        if ( this.chartType === 'gauge' )
-        {
-            var gaugeID = "chartContainer-" + self.formID
-              , gWidth = $(self.el).parents('.hero-unit').width()
-              , gHeight = (window.innerHeight - $(".navbar").height() - parseInt($('body').css('margin-top')))
-              , gauge = this.global.chartOptionsModel.get('gauge')
-              , legends = this.global.resultsModel.get('legends')
-              , gaugeElem = $('<div />', {id: gaugeID}).css({
-                   width: 700,
-                   height: 600,
-                   margin: "0 auto"
-              });
+        var chartPoll = this.global.chartOptionsModel.get('poll');
 
-            //modify chart options and value
-            $.each(gauge.bars, function(index, value){
+        var pollID = "chartContainer-" + self.formID
+          , gWidth = $(self.el).parents('.hero-unit').width()
+          , gHeight = (window.innerHeight - $(".navbar").height() - parseInt($('body').css('margin-top')))
+          , legends = this.global.resultsModel.get('legends')
+          , pollElem = $('<div />', {id: pollID}).css({
+               width: ( chartPoll.type === "gauge" ) ? 700 : 1024,
+               height: 600,
+               margin: "0 auto"
+          });
 
-                //get the percent value of the poll and modify gauge bar value
-                var percent = Math.round((parseInt(poll.data[index][poll.opt_value])/parseInt(poll.total_results))*100);
-                gauge.bars[index].value = percent;
+        //modify chart options and value
+        $.each(chartPoll.bars, function(index, value){
 
-                //add title to legend
-                legends[index] = {};
-                legends[index].name = String(poll.data[index][poll.opt_title]);
-                legends[index].value = percent;
-                legends[index].color = gauge.bars[index].color;
+            //get the percent value of the poll and modify poll bar value
+            var percent = Math.round((parseInt(poll.data[index][poll.opt_value])/parseInt(poll.total_results))*100);
+            chartPoll.bars[index].value = percent;
 
+            //add title to legend
+            legends[index] = {};
+            legends[index].name = String(poll.data[index][poll.opt_title]);
+            legends[index].value = percent;
+            legends[index].color = chartPoll.bars[index].color;
+
+        });
+
+        //save to chartoption model
+        this.global.chartOptionsModel.set('poll', chartPoll);
+
+        //draw the graph when successfully rendered template
+        this.on('rendered', function(){
+            this.global.drawChartView.drawToDOM({
+                target: $("#"+pollID),
+                pollTitle: poll.pollData.results[self.formID][self.questionIndex].name
             });
-
-            //save to chartoption model
-            this.global.chartOptionsModel.set('gauge', gauge);
-
-            //and again get it
-            var gauge = this.global.chartOptionsModel.get('gauge');
-
-            //draw the graph when successfully rendered template
-            this.on('rendered', function(){
-                this.global.drawChartView.setupGaugeChart(function(){
-                    $(self.chartElemSelector).remove();
-                    $("<div />").addClass("chart-preview-area").appendTo(".chart-preview");
-                    $("#"+gaugeID).parents('.hero-unit').css('visibility','visible').hide().fadeIn('fast', function(){
-                        $("#"+gaugeID).dxCircularGauge({
-                            preset: "preset3",
-                            margin: { top: 25,bottom: 25 },
-                            scale: gauge.common.scale,
-                            spindle: gauge.common.spindle,
-                            rangeContainer: { backgroundColor: "none" },
-                            commonRangeBarSettings: gauge.commonRangeBarSettings,
-                            subtitle: {
-                                // text: 'subtitle'
-                            },
-                            title: {
-                                text: poll.pollData.results[self.formID][self.questionIndex].name,
-                                position: 'bottom-center',
-                                font: {
-                                    size: 20
-                                }
-                            },
-                            needles: gauge.needles,
-                            markers: gauge.markers,
-                            rangeBars: gauge.bars
-                        });
-                    });
-                });
-            });
-                
-            //update result model
-            this.global.resultsModel.set({
-                chartGaugeElement: $(gaugeElem).prop('outerHTML')
-            });
-        }
-    },
-
-    get_random_color: function() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.round(Math.random() * 15)];
-        }
-        return color;
-    },
-
-    animatePollResult: function()
-    {
-        var self = this;
-        var e =  $( ( self.navigatorView && self.navigatorView._elems.pollResults ) || ".poll_results_graph");
-        console.log(e);
-        e.fadeIn(function(){
-            $('.bars-graph').each(function(){
-                var percentage = $(this).text();
-                $(this).css({
-                    width: percentage,
-                    'background': self.get_random_color()
-                });
-            });
+        });
+            
+        //update result model
+        this.global.resultsModel.set({
+            chartPollElement: $(pollElem).prop('outerHTML')
         });
     }
 });

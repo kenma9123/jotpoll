@@ -9,29 +9,145 @@ var DrawChartView = Backbone.View.extend({
         });
     },
 
+    handleParentContainers: function(drawData, cb)
+    {
+        if ( !drawData.fromPreview )
+        {    
+            $(drawData.target).parents('.hero-unit').css('visibility','visible').hide().fadeIn('fast', cb);
+        }
+        else
+        {
+            if (cb) cb();
+        }
+    },
+
+    drawToDOM: function( drawData )
+    {
+        var self = this
+          , chartPoll = this.global.chartOptionsModel.get('poll');
+
+        console.log( chartPoll );
+        if ( drawData.fromPreview )
+        {
+            $(drawData.fromPreview).remove();
+            $("<div />").addClass("chart-preview-area").appendTo(".chart-preview");
+        }
+
+        //draw poll title
+        var polltitle = ( drawData.pollTitle ) ? {
+                            text: drawData.pollTitle,
+                            position: 'bottom-center',
+                            font: {
+                                size: 20
+                            }
+                        } : {};
+
+        var chartCommonOptions = {
+            margin: ( !drawData.fromPreview ) ? { top: 25, bottom: 25 } : {},
+            scale: chartPoll.common.scale,
+            rangeContainer: chartPoll.rangeContainer,
+            commonRangeBarSettings: chartPoll.commonRangeBarSettings,
+            // subtitle: {// text: 'subtitle'},
+            title: polltitle,
+            markers: chartPoll.markers,
+            rangeBars: chartPoll.bars
+        };
+
+        console.log("final", chartCommonOptions);
+
+        self.handleParentContainers(drawData, function(){
+
+            //before drawing choose what type
+            if ( chartPoll.type === 'gauge' )
+            {
+                self.setupGaugeChart(function(){
+                    //get newly update chart
+                    var c = self.global.chartOptionsModel.get('poll');
+                    $(drawData.target).dxCircularGauge({
+                        preset: "preset3",
+                        spindle: c.common.spindle,
+                        needles: c.needles,
+                        margin: ( !drawData.fromPreview ) ? { top: 25, bottom: 25 } : {},
+                        scale: c.common.scale,
+                        rangeContainer: c.rangeContainer,
+                        commonRangeBarSettings: c.commonRangeBarSettings,
+                        // subtitle: {// text: 'subtitle'},
+                        title: polltitle,
+                        markers: c.markers,
+                        rangeBars: c.bars
+                    });
+                });
+            }
+            else if ( chartPoll.type === 'linear' )
+            {
+                self.setupLinearChart(function(){
+                    //get newly update chart
+                    var c = self.global.chartOptionsModel.get('poll');
+                    $(drawData.target).dxLinearGauge({
+                        margin: ( !drawData.fromPreview ) ? { top: 25, bottom: 25 } : {},
+                        scale: c.common.scale,
+                        commonRangeBarSettings: c.commonRangeBarSettings,
+                        // subtitle: {// text: 'subtitle'},
+                        title: polltitle,
+                        markers: c.markers,
+                        rangeBars: c.bars,
+                        rangeContainer: ( c.common.scale.label.visible === true ) ? {
+                            backgroundColor: "none",
+                            ranges: [
+                                {
+                                    startValue: 0,
+                                    endValue: 15,
+                                    color: "#E19094"
+                                },
+                                {
+                                    startValue: 15,
+                                    endValue: 60,
+                                    color: "#FCBB69"
+                                },
+                                {
+                                    startValue: 60,
+                                    endValue: 100,
+                                    color: "#A6C567"
+                                }
+                            ]
+                        } : {backgroundColor: "none"}
+                    });
+                });
+            }
+        });
+    },
+
     /**
-     * setup the gauge chart Data
+     * setup the poll chart Data
      */
     setupGaugeChart: function(cb)
     {
         //variables
-        var gauge = this.global.chartOptionsModel.get('gauge')
+        var poll = this.global.chartOptionsModel.get('poll')
           , tempMarkers = []
           , tempNeedles = [];
 
-        $.each(gauge.bars, function(index, value){
+        $.each(poll.bars, function(index, value){
             //if markers is visible, removed text indent
-            if ( gauge.common.marker.visible === true )
+            if ( poll.common.marker.visible === true )
             {
-                gauge.bars[index].text.indent = 0;
+                poll.bars[index].text.indent = 0;
 
-                //build marker arrays, from gauge data
+                //build marker arrays, from poll data
                 var markerObject = {
-                    value: gauge.bars[index].value,
-                    offset: gauge.bars[index].offset,
-                    color: gauge.bars[index].color,
+                    value: poll.bars[index].value,
+                    offset: poll.bars[index].offset,
+                    color: poll.bars[index].color,
                     length: 30,
-                    type: 'textCloud'
+                    type: 'textCloud',
+                    text: {
+                        font: {
+                            size: 12
+                        },
+                        customizeText: function(){
+                            return parseInt(this.valueText) + "%";
+                        }
+                    }
                 };
 
                 tempMarkers.push(markerObject);
@@ -39,24 +155,32 @@ var DrawChartView = Backbone.View.extend({
             else
             {
                 //add indent
-                gauge.bars[index].text.indent = 10;
+                poll.bars[index].text = {
+                    indent: 10,
+                    font: {
+                        size: 12
+                    },
+                    customizeText: function(){
+                        return parseInt(this.valueText) + "%";
+                    }
+                };
             }
         });
 
         //set markers
-        gauge.markers = tempMarkers;
+        poll.markers = tempMarkers;
 
         //if needle is visible, only attach it to the highest data
-        if ( gauge.common.needle.visible == true )
+        if ( poll.common.needle.visible == true )
         {
-            //get the highest data from the updated gauge
-            var mapped = $.map(gauge.bars,function(item){return item['value'];})
+            //get the highest data from the updated poll
+            var mapped = $.map(poll.bars,function(item){return item['value'];})
               , max = Math.max.apply(null, mapped)
               , i = mapped.indexOf(max);
 
             var needleObject = {
-                value: gauge.bars[i].value,
-                color: gauge.bars[i].color,
+                value: poll.bars[i].value,
+                color: poll.bars[i].color,
                 type:'triangle'
             };
 
@@ -64,11 +188,62 @@ var DrawChartView = Backbone.View.extend({
         }
 
         //set needles
-        gauge.needles = tempNeedles;
+        poll.needles = tempNeedles;
 
-        //update gauge
-        this.global.chartOptionsModel.set('gauge', gauge);
-        // console.log('final', this.global.chartOptionsModel.get('gauge'));
+        //update poll
+        this.global.chartOptionsModel.set('poll', poll);
+        // console.log('final', this.global.chartOptionsModel.get('poll'));
+
+        if (cb) cb();
+    },
+
+    /**
+     * setup the linear chart Data
+     */
+    setupLinearChart: function(cb)
+    {
+        //variables
+        var poll = this.global.chartOptionsModel.get('poll')
+          , tempMarkers = []
+          , tempNeedles = [];
+
+        $.each(poll.bars, function(index, value){
+
+            //removed text indent
+            poll.bars[index].text.indent = 0;
+
+            if ( typeof this.isCustomOffsetAddedToLinear === "undefined" )
+            {
+                poll.bars[index].offset = poll.bars[index].offset + 20;
+                this.isCustomOffsetAddedToLinear = true;
+            }
+
+            //build marker arrays, from poll data
+            var markerObject = {
+                value: poll.bars[index].value,
+                offset: poll.bars[index].offset,
+                color: poll.bars[index].color,
+                type: 'textCloud',
+                horizontalOrientation: 'right',
+                verticalOrientation: 'top',
+                text:
+                {
+                    font: { size: 12 },
+                    customizeText: function(){
+                        return parseInt(this.valueText) + "%";
+                    }
+                }
+            };
+
+            tempMarkers.push(markerObject);
+        });
+
+        //set markers
+        poll.markers = tempMarkers;
+
+        //update poll
+        this.global.chartOptionsModel.set('poll', poll);
+        // console.log('final', this.global.chartOptionsModel.get('poll'));
 
         if (cb) cb();
     }

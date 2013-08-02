@@ -52,7 +52,7 @@
         <div class ="form-divisions">
             <div id='poll-results'>
                 <div id="chart-gauge-container">
-                    <%=chartGaugeElement%>
+                    <%=chartPollElement%>
                 </div>
             </div>
         </div>
@@ -99,10 +99,7 @@
     <script type="text/tempalte" id="poll-chart-options-template">
         <div class="form-division chart-options">
             <h1 class="form-label">Options</h1>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#gaugeChart" data-toggle="tab">Gauge</a></li>
-            </ul>
-            <div class="tab-content">
+            <div class="tab-content-options">
                 <div class="tab-pane active" id="gaugeChart">
                     <div class="options-divisions">
                         <h4 class="options-title">Individual Bar Settings:</h4>
@@ -115,11 +112,11 @@
                               <li class="active"><a href="#bar5" data-toggle="tab">Bar E</a></li>
                             </ul>
                             <div class="tab-content hide-elem">
-                                <% $.each(gauge.bars, function(index,value){
+                                <% $.each(poll.bars, function(index,value){
                                     var j = {
                                         barIndex: index + 1,
-                                        barColor: gauge.bars[index].color,
-                                        barBgColor: gauge.bars[index].backgroundColor
+                                        barColor: poll.bars[index].color,
+                                        barBgColor: poll.bars[index].backgroundColor
                                     };
                                 %>
                                 <div class="tab-pane active" id="bar<%=j.barIndex%>">
@@ -140,6 +137,17 @@
                     <div class="options-divisions">
                         <h4 class="options-title">Common Settings:</h4>
                         <div class="options-content">
+                        <div class="common-settings">
+                            <label class="common-list-box radio" id="gaugePreview" >
+                                <input type="radio" name="chartType" data-toggle="radio" checked="checked" value="gauge"> Display Gauge Preview
+                            </label>
+                        </div>
+                       <div class="common-settings">
+                            <label class="common-list-box radio" id="linearPreview" >
+                                <input type="radio" name="chartType" data-toggle="radio" value="linear"> Display Linear Preview
+                            </label>
+                        </div>
+                        <div class="clear-fix"></div>
                             <% $.each(element.common, function(index,value){
                                 var e = {
                                     id: value.id,
@@ -241,13 +249,6 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/dx.chartjs.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/globalize.js"></script>
 
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-select.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-checkbox.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-radio.js"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/jquery.placeholder.js"></script>
-
     <?php if ( MODE !== "live" ) { ?>
 <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollDataModel.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollNavigatorModel.js"></script>
@@ -264,5 +265,12 @@
     <?php } else { ?>
 <script type="text/javascript" src="<?=HTTP_URL?>scripts/scripts-min.js"></script>
     <?php } ?>
+
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-select.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-checkbox.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-radio.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/jquery.placeholder.js"></script>
 </body>
 </html>
