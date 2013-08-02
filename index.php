@@ -82,20 +82,6 @@
         </div>
     </script>
 
-    <script type="text/template" id="poll-chart-options-gaugeTab-template">
-        <div class="tab-pane active" id="bar<%=barIndex%>">
-            <div class="bar-settings-division">
-                <label class="settings-list bar-label">Color</label>
-                <input class="settings-list bar-input minicolors" data-swatch-position="right" id="<%=colorElement + barIndex%>" type="text" value="<%=barColor%>"/>
-            </div>
-            <div class="clear-fix"></div>
-            <div class="bar-settings-division">
-                <label class="settings-list bar-label">Background</label>
-                <input class="settings-list bar-input" id="<%=bgcolorElement + barIndex%>" type="text" value="<%=barBgColor%>"/>
-            </div>
-        </div>
-    </script>
-
     <script type="text/tempalte" id="poll-chart-options-template">
         <div class="form-division chart-options">
             <h1 class="form-label">Options</h1>
