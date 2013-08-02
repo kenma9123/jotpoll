@@ -226,6 +226,7 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jquery.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/underscore.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/backbone.js"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
     <script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>
@@ -251,7 +252,6 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/router.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/maincore.js"></script>
 
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-select.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/flatui-checkbox.js"></script>
