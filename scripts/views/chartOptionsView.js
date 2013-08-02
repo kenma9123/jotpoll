@@ -28,9 +28,6 @@ var ChartOptionsView = Backbone.View.extend({
             // Tooltips
             $("[data-toggle=tooltip]").tooltip("show");
 
-            // Placeholders for input/textarea
-            $("input, textarea").placeholder();
-
             // Switch
             $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 
@@ -174,8 +171,8 @@ var ChartOptionsView = Backbone.View.extend({
                 case 'needle':
                 case 'spindle':
                 case 'marker':
-                    if ( val === 'linear' ) elemParentToHide.hide();
-                    else elemParentToHide.show();
+                    if ( val === 'linear' ) elemParentToHide.css('visibility', 'hidden');
+                    else elemParentToHide.css('visibility', 'visible');
                 break;
             }
         });
