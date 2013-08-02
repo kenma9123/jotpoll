@@ -38,6 +38,11 @@ var ChartOptionsView = Backbone.View.extend({
             var gaugeTabs = $("#gaugeChart");
             $(".nav-tabs a:first", gaugeTabs).tab('show');
             $(".tab-content", gaugeTabs).show();
+
+            //minicolors
+            $('input.bar-input').minicolors({
+                theme: 'flatUI'
+            });
         });
     },
 
@@ -157,7 +162,23 @@ var ChartOptionsView = Backbone.View.extend({
     changeChartType: function(e)
     {
         var poll = this.global.chartOptionsModel.get('poll')
-          , val = $("input[type=radio]", e.target).val();
+          , elements = this.global.chartOptionsModel.get('element')
+          , val = $("input[type=radio]", e.target).val()
+          , self = this;
+
+        //hide some options that specific for a certain chart
+        $.each(elements.common, function(index, value){
+            var elemParentToHide = self.elem(value.id).parents('.common-settings');
+            switch(index)
+            {
+                case 'needle':
+                case 'spindle':
+                case 'marker':
+                    if ( val === 'linear' ) elemParentToHide.hide();
+                    else elemParentToHide.show();
+                break;
+            }
+        });
 
         poll.type = val;
         this.global.chartOptionsModel.set('poll', poll);

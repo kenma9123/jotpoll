@@ -45,8 +45,8 @@
                         - star rating<br/>
                         - scale rating<br/>
                         <br/>
-                        Each question should have at-least 5 options to make things work. In the future we will expand this and make use of the Horizontal bars if your options were more than 5.<br/>
-                        After you created a form with one question and 5 options then we will going to start how this cool poll works.<br/>
+                        Each question should have at-least 2 options and a maximum of 5 options only make things work. In the future we will expand this to handles options more than 5.<br/>
+                        After you created a form with at least one question then we will going to start how this cool poll works.<br/>
                         <br/>
                         The first thing you may see on the Index page is a mini-dashboard where you can customize your poll look and feel. Currently we are using a Gauge Chart to show Poll results.<br/>
                         You can customize each bars color and background( represents Bar A - Bar E tabs ), show markers, scale, etc. It is limited as of now but we will going to expand it too to have more options.<br/>

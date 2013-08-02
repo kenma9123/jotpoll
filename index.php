@@ -86,7 +86,7 @@
         <div class="tab-pane active" id="bar<%=barIndex%>">
             <div class="bar-settings-division">
                 <label class="settings-list bar-label">Color</label>
-                <input class="settings-list bar-input" id="<%=colorElement + barIndex%>" type="text" value="<%=barColor%>"/>
+                <input class="settings-list bar-input minicolors" data-swatch-position="right" id="<%=colorElement + barIndex%>" type="text" value="<%=barColor%>"/>
             </div>
             <div class="clear-fix"></div>
             <div class="bar-settings-division">
@@ -122,7 +122,7 @@
                                 <div class="tab-pane active" id="bar<%=j.barIndex%>">
                                     <div class="bar-settings-division">
                                         <label class="settings-list bar-label">Color</label>
-                                        <input class="settings-list bar-input" id="<%=element.bars.color + j.barIndex%>" type="text" value="<%=j.barColor%>"/>
+                                        <input class="settings-list bar-input" data-swatch-position="right" id="<%=element.bars.color + j.barIndex%>" type="text" value="<%=j.barColor%>"/>
                                     </div>
                                     <div class="clear-fix"></div>
                                     <div class="bar-settings-division">
@@ -139,12 +139,12 @@
                         <div class="options-content">
                         <div class="common-settings">
                             <label class="common-list-box radio" id="gaugePreview" >
-                                <input type="radio" name="chartType" data-toggle="radio" checked="checked" value="gauge"> Display Gauge Preview
+                                <input type="radio" name="chartType" data-toggle="radio" checked="checked" value="gauge"> Use Gauge
                             </label>
                         </div>
                        <div class="common-settings">
                             <label class="common-list-box radio" id="linearPreview" >
-                                <input type="radio" name="chartType" data-toggle="radio" value="linear"> Display Linear Preview
+                                <input type="radio" name="chartType" data-toggle="radio" value="linear"> Use Linear
                             </label>
                         </div>
                         <div class="clear-fix"></div>
@@ -243,14 +243,16 @@
 
     <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
     <script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>
+
+<?php if ( MODE !== "live" ) { ?>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jminicolors.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/clipboard/zclip.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/rawdeflate_inflate.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/base64.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/dx.chartjs.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/charts/globalize.js"></script>
-
-    <?php if ( MODE !== "live" ) { ?>
-<script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollDataModel.js"></script>
+    
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollDataModel.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollNavigatorModel.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/views/pollNavigatorView.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/models/pollResultsModel.js"></script>
@@ -262,9 +264,9 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/views/chartOptionsView.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/router.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/maincore.js"></script>
-    <?php } else { ?>
-<script type="text/javascript" src="<?=HTTP_URL?>scripts/scripts-min.js"></script>
-    <?php } ?>
+<?php } else { ?>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/scripts-min.js"></script>
+<?php } ?>
 
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap-switch.js"></script>

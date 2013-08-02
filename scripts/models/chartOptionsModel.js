@@ -8,8 +8,8 @@ var ChartOptionsModel = Backbone.Model.extend({
                 backgroundColor: "barBgColorValue"
             },
             common: {
-                marker: { id: "pollMarker", checked: '', text: 'Marker' },
                 scale: { id: "pollScale", checked: '', text: 'Scale' },
+                marker: { id: "pollMarker", checked: '', text: 'Marker' },
                 needle: { id: "pollNeedle", checked: '', text: 'Needle' },
                 spindle: { id: "pollSpindle", checked: '', text: 'Spindle' }
             }

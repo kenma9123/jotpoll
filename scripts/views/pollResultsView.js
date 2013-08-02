@@ -84,6 +84,8 @@ var PollResultsView = Backbone.View.extend({
             var percent = Math.round((parseInt(poll.data[index][poll.opt_value])/parseInt(poll.total_results))*100);
             chartPoll.bars[index].value = percent;
 
+            chartPoll.bars[index].offset = chartPoll.bars[index].offset + (index*10);
+
             //add title to legend
             legends[index] = {};
             legends[index].name = String(poll.data[index][poll.opt_title]);
