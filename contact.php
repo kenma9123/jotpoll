@@ -14,7 +14,7 @@
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
             <span class="brand">
-                <span class="title-name"><h1>JotPoll</h1></span>&nbsp;<i class="icon-bar-chart"></i></span>
+                <span class="title-name"><h1><?=JOTPOLL_NAME?></h1></span>&nbsp;<i class="icon-bar-chart"></i></span>
             <div class="nav-collapse collapse" id="nav-collapse-01">
               <ul class="nav">
                 <li></li>
