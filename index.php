@@ -66,13 +66,37 @@
                 $.each(legends, function(index, value){
                     var lName = value.name
                       , lValue = value.value
+                      , lHits = (value.hits > 1) ? value.hits + " hits" : ((value.hits === 0) ? 'nothing' : value.hits + " hit")
                       , lColor = value.color;
             %>
-                <div class="poll-legends"><div class="legends-box" style="background:<%=lColor%>"></div><div class="legends-text legend<%=(index+1)%>"><%=lName%> - <b><%=lValue%>%</b></div></div>
+                <div class="poll-legends"><div class="legends-box" style="background:<%=lColor%>"></div><div class="legends-text legend<%=(index+1)%>"><%=lName%> - <b><%=lHits %></b> - <b><%=lValue%>%</b></div></div>
             <% }); %>
                 <div class="clear-fix"></div>
             </div>
         </div>
+
+        <% if ( _.size(legends) > 0 ) { %>
+        <div class="form-divisions poll-legends-container">
+            <div class="poll-legends-label">
+                <i class="icon-eye-open"></i>&nbsp;
+                <span class="legend-label">Information</span>
+            </div>
+            <div class="poll-legends-inner">
+            <%
+                var mapped = _.map(legends,function(item){return item['hits'];})
+                  , max = _.max(mapped)
+                  , iMax = _.indexOf(mapped, max)
+                  , min = _.min(mapped)
+                  , iMin = _.indexOf(mapped, min)
+                  , total = _.reduce( _.pluck(legends, 'hits'), function(x, y){ return x + y; }, 0);
+            %>
+                <div class="poll-legends"><i class="icon-arrow-up"></i><span class="poll-text"> <b>Highest</b>: <%=legends[iMax].name%> with <%=legends[iMax].hits%> hits</span></div>
+                <div class="poll-legends"><i class="icon-arrow-down"></i><span class="poll-text"> <b>Lowest</b>: <%=legends[iMin].name%> with <%=legends[iMin].hits%> hits</span></div>
+                <div class="poll-legends"><i class="icon-plus"></i><span><span class="poll-text"> <b>Total casted hits</b>: <%=total%> </span></div>
+            </div>
+        </div>
+        <% } %>
+        <div class="clear-fix"></div>
     </script>
 
     <script type="text/template" id="poll-chart-preview-template">

@@ -352,8 +352,8 @@ select, textarea, input,
 }
 .poll-legends-container
 {
-    /*position: absolute;*/
-    width: 100%;
+    float: left;
+    width: 50%;
     border-top: 1px solid #ddd;
     height: auto;
 }
@@ -369,6 +369,14 @@ select, textarea, input,
 .poll-legends-inner
 {
     padding: 20px 60px;
+}
+.poll-legends i
+{
+    margin:5px;
+}
+.poll-legends .poll-text
+{
+    font-size: 16px;
 }
 .legends-box
 {

@@ -90,6 +90,7 @@ var PollResultsView = Backbone.View.extend({
             legends[index] = {};
             legends[index].name = String(poll.data[index][poll.opt_title]);
             legends[index].value = percent;
+            legends[index].hits = poll.data[index][poll.opt_value];
             legends[index].color = chartPoll.bars[index].color;
 
         });
@@ -107,6 +108,7 @@ var PollResultsView = Backbone.View.extend({
             
         //update result model
         this.global.resultsModel.set({
+            legends: legends,
             chartPollElement: $(pollElem).prop('outerHTML')
         });
     }
