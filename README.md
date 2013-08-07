@@ -1,10 +1,11 @@
 JotPoll
 =======
 
-View an amazing poll after a submission, Specific for JotForm only
+View an amazing poll after a form submissions. This works specifically for JotForm forms only
 http://www.jotform.com/
-
--Visit http://www.jotpoll.com/
-<br/>-Customize your poll look and feel
-<br/>-Pick form, pick what question to show in the poll
-<br/>-Copy the generated URL and visit it to view and test the poll
+<ol>
+<li>Visit http://www.jotpoll.com/</li>
+<li>Customize your poll's look and feel</li>
+<li>Pick form and select what question to show in the poll</li>
+<li>Copy the generated URL and set it as your <a target="_blank" href="http://www.jotform.com/help/211-Setting-Up-the-Thank-You-Page">form's thank you URL</a></li>
+</ol>
