@@ -1,4 +1,4 @@
-JotPoll
+JotPoll - BETA
 =======
 
 View an amazing poll after a form submissions. This works specifically for JotForm forms only
