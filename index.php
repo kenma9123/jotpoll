@@ -148,13 +148,13 @@
                         <h4 class="options-title">Common Settings:</h4>
                         <div class="options-content">
                         <div class="common-settings">
-                            <label class="common-list-box radio" id="gaugePreview" >
-                                <input type="radio" name="chartType" data-toggle="radio" checked="checked" value="gauge"> Use Gauge
+                            <label class="common-list-box radio" id="<%=element.chart.gauge.id%>" >
+                                <input type="radio" name="chartType" data-toggle="radio" <%=element.chart.gauge.checked%> value="gauge"> Use Gauge
                             </label>
                         </div>
                        <div class="common-settings">
-                            <label class="common-list-box radio" id="linearPreview" >
-                                <input type="radio" name="chartType" data-toggle="radio" value="linear"> Use Linear
+                            <label class="common-list-box radio" id="<%=element.chart.linear.id%>" >
+                                <input type="radio" name="chartType" data-toggle="radio" <%=element.chart.linear.checked%> value="linear"> Use Linear
                             </label>
                         </div>
                         <div class="clear-fix"></div>

@@ -3,6 +3,10 @@ var ChartOptionsModel = Backbone.Model.extend({
     defaults: {
         barTabsContent: '',
         element: {
+            chart: {
+                gauge: { id: "gaugePreview", checked: ''},
+                linear: { id: "linearPreview", checked: ''}
+            },
             bars: {
                 color: "barColorValue",
                 backgroundColor: "barBgColorValue"
@@ -57,6 +61,10 @@ var ChartOptionsModel = Backbone.Model.extend({
                     color: "#C2C2C2"
                 }
             }
+        },
+        cookies: {
+            name: 'pollOptions',
+            value: {}
         }
     },
     initialize: function()

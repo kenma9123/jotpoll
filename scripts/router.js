@@ -118,7 +118,7 @@ var PollRouter = Backbone.Router.extend({
             this.showContainers();
             //require some data
             this.require([
-                'pollDataModel', 'chartPreview', 'chartOptionsView',
+                'pollDataModel', 'chartOptionsView', 'chartPreview', 
                 'pollNavigatorView','pollNavigatorModel', 'generateView', 
             ]);
         },true);

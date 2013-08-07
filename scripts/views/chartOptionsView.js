@@ -20,11 +20,16 @@ var ChartOptionsView = Backbone.View.extend({
         Backbone.on('call-chartOptionsView', function(){
             console.log('chartOptionsView call');
             self.buildOptionsTemplateData(function(){
+                self.updateChartType('gauge');//TODO handle both
                 self.render();
             });
         });
 
         this.on('rendered', function(){
+
+            self.updateChartType('gauge');//TODO handle both
+            this.updatePreviewWindow(null, true);//TODO handle both
+
             // Tooltips
             $("[data-toggle=tooltip]").tooltip("show");
 
@@ -116,7 +121,7 @@ var ChartOptionsView = Backbone.View.extend({
     /**
      * Update preview poll
      */
-    updatePreviewWindow: function(e)
+    updatePreviewWindow: function(e, initial)
     {
         // var el = $(e.target);
         var self = this;
@@ -159,15 +164,37 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.chartOptionsModel.set('poll', poll);
 
         //draw chart
-        this.global.previewChartView.drawPreviewChart();
+        if (!initial) this.global.previewChartView.drawPreviewChart();
     },
 
     changeChartType: function(e)
     {
         var poll = this.global.chartOptionsModel.get('poll')
+          , val = $("input[type=radio]", e.target).val();
+
+        poll.type = val;
+        this.global.chartOptionsModel.set('poll', poll);
+        this.updateChartType(false);
+    },
+
+    updateChartType: function(initial)
+    {
+        var poll = this.global.chartOptionsModel.get('poll')
           , elements = this.global.chartOptionsModel.get('element')
-          , val = $("input[type=radio]", e.target).val()
           , self = this;
+
+        poll.type = ( initial ) ? initial : poll.type;
+
+        //set what type of chart was used
+        _.each(elements.chart, function(value, key){
+
+            //reset
+            elements.chart[key].checked = '';
+
+            if ( key === poll.type ) {
+                elements.chart[key].checked = 'checked="checked"';
+            }
+        });
 
         //hide some options that specific for a certain chart
         $.each(elements.common, function(index, value){
@@ -177,14 +204,17 @@ var ChartOptionsView = Backbone.View.extend({
                 case 'needle':
                 case 'spindle':
                 case 'marker':
-                    if ( val === 'linear' ) elemParentToHide.css('visibility', 'hidden');
+                    if ( poll.type === 'linear' ) elemParentToHide.css('visibility', 'hidden');
                     else elemParentToHide.css('visibility', 'visible');
                 break;
             }
         });
 
-        poll.type = val;
-        this.global.chartOptionsModel.set('poll', poll);
-        this.updatePreviewWindow();
+        this.global.chartOptionsModel.set({
+            poll: poll,
+            element: elements
+        });
+        
+        if (!initial) this.updatePreviewWindow();
     }
 });
