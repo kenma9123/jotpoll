@@ -40,6 +40,12 @@ var ChartOptionsView = Backbone.View.extend({
             $('input.bar-input').minicolors({
                 theme: 'flatUI'
             });
+
+            //radio buttons
+            $('[data-toggle="radio"]').each(function () {
+                var $radio = $(this);
+                $radio.radio();
+            });
         });
     },
 
