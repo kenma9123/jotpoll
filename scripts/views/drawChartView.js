@@ -152,19 +152,6 @@ var DrawChartView = Backbone.View.extend({
 
                 tempMarkers.push(markerObject);
             }
-            else
-            {
-                //add indent
-                poll.bars[index].text = {
-                    indent: 10,
-                    font: {
-                        size: 12
-                    },
-                    customizeText: function(){
-                        return parseInt(this.valueText) + "%";
-                    }
-                };
-            }
         });
 
         //set markers
