@@ -224,7 +224,7 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    <h1 class="content-header-name">Poll</h1><p class="poll-subtitle">Configure your poll look and feel. You can easily customize it by just playing some of the options given.</p>
+                    <h1 class="content-header-name">Poll</h1><p class="poll-subtitle">Configure your poll look and feel. You can easily customize it by just playing some of the given settings.</p>
                 </div>
             </div>
             <div id="poll-mainContainer-A" class="poll-result-container">
@@ -259,6 +259,7 @@
     <script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>
 
 <?php if ( MODE !== "live" ) { ?>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jstorage.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jminicolors.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/clipboard/zclip.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/rawdeflate_inflate.js"></script>

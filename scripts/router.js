@@ -42,7 +42,7 @@ var PollRouter = Backbone.Router.extend({
     routes:
     {
         "" : "home",
-        "resultData/*encodedData": "showPollResultsData"
+        "result/*encodedData": "showPollResultsData"
     },
 
     //handle what type is being taken

@@ -17,6 +17,8 @@ var ChartOptionsView = Backbone.View.extend({
 
         var self = this;
 
+        this.storageKeyname = "jotpoll_config";
+
         Backbone.on('call-chartOptionsView', function(){
             console.log('chartOptionsView call');
             self.buildOptionsTemplateData(function(){
@@ -58,49 +60,25 @@ var ChartOptionsView = Backbone.View.extend({
      */
     buildOptionsTemplateData: function(cb)
     {
-        // var poll = this.global.chartOptionsModel.get('poll')
-        //   , element = this.global.chartOptionsModel.get('element')
-        //   , wholeGaugeTabContent = "";
+        var poll = this.global.chartOptionsModel.get('poll')
+          , element = this.global.chartOptionsModel.get('element');
 
-        // //attach to the common elements if its ON or OFF
-        // $.each(element.common, function(index,value){
-        //     switch(index)
-        //     {
-        //         case 'scale':
-        //             element.common[index].checked = (poll.common[index].label.visible === true) ? 'checked="checked"' : '';
-        //             element.common[index].invisible = (poll.type === 'linear') ? true : false;
-        //         break;
-        //         default:
-        //             element.common[index].checked = (poll.common[index].visible === true) ? 'checked="checked"' : '';
-        //             element.common[index].invisible = (poll.type === 'gauge') ? true : false;
-        //         break;
-        //     }
-        // });
-        
-        var poll = this.global.chartOptionsModel.get('poll');
-        poll.type = "linear";
-        this.global.chartOptionsModel.set('poll', poll);
+        //read poll options from config
+        var pollOptions = this.getPollOptionsFromStorage()
+          , rawData = null;
 
-        //put data to another template that will build the bar TABS
-        // var gaugeTabContent = $("#poll-chart-options-gaugeTab-template").html();
-        // $.each(poll.bars, function(index,value){
-        //     var jsonData = {
-        //         barIndex: index + 1,
-        //         colorElement: element.bars.color,
-        //         bgcolorElement: element.bars.backgroundColor,
-        //         barColor: poll.bars[index].color,
-        //         barBgColor: poll.bars[index].backgroundColor
-        //     };
+        if ( pollOptions !== false )
+        {
+            rawData = JSON.parse( RawDeflate.inflate( B64.decode( pollOptions ) ) );
+            poll = rawData.poll;
+            element.common = rawData.common;
+        }
 
-        //     wholeGaugeTabContent += _.template( gaugeTabContent )( jsonData );
-        // });
-        
-        // //update poll tab content
-        // this.global.chartOptionsModel.set('barTabsContent', wholeGaugeTabContent);
+        this.global.chartOptionsModel.set({
+            poll: poll,
+            element: element
+        });
 
-        //update common content
-        // this.global.chartOptionsModel.set('element', element);
-        
         //callback if any
         if (cb) cb();
     },
@@ -170,6 +148,43 @@ var ChartOptionsView = Backbone.View.extend({
 
         //draw chart
         this.global.previewChartView.drawPreviewChart();
+
+        this.savePollOptionsToStorage();
+    },
+
+    /**
+     * Return poll options from storage otherwise boolean false
+     */
+    getPollOptionsFromStorage: function()
+    {
+        if ( !$.jStorage.storageAvailable() ) {
+            return false;
+        }
+        
+        return $.jStorage.get(this.storageKeyname, false);
+    },
+
+    /**
+     * Save poll options to storage if available
+     */
+    savePollOptionsToStorage: function()
+    {
+        if ( !$.jStorage.storageAvailable() ) {
+            return;
+        }
+
+        var poll = this.global.chartOptionsModel.get('poll')
+          , element = this.global.chartOptionsModel.get('element');
+
+        var o = {
+            poll: poll,
+            common: element.common
+        };
+
+        var data = B64.encode( RawDeflate.deflate(JSON.stringify(o)) )
+          , daySeconds = 85400 , dayMonth = 30, dayYear = 365;
+
+        $.jStorage.set(this.storageKeyname, data, {TTL: (daySeconds * dayMonth)}); // expires in 1 month or so
     },
 
     /**
@@ -178,9 +193,10 @@ var ChartOptionsView = Backbone.View.extend({
      */
     changeChartType: function(e)
     {
-        var poll = this.global.chartOptionsModel.get('poll');
+        var poll = this.global.chartOptionsModel.get('poll')
+          , targetContainer = $(e.target).parents('.common-settings');
 
-        poll.type = $("input[type=radio]", e.target).val();
+        poll.type = $("input[type=radio]", targetContainer).val();
         this.global.chartOptionsModel.set('poll', poll);
 
         //update chart when user pick what chart to use

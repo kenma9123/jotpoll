@@ -4,8 +4,8 @@ var ChartOptionsModel = Backbone.Model.extend({
         barTabsContent: '',
         element: {
             chart: {
-                gauge: { id: "gaugePreview", checked: false},
-                linear: { id: "linearPreview", checked: true}
+                gauge: { id: "gaugePreview", checked: true},
+                linear: { id: "linearPreview", checked: false}
             },
             bars: {
                 color: "barColorValue",
@@ -13,13 +13,13 @@ var ChartOptionsModel = Backbone.Model.extend({
             },
             common: {
                 scale: { id: "pollScale", checked: false, invisible: false, text: 'Scale' },
-                marker: { id: "pollMarker", checked: false, invisible: true,  text: 'Marker' },
-                needle: { id: "pollNeedle", checked: false, invisible: true, text: 'Needle' },
-                spindle: { id: "pollSpindle", checked: false, invisible: true, text: 'Spindle' }
+                marker: { id: "pollMarker", checked: false, invisible: false,  text: 'Marker' },
+                needle: { id: "pollNeedle", checked: false, invisible: false, text: 'Needle' },
+                spindle: { id: "pollSpindle", checked: false, invisible: false, text: 'Spindle' }
             }
         },
         poll: {
-            type: 'linear',
+            type: 'gauge',
             bars: [
                 { value: 75, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
                 { value: 75, offset: 35, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },

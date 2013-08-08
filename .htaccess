@@ -2,5 +2,8 @@
     RewriteEngine  on
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} result
     RewriteRule ^(.+)$ #$1 [L,NE]
+    RewriteCond %{REQUEST_FILENAME} ajax
+    RewriteRule ^ajax/([^/]*)/([^/]*)$ lib/ajaxdispatcher.php?action=$1&id=$2 [L]
 </IfModule>

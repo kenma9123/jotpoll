@@ -4,6 +4,8 @@ var DrawChartView = Backbone.View.extend({
     {
         var self = this;
 
+        self.customOffsetLinear = [];
+
         Backbone.on('call-drawChart', function(){
             console.log('drawchart call');
         });
@@ -192,14 +194,19 @@ var DrawChartView = Backbone.View.extend({
         //variables
         var poll = this.global.chartOptionsModel.get('poll')
           , tempMarkers = []
-          , tempNeedles = [];
+          , tempNeedles = []
+          , self = this;
 
         $.each(poll.bars, function(index, value){
 
             //removed text indent
             poll.bars[index].text.indent = 0;
 
-            poll.bars[index].offset += 20;
+            // if ( typeof this.isCustomOffset === "undefined" )
+            // {
+            //     poll.bars[index].offset = poll.bars[index].offset + 20;
+            //     self.customOffsetLinear.push(index);
+            // }
 
             //build marker arrays, from poll data
             var markerObject = {

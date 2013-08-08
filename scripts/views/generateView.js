@@ -55,7 +55,7 @@ var GenerateCodeView = Backbone.View.extend({
             };
             var jsonFormData = JSON.stringify( formData );
             var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
-            var generatedFormData = window.location.origin + window.base + "resultData/" + encodedFormData;
+            var generatedFormData = window.location.origin + window.base + "result/" + encodedFormData;
             $("#generatedFormData").val(generatedFormData);
 
             console.log('new', jsonFormData);
