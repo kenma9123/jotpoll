@@ -212,11 +212,7 @@ var DrawChartView = Backbone.View.extend({
             //removed text indent
             poll.bars[index].text.indent = 0;
 
-            if ( typeof this.isCustomOffsetAddedToLinear === "undefined" )
-            {
-                poll.bars[index].offset = poll.bars[index].offset + 20;
-                this.isCustomOffsetAddedToLinear = true;
-            }
+            poll.bars[index].offset += 20;
 
             //build marker arrays, from poll data
             var markerObject = {

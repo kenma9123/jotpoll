@@ -50,8 +50,7 @@ var GenerateCodeView = Backbone.View.extend({
                 question: Number(questionID),
                 apiKey: String(JF.getAPIKey()), 
                 chart: {
-                    poll: this.global.chartOptionsModel.get('poll'),
-                    hbars: ''
+                    poll: this.global.chartOptionsModel.get('poll')
                 }
             };
             var jsonFormData = JSON.stringify( formData );

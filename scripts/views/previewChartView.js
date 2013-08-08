@@ -11,7 +11,7 @@ var PreviewChartView = Backbone.View.extend({
 
         this.on('rendered', function(){
             // this.buildPreviewData();
-            this.drawPreviewChart();
+            // this.drawPreviewChart();
         });
 
         Backbone.on('call-chartPreview', function(){

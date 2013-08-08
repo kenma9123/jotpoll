@@ -20,15 +20,11 @@ var ChartOptionsView = Backbone.View.extend({
         Backbone.on('call-chartOptionsView', function(){
             console.log('chartOptionsView call');
             self.buildOptionsTemplateData(function(){
-                self.updateChartType('gauge');//TODO handle both
-                self.render();
+                self.updateChartType().render();
             });
         });
 
         this.on('rendered', function(){
-
-            self.updateChartType('gauge');//TODO handle both
-            this.updatePreviewWindow(null, true);//TODO handle both
 
             // Tooltips
             $("[data-toggle=tooltip]").tooltip("show");
@@ -51,6 +47,9 @@ var ChartOptionsView = Backbone.View.extend({
                 var $radio = $(this);
                 $radio.radio();
             });
+
+            //update preview window on start up
+            this.updatePreviewWindow();
         });
     },
 
@@ -59,22 +58,28 @@ var ChartOptionsView = Backbone.View.extend({
      */
     buildOptionsTemplateData: function(cb)
     {
-        var poll = this.global.chartOptionsModel.get('poll')
-          , element = this.global.chartOptionsModel.get('element')
-          , wholeGaugeTabContent = "";
+        // var poll = this.global.chartOptionsModel.get('poll')
+        //   , element = this.global.chartOptionsModel.get('element')
+        //   , wholeGaugeTabContent = "";
 
-        //attach to the common elements if its ON or OFF
-        $.each(element.common, function(index,value){
-            switch(index)
-            {
-                case 'scale':
-                    element.common[index].checked = (poll.common[index].label.visible === true) ? 'checked="checked"' : '';
-                break;
-                default:
-                    element.common[index].checked = (poll.common[index].visible === true) ? 'checked="checked"' : '';
-                break;
-            }
-        });
+        // //attach to the common elements if its ON or OFF
+        // $.each(element.common, function(index,value){
+        //     switch(index)
+        //     {
+        //         case 'scale':
+        //             element.common[index].checked = (poll.common[index].label.visible === true) ? 'checked="checked"' : '';
+        //             element.common[index].invisible = (poll.type === 'linear') ? true : false;
+        //         break;
+        //         default:
+        //             element.common[index].checked = (poll.common[index].visible === true) ? 'checked="checked"' : '';
+        //             element.common[index].invisible = (poll.type === 'gauge') ? true : false;
+        //         break;
+        //     }
+        // });
+        
+        var poll = this.global.chartOptionsModel.get('poll');
+        poll.type = "linear";
+        this.global.chartOptionsModel.set('poll', poll);
 
         //put data to another template that will build the bar TABS
         // var gaugeTabContent = $("#poll-chart-options-gaugeTab-template").html();
@@ -94,7 +99,7 @@ var ChartOptionsView = Backbone.View.extend({
         // this.global.chartOptionsModel.set('barTabsContent', wholeGaugeTabContent);
 
         //update common content
-        this.global.chartOptionsModel.set('element', element);
+        // this.global.chartOptionsModel.set('element', element);
         
         //callback if any
         if (cb) cb();
@@ -121,7 +126,7 @@ var ChartOptionsView = Backbone.View.extend({
     /**
      * Update preview poll
      */
-    updatePreviewWindow: function(e, initial)
+    updatePreviewWindow: function(e)
     {
         // var el = $(e.target);
         var self = this;
@@ -164,48 +169,54 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.chartOptionsModel.set('poll', poll);
 
         //draw chart
-        if (!initial) this.global.previewChartView.drawPreviewChart();
+        this.global.previewChartView.drawPreviewChart();
     },
 
+    /**
+     * Change what poll chart to use
+     * - selected from user 
+     */
     changeChartType: function(e)
     {
-        var poll = this.global.chartOptionsModel.get('poll')
-          , val = $("input[type=radio]", e.target).val();
+        var poll = this.global.chartOptionsModel.get('poll');
 
-        poll.type = val;
+        poll.type = $("input[type=radio]", e.target).val();
         this.global.chartOptionsModel.set('poll', poll);
-        this.updateChartType(false);
+
+        //update chart when user pick what chart to use
+        this.updateChartType().render();
     },
 
-    updateChartType: function(initial)
+    /**
+     * Update model chart
+     */
+    updateChartType: function()
     {
         var poll = this.global.chartOptionsModel.get('poll')
           , elements = this.global.chartOptionsModel.get('element')
           , self = this;
 
-        poll.type = ( initial ) ? initial : poll.type;
-
         //set what type of chart was used
         _.each(elements.chart, function(value, key){
 
-            //reset
-            elements.chart[key].checked = '';
+            //reset everthing
+            elements.chart[key].checked = false;
 
             if ( key === poll.type ) {
-                elements.chart[key].checked = 'checked="checked"';
+                elements.chart[key].checked = true;
             }
         });
 
-        //hide some options that specific for a certain chart
-        $.each(elements.common, function(index, value){
-            var elemParentToHide = self.elem(value.id).parents('.common-settings');
+        //attach to the common elements if its ON or OFF
+        $.each(elements.common, function(index,value){
             switch(index)
             {
-                case 'needle':
-                case 'spindle':
-                case 'marker':
-                    if ( poll.type === 'linear' ) elemParentToHide.css('visibility', 'hidden');
-                    else elemParentToHide.css('visibility', 'visible');
+                case 'scale':
+                    elements.common[index].checked = poll.common[index].label.visible;
+                break;
+                default:
+                    elements.common[index].checked = poll.common[index].visible;
+                    elements.common[index].invisible = (poll.type === 'linear') ? true : false;
                 break;
             }
         });
@@ -214,7 +225,7 @@ var ChartOptionsView = Backbone.View.extend({
             poll: poll,
             element: elements
         });
-        
-        if (!initial) this.updatePreviewWindow();
+
+        return this;
     }
 });

@@ -149,12 +149,14 @@
                         <div class="options-content">
                         <div class="common-settings">
                             <label class="common-list-box radio" id="<%=element.chart.gauge.id%>" >
-                                <input type="radio" name="chartType" data-toggle="radio" <%=element.chart.gauge.checked%> value="gauge"> Use Gauge
+                                <% var isGaugeChecked = (element.chart.gauge.checked === true)?'checked="checked"':'';%>
+                                <input type="radio" name="chartType" data-toggle="radio" <%=isGaugeChecked%> value="gauge"> Use Gauge
                             </label>
                         </div>
                        <div class="common-settings">
                             <label class="common-list-box radio" id="<%=element.chart.linear.id%>" >
-                                <input type="radio" name="chartType" data-toggle="radio" <%=element.chart.linear.checked%> value="linear"> Use Linear
+                                <% var isLinearChecked = (element.chart.linear.checked === true)?'checked="checked"':'';%>
+                                <input type="radio" name="chartType" data-toggle="radio" <%=isLinearChecked%> value="linear"> Use Linear
                             </label>
                         </div>
                         <div class="clear-fix"></div>
@@ -162,10 +164,11 @@
                                 var e = {
                                     id: value.id,
                                     text: value.text,
-                                    checked: value.checked
+                                    checked: (value.checked === true ) ? 'checked="checked"' : '',
+                                    invisible: (value.invisible === true) ? 'invisible-elem' : ''
                                 };
                             %>
-                            <div class="common-settings">
+                            <div class="common-settings <%=e.invisible%>">
                                 <label class="commons-list"><%=e.text%></label>
                                 <span class="settings-list"><input type="checkbox" data-toggle="switch" id="<%=e.id%>" <%=e.checked%>/></span>
                             </div>
