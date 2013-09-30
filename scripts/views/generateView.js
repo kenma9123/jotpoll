@@ -46,13 +46,14 @@ var GenerateCodeView = Backbone.View.extend({
             this.render();
 
             var formData = {
-                form: Number(formID),
-                question: Number(questionID),
+                form: String(formID),
+                question: String(questionID),
                 apiKey: String(JF.getAPIKey()), 
                 chart: {
                     poll: this.global.chartOptionsModel.get('poll')
                 }
             };
+            console.log("RAW", formData);
             var jsonFormData = JSON.stringify( formData );
             var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
             var generatedFormData = window.location.origin + window.base + "result/" + encodedFormData;

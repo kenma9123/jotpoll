@@ -67,8 +67,7 @@ var DrawChartView = Backbone.View.extend({
                     var c = self.global.chartOptionsModel.get('poll');
                     $(drawData.target).dxCircularGauge({
                         preset: "preset3",
-                        spindle: c.common.spindle,
-                        needles: c.needles,
+                        spindle: {visible: false},
                         margin: ( !drawData.fromPreview ) ? { top: 25, bottom: 25 } : {},
                         scale: c.common.scale,
                         rangeContainer: c.rangeContainer,
@@ -126,8 +125,7 @@ var DrawChartView = Backbone.View.extend({
     {
         //variables
         var poll = this.global.chartOptionsModel.get('poll')
-          , tempMarkers = []
-          , tempNeedles = [];
+          , tempMarkers = [];
 
         $.each(poll.bars, function(index, value){
             //if markers is visible, removed text indent
@@ -159,26 +157,6 @@ var DrawChartView = Backbone.View.extend({
         //set markers
         poll.markers = tempMarkers;
 
-        //if needle is visible, only attach it to the highest data
-        if ( poll.common.needle.visible == true )
-        {
-            //get the highest data from the updated poll
-            var mapped = $.map(poll.bars,function(item){return item['value'];})
-              , max = Math.max.apply(null, mapped)
-              , i = mapped.indexOf(max);
-
-            var needleObject = {
-                value: poll.bars[i].value,
-                color: poll.bars[i].color,
-                type:'triangle'
-            };
-
-            tempNeedles.push(needleObject);
-        }
-
-        //set needles
-        poll.needles = tempNeedles;
-
         //update poll
         this.global.chartOptionsModel.set('poll', poll);
         // console.log('final', this.global.chartOptionsModel.get('poll'));
@@ -194,7 +172,6 @@ var DrawChartView = Backbone.View.extend({
         //variables
         var poll = this.global.chartOptionsModel.get('poll')
           , tempMarkers = []
-          , tempNeedles = []
           , self = this;
 
         $.each(poll.bars, function(index, value){

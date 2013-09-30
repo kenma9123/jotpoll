@@ -17,13 +17,6 @@ var PreviewChartModel = Backbone.Model.extend({
                 label: {
                     visible: true
                 } 
-            },
-            needle: {
-                visible: false
-            },
-            spindle: {
-                visible: true,
-                color: "#C2C2C2"
             }
         }
 	}

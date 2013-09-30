@@ -171,7 +171,7 @@ select, textarea, input,
 }
 .poll-panel .poll-panel-inner
 {
-    padding: 20px 30px 10px 30px;
+    padding: 20px 50px;
     color: #FDB16A;
     font-size: 1.5em;
     font-weight: 800;      
@@ -184,7 +184,6 @@ select, textarea, input,
     font-weight: normal;
     text-transform: none;
     margin: 0px;
-    margin-left: 10px;
     display: inline;
 }
 .poll-result-container

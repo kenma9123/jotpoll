@@ -3,7 +3,7 @@ var PollNavigatorView = Backbone.View.extend({
     events:
     {
         'click #pickFormWidget': 'getFormSelected',
-        'change #questionList': 'getQuestionSelected',
+        'click #pickQuestionWidget': 'getQuestionSelected',
         'click #proceedButton': 'processPoll'
     },
 
@@ -15,7 +15,6 @@ var PollNavigatorView = Backbone.View.extend({
         this.navigatorModel = this.global.navigatorModel;
 
         this._elems = {
-            formSelect: "#formsList",             //object of the select element that holds the user forms
             questionSelect: "#questionList",      //object of the select element that holds the user form questions
             pollResults: "#poll-results",   //object of the poll result
             processPollBtn: "#proceedButton"      //object of the button
@@ -35,23 +34,11 @@ var PollNavigatorView = Backbone.View.extend({
         var self = this;
 
         this.render();
-
-        //get user forms
-        this.navigatorModel.getUserForms(function(response){
-            self.renderUserForms(response);
-        });
-
-        this.navigatorModel.bind('change', _.bind(this.render, this));
     },
 
     render: function()
     {
         this.$el.html( this.template( this.navigatorModel.toJSON() ) );
-
-        if ( typeof this.formID !== 'undefined' )
-        {
-            $(this._elems.formSelect).val(this.formID);
-        }
 
         return this;
     },
@@ -63,45 +50,56 @@ var PollNavigatorView = Backbone.View.extend({
      */
     processPoll: function(e)
     {
+        this.checkFormID();
+        this.checkQuestionIndex();
+
         var self = this;
 
-        self.getFormID(function(){
-            this.getQuestionIndex(function(){
-                if ( this.global.router.currentType === "generate" )
-                {
-                    this.global.generateView.generate(this.formID, this.questionIndex);
-                }
-                else
-                {
-                    this.global.resultsView.processPoll(this.formID, this.questionIndex);
-                }
+        //proceed when eveything is clear
+        if ( this.global.router.currentType === "generate" )
+        {
+            //remove any unused bars before generate the url data
+            this.global.chartOptionsView.removeUnusedBars_Markers(function(){
+                console.log("Removed unused bars", self.global.chartOptionsModel.get('poll'));
+                self.global.generateView.generate(self.formID, self.questionIndex);
+
+                //update the preview as well
+                self.global.chartOptionsView.updatePreviewWindow();
             });
-        });
+        }
+        else
+        {
+            this.global.resultsView.processPoll(this.formID, this.questionIndex);
+        }
     },
 
-    renderFormQuestions: function()
+    /**
+     * count how many options for the queston
+     */
+    countPollOptions: function(q)
     {
+        //Check the picked question if valid or not
+        console.log(q);
+        if ( this.global.pollDataModel.get('allowedControls').indexOf(q.type) == -1 )
+        {
+            alert("You selected an invalid type of question.\nOnly Dropdown, Radio, Star and Scale type of questions are accepted.");
+        }
+
+        //count now, lets use the functin inside polldata model
         var self = this;
-        // var selectElem = self._elems.questionSelect;
-        // selectElem.parent().fadeIn();
-        $(self._elems.questionSelect).parent().fadeIn();
-        // console.log(self._elems.questionSelect.parent().html());
+        this.global.pollDataModel.getQuestionPollData(q, function(response){
+            var poll_count = (self.toArray(response.results.value)).length;
 
-        self.global.pollDataModel.getFormQuestions(null, function(questionOptions){
-            console.log('edited', self.global.pollDataModel.get('_pollData'));
-            self.navigatorModel.set({
-                questionOptions: questionOptions,
-                disableButton: ''
-            });
+            //dont allow more than 5 counts and below 2 counts
+            if ( poll_count > 5 || poll_count < 2 ) {
+                alert("We only support questions with atleast 2 options and no more than 5 options.");
+                return false;
+            } else {
+                //set how many polls we have to draw later
+                self.global.pollDataModel.set('total_polls', poll_count);
+            }
+            console.log("Poll count", poll_count);
         });
-
-    },
-
-    renderUserForms: function(formsOptions)
-    {
-        var options = "<option value='none'>Select a form</option>\n" + formsOptions;
-        // console.log(this.navigatorModel, options);
-        this.navigatorModel.set('formsOptions', options);
     },
 
     /**
@@ -109,14 +107,16 @@ var PollNavigatorView = Backbone.View.extend({
      * such as the formID and the formTitle
      * @param e - object of an event [change]
      */
-    getFormSelected: function(e,cb)
+    getFormSelected: function(e, cb)
     {
         var self = this;
-        var form = $( (e && e.target) || this._elems.formSelect );
 
-        JFWidgets.FormPicker({
+        JF.FormPicker({
             multiSelect: false,
-            onSelect: function(r) {
+            showPreviewLink: true,
+            title: 'Pick your Form where questions will be coming from',
+            onSelect: function(r)
+            {
                 var selectedFormObj = r[0];
 
                 //set form ID
@@ -132,14 +132,7 @@ var PollNavigatorView = Backbone.View.extend({
                     disableButton: self.navigatorModel.defaults.disableButton
                 });
 
-                if ( typeof cb !== 'undefined' ) {
-                    cb.call(self);
-                } else {
-                    self.renderFormQuestions();
-                }
-            },
-            onProgress: function() {
-                console.log('Fetching user forms');
+                if (cb) cb.call(self);
             }
         });
     },
@@ -149,68 +142,55 @@ var PollNavigatorView = Backbone.View.extend({
      * such as the questionIndex and the questionName
      * @param e - object of an event [change]
      */
-    getQuestionSelected: function(e,cb)
+    getQuestionSelected: function(e, cb)
     {
-        var question = $( (e && e.target) || this._elems.questionSelect );
+        this.checkFormID();
 
-        //set question ID/Index
-        this.questionIndex = question.val();
+        var self = this;
+        JF.QuestionPicker(this.formID, {
+            onSelect : function(q) {
+                if (q.length > 1) {
+                    alert("You only required to select one question.\nPlease try again!");
+                    return false;
+                }
 
-        //set question name
-        this.questionName = question.find(":selected").text();
+                var question = q[0];
+                self.questionIndex = question.qid;
+                self.questionName = question.text;
 
-        if ( typeof cb !== 'undefined' ) {
-            cb.call(this);
-        }
-    },
-
-    /**
-     * Get the form ID directly
-     */
-    getFormID: function(cb)
-    {
-        var id = null;
-        if ( this.formID ) {
-            id = this.formID;
-        } else {
-            this.getFormSelected(null, function(){
-                id = this.formID;
-            });
-        }
-
-        if (cb) cb.call(this,id);
-        else return id;
-    },
-
-    /**
-     * Get the question Index directly
-     */
-    getQuestionIndex: function(cb)
-    {
-        var index = null;
-        if ( this.questionIndex ) {
-            index = this.questionIndex;
-        } else {
-            this.getQuestionSelected(null, function(){
-                index = this.questionIndex;
-            });
-        }
-
-        if (cb) cb.call(this,index);
-        else return index;
-    },
-
-    pickFormWidget: function()
-    {
-        JFWidgets.FormPicker({
-            sort: 'count',
-            multiSelect: false,
-            onSelect: function(selectedForms) {
-
-            },
-            onProgress: function() {
-
+                if (cb) {
+                    cb.call(self, question);
+                } else {
+                    self.countPollOptions(question);
+                }
             }
         });
+    },
+
+    checkFormID: function()
+    {
+        if ( typeof this.formID === 'undefined' ) {
+            alert('Form is missing, please select a form first!');
+            return false;
+        }
+    },
+
+    checkQuestionIndex: function()
+    {
+        if ( typeof this.questionIndex === 'undefined' ) {
+            alert('Question is missing, please select a question first!');
+            return false;
+        }
+    },
+
+    toArray: function(obj)
+    {
+        var arr =[];
+        for( var i in obj ) {
+            if (obj.hasOwnProperty(i)){
+               arr.push(obj[i]);
+            }
+        }
+        return arr;
     }
 });

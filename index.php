@@ -11,17 +11,10 @@
 <body>
     <script type="text/template" id="poll-navigator-template">
         <div class="section form-division">
-            <!-- <h1 for="formsList" class="form-label">Form List</h1>
-            <select id="formsList" class="selectpicker">
-                <%=formsOptions%>
-            </select>-->
             <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">Pick a Form</button>
         </div>
         <div class="section form-division">
-            <h1 for="questionList" class="form-label">Question List</h1>
-            <select id="questionList" class="selectpicker">
-                <%=questionOptions%>
-            </select>
+            <button id="pickQuestionWidget" class="btn btn-large btn-block btn-primary">Pick a Question</button>
         </div>
         <div class="section form-division">
             <button id="proceedButton" class="btn btn-large btn-block btn-success" >Generate Form URL</button>
@@ -102,6 +95,9 @@
     <script type="text/template" id="poll-chart-preview-template">
         <div class="form-division chart-preview">
             <h1 class="form-label">Preview</h1>
+            <p style="line-height: 20px;">
+                A nifty preview mode where you can see your changes in real time.<br>&nbsp;
+            </p>
             <div class="chart-preview-area"></div>
         </div>
     </script>
@@ -109,6 +105,9 @@
     <script type="text/tempalte" id="poll-chart-options-template">
         <div class="form-division chart-options">
             <h1 class="form-label">Options</h1>
+            <p class="poll-subtitle" style="line-height: 20px;">
+                You can customize your own poll style using some of the available options below. Play with it and viola!
+            </p>
             <div class="tab-content-options">
                 <div class="tab-pane active" id="gaugeChart">
                     <div class="options-divisions">
@@ -224,7 +223,7 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    <h1 class="content-header-name">Poll</h1><p class="poll-subtitle">Configure your poll look and feel. You can easily customize it by just playing some of the given settings.</p>
+                    <h1 class="content-header-name">Poll</h1>
                 </div>
             </div>
             <div id="poll-mainContainer-A" class="poll-result-container">
@@ -236,7 +235,7 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    <h1 class="content-header-name">Form Details</h1><p class="poll-subtitle">Where all the data is coming from. Pick a form, pick a question and click the button to generate a URL you can visit.</p>
+                    <p class="poll-subtitle" style="font-size:20px;">Only 3 Steps! Pick your form, pick the question you want to show as Poll and click generate button to generate a URL you can visit. Note: one poll to one form question at a time.</p>
                 </div>
             </div>
             <div id="poll-mainContainer-B" class="poll-result-container">
@@ -255,8 +254,9 @@
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/backbone.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/flat/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="//js.jotform.com/JotForm.js"></script>
-    <script type="text/javascript" src="//js.jotform.com/JotFormAPIWidgets.js"></script>
+    <script type="text/javascript" src="//js.jotform.com/JotForm.js?3.1.{REV}"></script>
+    <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>
+    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/QuestionPicker.js?3.1.{REV}"></script>
 
 <?php if ( MODE !== "live" ) { ?>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jstorage.js"></script>

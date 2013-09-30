@@ -13,9 +13,7 @@ var ChartOptionsModel = Backbone.Model.extend({
             },
             common: {
                 scale: { id: "pollScale", checked: false, invisible: false, text: 'Scale' },
-                marker: { id: "pollMarker", checked: false, invisible: false,  text: 'Marker' },
-                needle: { id: "pollNeedle", checked: false, invisible: false, text: 'Needle' },
-                spindle: { id: "pollSpindle", checked: false, invisible: false, text: 'Spindle' }
+                marker: { id: "pollMarker", checked: false, invisible: false,  text: 'Marker' }
             }
         },
         poll: {
@@ -28,7 +26,6 @@ var ChartOptionsModel = Backbone.Model.extend({
                 { value: 90, offset: 140, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
             ],
             markers: [],
-            needles: [],
             rangeContainer: {
                 backgroundColor: "none"
             },
@@ -52,13 +49,6 @@ var ChartOptionsModel = Backbone.Model.extend({
                     label: {
                         visible: true
                     } 
-                },
-                needle: {
-                    visible: false
-                },
-                spindle: {
-                    visible: true,
-                    color: "#C2C2C2"
                 }
             }
         },

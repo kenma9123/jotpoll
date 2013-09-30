@@ -6,8 +6,6 @@ var ChartOptionsView = Backbone.View.extend({
         'click #linearPreview': 'changeChartType',
         'change #pollMarker': 'updatePreviewWindow',
         'change #pollScale': 'updatePreviewWindow',
-        'change #pollNeedle': 'updatePreviewWindow',
-        'change #pollSpindle': 'updatePreviewWindow'
     },
 
     initialize: function()
@@ -133,8 +131,6 @@ var ChartOptionsView = Backbone.View.extend({
             switch(index)
             {
                 case 'marker':
-                case 'needle':
-                case 'spindle':
                     poll.common[index].visible = valBool;
                 break;
                 case 'scale':
@@ -150,6 +146,37 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.previewChartView.drawPreviewChart();
 
         this.savePollOptionsToStorage();
+    },
+
+    /**
+     * Depends how many is our poll count, remove some unused bars and markers
+     */
+    removeUnusedBars_Markers: function(next)
+    {
+        var poll = this.global.chartOptionsModel.get('poll')
+          , total_poll_to_draw = this.global.pollDataModel.get('total_polls')
+          , final_bars = []
+          , final_markers = [];
+
+        for( var i = 0; i < poll.bars.length; i++ ) 
+        {
+            //push bars and markers to finale array
+            final_bars.push(poll.bars[i]);
+            final_markers.push(poll.markers[i]);
+
+            //if reach maximum, break
+            if ( (i + 1) == total_poll_to_draw )
+            {
+                break;
+            }
+        }
+
+        //assign the new data to poll model
+        poll.bars = final_bars;
+        poll.markers = final_markers;
+        this.global.chartOptionsModel.set('poll', poll);
+
+        if (next) next();
     },
 
     /**

@@ -14,7 +14,8 @@ var PollResultsModel = Backbone.Model.extend({
     /**
      * Constructor
      */
-    initialize: function(){
+    initialize: function()
+    {
         Backbone.on('call-pollResultsModel', function(){
             console.log("Poll results model call");
         });
@@ -28,17 +29,17 @@ var PollResultsModel = Backbone.Model.extend({
         var pollDataModel = this.global.pollDataModel;
         var pollDataRaw = pollDataModel.get('_pollData');
 
-        //if poll Data abstract is not empty proceed otherwise generate
-        if ( pollDataRaw.results.length > 0 )
-        {
-            pollDataModel.generatePollResults(submissions);
-        }
-        else
-        {
-            pollDataModel.getFormQuestions(formID, function(){
+        //get the question object
+        var formID = this.global.resultsView.formID
+          , questionIndex = this.global.resultsView.questionIndex;
+
+        JF.getFormQuestion(formID, questionIndex, function(qobj){
+            //now generate the poll data that will be use later on drawing the chart
+            pollDataModel.getQuestionPollData(qobj, function(pollData){
+                //after getting the poll data lets now generate the poll, fill the data
                 pollDataModel.generatePollResults(submissions);
             });
-        }
+        });
     },
 
     /**
@@ -53,6 +54,7 @@ var PollResultsModel = Backbone.Model.extend({
             offset: 0,
             limit: 1000
         }, function(submissions){
+            console.log("REad submissions", submissions);
             self.initPollResults(formID, submissions);
         });
     }

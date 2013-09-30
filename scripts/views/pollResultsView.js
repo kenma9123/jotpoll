@@ -56,7 +56,7 @@ var PollResultsView = Backbone.View.extend({
             data: []
         };
 
-        var pollParts = poll.pollData.results[this.formID][ this.questionIndex ].value;
+        var pollParts = poll.pollData.results.value;
         $.each(pollParts, function(index, value){
             poll.data.push([index,value]);
             //get total results
@@ -102,7 +102,7 @@ var PollResultsView = Backbone.View.extend({
         this.on('rendered', function(){
             this.global.drawChartView.drawToDOM({
                 target: $("#"+pollID),
-                pollTitle: poll.pollData.results[self.formID][self.questionIndex].name
+                pollTitle: poll.pollData.results.name
             });
         });
             
