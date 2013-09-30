@@ -20,17 +20,17 @@ var ChartOptionsModel = Backbone.Model.extend({
             type: 'gauge',
             bars: [
                 { value: 75, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 75, offset: 35, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 37, offset: 70, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 65, offset: 105, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 90, offset: 140, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
+                { value: 75, offset: 45, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 37, offset: 90, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 65, offset: 135, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 90, offset: 180, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
             ],
             markers: [],
             rangeContainer: {
                 backgroundColor: "none"
             },
             commonRangeBarSettings: {
-                size: 30,
+                size: 40, //+5 to second offset and add it to the rest
                 backgroundColor: "#F0F0F0"
             },
             common: {

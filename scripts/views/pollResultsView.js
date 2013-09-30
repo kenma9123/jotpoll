@@ -14,6 +14,10 @@ var PollResultsView = Backbone.View.extend({
             self.render();
         });
 
+        this.on('rendered', function(){
+            self.$el.parents(".container").css('width', '100% !important');
+        });
+
         // this.render();
         this.global.resultsModel.bind('change', _.bind(this.render, this));
     },
@@ -25,7 +29,6 @@ var PollResultsView = Backbone.View.extend({
         $(this.el).html( _.template( template )(this.global.resultsModel.toJSON()) );
 
         // $(this.el).parents(".hero-unit").fadeIn();
-        
 
         this.trigger('rendered', this);
 

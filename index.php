@@ -111,7 +111,7 @@
             <div class="tab-content-options">
                 <div class="tab-pane active" id="gaugeChart">
                     <div class="options-divisions">
-                        <h4 class="options-title">Individual Bar Settings:</h4>
+                        <h4 class="options-title">Individual Bar Settings: <i style="font-size: 15px;"> ( may vary on how many options does your question have )</i></h4>
                         <div class="options-content">
                             <ul class="nav nav-tabs">
                               <li><a href="#bar1" data-toggle="tab">Bar A</a></li>
@@ -178,7 +178,7 @@
                 </div>
             </div>
         </div>
-        <button id="updatePreview" class="btn btn-small btn-block btn-info" style="width: 50%;">Update Preview</button>
+        <button id="updatePreview" class="btn btn-small btn-block btn-info">Update Preview</button>
     </script>
 
     <script type="text/template" id="poll-code-generator-template">
@@ -191,7 +191,7 @@
         </div>
     </script>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="position: absolute;">
         <div class="navbar-inner">
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
@@ -209,7 +209,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container main-content">
         <div class="alert alert-block alert-error hide-elem">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <div class="alert-content">
@@ -223,24 +223,24 @@
         <div class="hero-unit hide-elem">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
-                    <h1 class="content-header-name">Poll</h1>
-                </div>
-            </div>
-            <div id="poll-mainContainer-A" class="poll-result-container">
-                <div class="poll-divisions poll-chart-options"></div>
-                <div class="poll-divisions poll-chart-preview"></div>
-                <div class="clear-fix"></div>
-            </div>
-        </div>
-        <div class="hero-unit hide-elem">
-            <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
-                <div class="poll-panel-inner">
-                    <p class="poll-subtitle" style="font-size:20px;">Only 3 Steps! Pick your form, pick the question you want to show as Poll and click generate button to generate a URL you can visit. Note: one poll to one form question at a time.</p>
+                    <p class="poll-subtitle" style="font-size: 17px;line-height: 25px;display: block;font-weight: normal;">
+                        Just a few steps away to create a super beautiful Poll!<br>
+                        - Pick your form, pick the question you want to show as Poll and click Generate button to generate a URL you can visit.<br>
+                        - Play with the options below for better results.<br>
+                        <i>Note: one poll to one form question at a time.</i>
+                    </p>
                 </div>
             </div>
             <div id="poll-mainContainer-B" class="poll-result-container">
                 <div class="poll-divisions poll-navigator"></div>
                 <div class="poll-divisions poll-code-generator"></div>
+                <div class="clear-fix"></div>
+            </div>
+        </div>
+        <div class="hero-unit hide-elem">
+            <div id="poll-mainContainer-A" class="poll-result-container">
+                <div class="poll-divisions poll-chart-options"></div>
+                <div class="poll-divisions poll-chart-preview"></div>
                 <div class="clear-fix"></div>
             </div>
         </div>
