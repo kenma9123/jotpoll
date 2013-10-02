@@ -111,8 +111,20 @@ var PollRouter = Backbone.Router.extend({
         }
     },
 
+    addEventLandingPage: function()
+    {
+        $("#application_landing").show();
+        $("#integrate_now-btn").click(function(){
+            $(this).parents('#application_landing').slideUp('fast', function(){
+                $(this).remove();
+            });
+        });
+    },
+
     home: function()
     {
+        this.addEventLandingPage();
+
     	console.log('home');
         this.initJF(function(){
             this.showContainers();
@@ -139,6 +151,20 @@ var PollRouter = Backbone.Router.extend({
         // console.log( _(arr).toJSON() );
 
         var parsed = JSON.parse( RawDeflate.inflate(B64.decode(encodedData)) );
+
+        for (var x = 0; x < parsed.chart.poll.bars.length; x++ )
+        {
+            parsed.chart.poll.bars[x].value = {
+                backgroundColor: "#e3e3e3",
+                color: "#a6c567",
+                offset: 0,
+                text: {
+                    indent: 0
+                },
+                value: 70
+            };
+        }
+
         console.log(parsed);
 
         this.initJF(function(){

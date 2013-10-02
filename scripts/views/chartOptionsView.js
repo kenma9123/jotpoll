@@ -17,10 +17,13 @@ var ChartOptionsView = Backbone.View.extend({
 
         this.storageKeyname = "jotpoll_config";
 
+        //save options default - to be access later
+        this.global.chartOptionsModel.savePollData_Defaults();
+
         Backbone.on('call-chartOptionsView', function(){
             console.log('chartOptionsView call');
             self.buildOptionsTemplateData(function(){
-                self.updateChartType().render();
+                self.updateChartType().redraw();
             });
         });
 
@@ -58,8 +61,8 @@ var ChartOptionsView = Backbone.View.extend({
      */
     buildOptionsTemplateData: function(cb)
     {
-        var poll = this.global.chartOptionsModel.get('poll')
-          , element = this.global.chartOptionsModel.get('element');
+        var poll = this.global.chartOptionsModel.defaults.poll
+          , element = this.global.chartOptionsModel.defaults.element
 
         //read poll options from config
         var pollOptions = this.getPollOptionsFromStorage()
@@ -89,6 +92,11 @@ var ChartOptionsView = Backbone.View.extend({
         $(this.el).html( this.template( this.global.chartOptionsModel.toJSON() ) );
 
         this.trigger('rendered');
+    },
+
+    redraw: function()
+    {
+        this.render();
     },
 
     /**
@@ -149,15 +157,27 @@ var ChartOptionsView = Backbone.View.extend({
     },
 
     /**
-     * Depends how many is our poll count, remove some unused bars and markers
+     * Depends how many is our poll count, remove some unused bars and markers or show them
      */
-    removeUnusedBars_Markers: function(next)
+    handle_Bars_Markers_Tabs: function()
     {
-        var poll = this.global.chartOptionsModel.get('poll')
+        //get the default data of chart options
+        var poll = this.global.chartOptionsModel.getPollData_Defaults()
           , total_poll_to_draw = this.global.pollDataModel.get('total_polls')
           , final_bars = []
           , final_markers = [];
 
+        console.log("Defaults poll", poll);
+
+        //merge the user options to default
+        var current_poll = this.global.chartOptionsModel.get('poll');
+        for( var x = 0; x < current_poll.bars.length; x++ )
+        {
+            poll.bars[x] = current_poll.bars[x];
+            poll.markers[x] = current_poll.markers[x];
+        }
+
+        //cut
         for( var i = 0; i < poll.bars.length; i++ ) 
         {
             //push bars and markers to finale array
@@ -176,7 +196,32 @@ var ChartOptionsView = Backbone.View.extend({
         poll.markers = final_markers;
         this.global.chartOptionsModel.set('poll', poll);
 
-        if (next) next();
+        //modify the tabs, to only show specific tabs, depends on how many polls we have
+        this.handleBarTabs();
+    },
+
+    /**
+     * Responsible on showing and hiding of tabs
+     */
+    handleBarTabs: function()
+    {
+        var tabs = $(".tab-content-options ul.nav-tabs", this.$el)
+          , li = tabs.children();
+
+        //get total polls from questions
+        var total_polls = this.global.pollDataModel.get('total_polls');
+
+        li.each(function(index){
+            //hide anything greater than the polls, otherwise show it
+            if (index >= total_polls) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+        //update the preview chart and tabs
+        this.redraw();
     },
 
     /**
@@ -227,7 +272,7 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.chartOptionsModel.set('poll', poll);
 
         //update chart when user pick what chart to use
-        this.updateChartType().render();
+        this.updateChartType().redraw();
     },
 
     /**

@@ -114,11 +114,17 @@
                         <h4 class="options-title">Individual Bar Settings: <i style="font-size: 15px;"> ( may vary on how many options does your question have )</i></h4>
                         <div class="options-content">
                             <ul class="nav nav-tabs">
-                              <li><a href="#bar1" data-toggle="tab">Bar A</a></li>
-                              <li><a href="#bar2" data-toggle="tab">Bar B</a></li>
-                              <li><a href="#bar3" data-toggle="tab">Bar C</a></li>
-                              <li><a href="#bar4" data-toggle="tab">Bar D</a></li>
-                              <li class="active"><a href="#bar5" data-toggle="tab">Bar E</a></li>
+                                <%
+                                    var bar_names = ['A','B','C','D','E'];
+                                    $.each(poll.bars, function(index,value){
+                                        var active_index = 0
+                                          , bar_index = (index+1)
+                                          , elclass = (active_index===index) ? 'active' : '';
+                                %>
+                                <li><a class="<%=elclass%>" href="#bar<%=bar_index%>" data-toggle="tab">Bar <%=bar_names[index]%></a></li>
+                                <%
+                                    });
+                                %>
                             </ul>
                             <div class="tab-content hide-elem">
                                 <% $.each(poll.bars, function(index,value){
@@ -191,6 +197,43 @@
         </div>
     </script>
 
+
+    <div id="application_landing">
+        <div class="slides-background">
+            <header id="header">
+                <div class="header">
+                    <div class="header-content">
+                        <a href="/" class="logo-link">
+                            <img src="css/images/jotformDevLogo.png" alt="JotForm Developers">
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <div class="content-container">
+                <div class="content">
+                    <div class="banner-area">
+                        <div class="banner-content">
+                            <div class="title">Show your poll results in a cool way!</div>
+                            <div class="banner-text">Want to show some cool poll stuff after a submission? Tired of seeing normal and not so good polls? Now its your time to shine! Show your users a good poll result using your own style. Customize your own polls and let the world of poll change yours. Please look at the **How to** section and how to properly use the application. </div>
+                        </div>
+                        <div class="visual">
+                            <p><img src="css/images/jotpoll.png" alt=""></p>
+                        </div>
+                        <div class="integrate_btn">
+                            <button class="btn btn-large btn-block btn-success" id="integrate_now-btn">Integrate Now!</button>  </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer" id="footer">
+                <div class="tm">
+                    <span>Powered by </span>
+                    <span><a href="http://www.jotform.com">JotForm</a></span>
+                    <span class="app-g"><a href="http://apps.jotform.com">JotForm Apps</a></span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
     <div class="navbar navbar-inverse navbar-fixed-top" style="position: absolute;">
         <div class="navbar-inner">
           <div class="container">
@@ -256,7 +299,7 @@
 
     <script type="text/javascript" src="//js.jotform.com/JotForm.js?3.1.{REV}"></script>
     <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>
-    <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/QuestionPicker.js?3.1.{REV}"></script>
+    <script type="text/javascript" src="//js.jotform.com/QuestionPicker.js?3.1.{REV}"></script>
 
 <?php if ( MODE !== "live" ) { ?>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jstorage.js"></script>

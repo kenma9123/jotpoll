@@ -50,22 +50,14 @@ var PollNavigatorView = Backbone.View.extend({
      */
     processPoll: function(e)
     {
-        this.checkFormID();
-        this.checkQuestionIndex();
-
-        var self = this;
+        if ( !this.checkFormID() ) return false;
+        if ( !this.checkQuestionIndex() ) return false;
 
         //proceed when eveything is clear
         if ( this.global.router.currentType === "generate" )
         {
             //remove any unused bars before generate the url data
-            this.global.chartOptionsView.removeUnusedBars_Markers(function(){
-                console.log("Removed unused bars", self.global.chartOptionsModel.get('poll'));
-                self.global.generateView.generate(self.formID, self.questionIndex);
-
-                //update the preview as well
-                self.global.chartOptionsView.updatePreviewWindow();
-            });
+            this.global.generateView.generate(this.formID, this.questionIndex);
         }
         else
         {
@@ -83,13 +75,14 @@ var PollNavigatorView = Backbone.View.extend({
         if ( this.global.pollDataModel.get('allowedControls').indexOf(q.type) == -1 )
         {
             alert("You selected an invalid type of question.\nOnly Dropdown, Radio, Star and Scale type of questions are accepted.");
+            return false;
         }
 
         //count now, lets use the functin inside polldata model
         var self = this;
         this.global.pollDataModel.getQuestionPollData(q, function(response){
             var poll_count = (self.toArray(response.results.value)).length;
-
+            console.log("Poll count", poll_count);
             //dont allow more than 5 counts and below 2 counts
             if ( poll_count > 5 || poll_count < 2 ) {
                 alert("We only support questions with atleast 2 options and no more than 5 options.");
@@ -97,8 +90,11 @@ var PollNavigatorView = Backbone.View.extend({
             } else {
                 //set how many polls we have to draw later
                 self.global.pollDataModel.set('total_polls', poll_count);
+
+                //remove any unused bars, markers, tabs once a question is selected
+                self.global.chartOptionsView.handle_Bars_Markers_Tabs();
             }
-            console.log("Poll count", poll_count);
+            
         });
     },
 
@@ -173,6 +169,7 @@ var PollNavigatorView = Backbone.View.extend({
             alert('Form is missing, please select a form first!');
             return false;
         }
+        return true;
     },
 
     checkQuestionIndex: function()
@@ -181,6 +178,7 @@ var PollNavigatorView = Backbone.View.extend({
             alert('Question is missing, please select a question first!');
             return false;
         }
+        return true;
     },
 
     toArray: function(obj)

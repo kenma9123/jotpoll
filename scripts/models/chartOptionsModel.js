@@ -19,11 +19,11 @@ var ChartOptionsModel = Backbone.Model.extend({
         poll: {
             type: 'gauge',
             bars: [
-                { value: 75, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 75, offset: 45, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 37, offset: 90, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 65, offset: 135, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 90, offset: 180, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
+                { value: 90, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 80, offset: 45, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 70, offset: 90, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 60, offset: 135, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
+                { value: 50, offset: 180, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
             ],
             markers: [],
             rangeContainer: {
@@ -57,8 +57,21 @@ var ChartOptionsModel = Backbone.Model.extend({
             value: {}
         }
     },
+
     initialize: function()
     {
+        
+    },
 
+    getPollData_Defaults: function()
+    {
+        return JSON.parse($.jStorage.get('poll_defaults', false));
+    },
+
+    savePollData_Defaults: function()
+    {
+        //save some default options to storage
+        var poll = JSON.stringify(this.get('poll'))
+        $.jStorage.set('poll_defaults', poll); // expires in 1 day
     }
 });
