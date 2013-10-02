@@ -19,11 +19,11 @@ var ChartOptionsModel = Backbone.Model.extend({
         poll: {
             type: 'gauge',
             bars: [
-                { value: 90, offset: 0, color: "#A6C567", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 80, offset: 45, color: "#3498db", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 70, offset: 90, color: "#FD8F29", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 60, offset: 135, color: "#806ae1", backgroundColor:"#e3e3e3", text: { indent: 10 } },
-                { value: 50, offset: 180, color: "#f4314f", backgroundColor:"#e3e3e3", text: { indent: 10 } }
+                { value: 90, offset: 0, color: "#9deb00", backgroundColor:"#c2fc92", text: { indent: 10 } },
+                { value: 80, offset: 45, color: "#0095ff", backgroundColor:"#ade0ff", text: { indent: 10 } },
+                { value: 70, offset: 90, color: "#fa7900", backgroundColor:"#facba0", text: { indent: 10 } },
+                { value: 60, offset: 135, color: "#6849e3", backgroundColor:"#d4b0ff", text: { indent: 10 } },
+                { value: 50, offset: 180, color: "#eb0527", backgroundColor:"#fac0c0", text: { indent: 10 } }
             ],
             markers: [],
             rangeContainer: {
