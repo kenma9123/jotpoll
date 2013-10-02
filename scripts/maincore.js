@@ -27,10 +27,9 @@ $(window).load(function(){
 
         window.base = $('base').attr('href').split(location.origin)[1];
         Backbone.history.start({pushState: true, root: base});
-        // Backbone.history.start();
     }
     else
     {
-        console.error("Required Libraries: Backbone OR JotForm API were missing in action");
+        console.error("Required Libraries: Backbone.js OR JotForm API were missing in action");
     }
 });

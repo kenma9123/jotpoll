@@ -157,7 +157,10 @@ var PollNavigatorView = Backbone.View.extend({
                 if (cb) {
                     cb.call(self, question);
                 } else {
-                    self.countPollOptions(question);
+                    if ( !self.countPollOptions(question) ) {
+                        self.questionIndex = null;
+                        self.questionName = null;
+                    }
                 }
             }
         });

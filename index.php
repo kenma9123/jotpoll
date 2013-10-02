@@ -301,7 +301,7 @@
     <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>
     <script type="text/javascript" src="//js.jotform.com/QuestionPicker.js?3.1.{REV}"></script>
 
-<?php if ( MODE !== "live" ) { ?>
+<?php if ( MODE === "live" || MODE === "dev" ) { ?>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jstorage.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/jminicolors.js"></script>
     <script type="text/javascript" src="<?=HTTP_URL?>scripts/lib/clipboard/zclip.js"></script>
