@@ -150,6 +150,7 @@ var PollNavigatorView = Backbone.View.extend({
 
         var self = this;
         JF.QuestionPicker(this.formID, {
+            loadForm: false,
             onSelect : function(q) {
                 if (q.length > 1) {
                     alert("You only required to select one question.\nPlease try again!");
