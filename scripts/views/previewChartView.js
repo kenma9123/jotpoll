@@ -54,6 +54,6 @@ var PreviewChartView = Backbone.View.extend({
         self.global.drawChartView.drawToDOM({
             target: self.chartElemSelector,
             fromPreview: $(".chart-preview-area")
-        });
+        }, true);
     }
 });

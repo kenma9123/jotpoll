@@ -23,10 +23,12 @@ var DrawChartView = Backbone.View.extend({
         }
     },
 
-    drawToDOM: function( drawData )
+    drawToDOM: function( drawData, isPreview )
     {
         var self = this
           , chartPoll = this.global.chartOptionsModel.get('poll');
+
+        self.isPreview = (isPreview) ? true : false;
 
         console.log( chartPoll );
         if ( drawData.fromPreview )
@@ -124,7 +126,8 @@ var DrawChartView = Backbone.View.extend({
     setupGaugeChart: function(cb)
     {
         //variables
-        var poll = this.global.chartOptionsModel.get('poll')
+        var self = this
+          , poll = this.global.chartOptionsModel.get('poll')
           , tempMarkers = [];
 
         $.each(poll.bars, function(index, value){
@@ -145,7 +148,11 @@ var DrawChartView = Backbone.View.extend({
                             size: 12
                         },
                         customizeText: function(){
-                            return parseInt(this.valueText) + "%";
+                            var text = parseInt(this.valueText) + "%";
+                            if ( self.isPreview ) {
+                                text += "<br/>" + self.global.chartOptionsModel.defaults.bar_names[index]
+                            }
+                            return text;
                         }
                     }
                 };

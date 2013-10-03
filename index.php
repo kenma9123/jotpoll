@@ -11,13 +11,13 @@
 <body>
     <script type="text/template" id="poll-navigator-template">
         <div class="section form-division">
-            <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">Pick a Form</button>
+            <button id="pickFormWidget" class="btn btn-large btn-block btn-danger">1. Pick a Form</button>
         </div>
         <div class="section form-division">
-            <button id="pickQuestionWidget" class="btn btn-large btn-block btn-primary">Pick a Question</button>
+            <button id="pickQuestionWidget" class="btn btn-large btn-block btn-primary">2. Pick a Question</button>
         </div>
         <div class="section form-division">
-            <button id="proceedButton" class="btn btn-large btn-block btn-success" >Generate Form URL</button>
+            <button id="proceedButton" class="btn btn-large btn-block btn-success" >3. Generate Form URL</button>
         </div>
     </script>
 
@@ -115,13 +115,12 @@
                         <div class="options-content">
                             <ul class="nav nav-tabs">
                                 <%
-                                    var bar_names = ['A','B','C','D','E'];
                                     $.each(poll.bars, function(index,value){
                                         var active_index = 0
                                           , bar_index = (index+1)
                                           , elclass = (active_index===index) ? 'active' : '';
                                 %>
-                                <li><a class="<%=elclass%>" href="#bar<%=bar_index%>" data-toggle="tab">Bar <%=bar_names[index]%></a></li>
+                                <li><a class="<%=elclass%>" href="#bar<%=bar_index%>" data-toggle="tab"><%=bar_names[index]%></a></li>
                                 <%
                                     });
                                 %>

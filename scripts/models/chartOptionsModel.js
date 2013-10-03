@@ -1,7 +1,6 @@
 var ChartOptionsModel = Backbone.Model.extend({
 
     defaults: {
-        barTabsContent: '',
         element: {
             chart: {
                 gauge: { id: "gaugePreview", checked: true},
@@ -16,6 +15,7 @@ var ChartOptionsModel = Backbone.Model.extend({
                 marker: { id: "pollMarker", checked: false, invisible: false,  text: 'Marker' }
             }
         },
+        bar_names: ['Option1','Option2','Option3','Option4','Option5'],
         poll: {
             type: 'gauge',
             bars: [
