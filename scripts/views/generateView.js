@@ -57,10 +57,15 @@ var GenerateCodeView = Backbone.View.extend({
             var jsonFormData = JSON.stringify( formData );
             var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
             var generatedFormData = window.location.origin + window.base + "result/" + encodedFormData;
-            $("#generatedFormData").val(generatedFormData);
+            $("#generatedFormData", this.$el).val(generatedFormData);
 
             console.log('new', jsonFormData);
         }
+    },
+
+    clearURLArea: function()
+    {
+        $("#generatedFormData", this.$el).attr('disabled','disabled').val('');
     },
 
     initClip: function()

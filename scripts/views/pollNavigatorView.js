@@ -70,6 +70,9 @@ var PollNavigatorView = Backbone.View.extend({
      */
     countPollOptions: function(q)
     {
+        //reset question data and fill it later if valid
+        this.setQuestion(false, false);
+
         //Check the picked question if valid or not
         console.log(q);
         if ( this.global.pollDataModel.get('allowedControls').indexOf(q.type) == -1 )
@@ -88,6 +91,9 @@ var PollNavigatorView = Backbone.View.extend({
                 alert("We only support questions with atleast 2 options and no more than 5 options.");
                 return false;
             } else {
+                //set question id and title
+                self.setQuestion(q.qid, q.text);
+
                 //set how many polls we have to draw later
                 self.global.pollDataModel.set('total_polls', poll_count);
 
@@ -115,13 +121,13 @@ var PollNavigatorView = Backbone.View.extend({
             {
                 var selectedFormObj = r[0];
 
-                //set form ID
-                self.formID = selectedFormObj.id;
+                //set form ID and title
+                self.setForm(selectedFormObj.id, selectedFormObj.title);
 
-                //set form title
-                self.formTitle = selectedFormObj.title;
+                //reset question data if form is selected
+                self.setQuestion(false, false);
 
-                console.log(self.formID, self.formTitle);
+                self.global.generateView.clearURLArea();
 
                 //re-disable proceed button
                 self.navigatorModel.set({
@@ -138,7 +144,7 @@ var PollNavigatorView = Backbone.View.extend({
      * such as the questionIndex and the questionName
      * @param e - object of an event [change]
      */
-    getQuestionSelected: function(e, cb)
+    getQuestionSelected: function(e)
     {
         this.checkFormID();
 
@@ -151,19 +157,25 @@ var PollNavigatorView = Backbone.View.extend({
                 }
 
                 var question = q[0];
-                self.questionIndex = question.qid;
-                self.questionName = question.text;
-
-                if (cb) {
-                    cb.call(self, question);
-                } else {
-                    if ( !self.countPollOptions(question) ) {
-                        self.questionIndex = null;
-                        self.questionName = null;
-                    }
-                }
+                self.countPollOptions(question);
             }
         });
+    },
+
+    setForm: function(id, title)
+    {
+        this.formID = id;
+        this.formTitle = title;
+
+        console.log("Form", this.formID, this.formTitle);
+    },
+
+    setQuestion: function(id, title)
+    {
+        this.questionIndex = id;
+        this.questionName = title;
+
+        console.log("Question", this.questionIndex, this.questionName);
     },
 
     checkFormID: function()
@@ -177,7 +189,10 @@ var PollNavigatorView = Backbone.View.extend({
 
     checkQuestionIndex: function()
     {
-        if ( typeof this.questionIndex === 'undefined' ) {
+        if (
+            typeof this.questionIndex === 'undefined' ||
+            (typeof this.questionIndex === 'boolean' && this.questionIndex == false)
+        ){
             alert('Question is missing, please select a question first!');
             return false;
         }
