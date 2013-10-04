@@ -14,7 +14,7 @@ var PollDataModel = Backbone.Model.extend({
     initialize: function()
     {
         Backbone.on('call-pollDataModel', function(){
-            console.log("Poll data model call");
+            // console.log("Poll data model call");
         });
     },
 
@@ -55,7 +55,7 @@ var PollDataModel = Backbone.Model.extend({
             }
         }
 
-        console.log( 'generated poll data', pollDataRaw );
+        // console.log( 'generated poll data', pollDataRaw );
 
         this.set('_pollData', pollDataRaw);
 
@@ -73,7 +73,7 @@ var PollDataModel = Backbone.Model.extend({
           , question_index = q.qid
           , question_type = q.type;
 
-        console.log(q);
+        // console.log(q);
         //init poll result properties
         //register it to the pollData results array
         // this will result to

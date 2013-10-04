@@ -10,7 +10,7 @@ var PollResultsView = Backbone.View.extend({
         var self = this;
 
         Backbone.on('call-pollResultsView', function(){
-            console.log('Results call');
+            // console.log('Results call');
             self.render();
         });
 
@@ -24,7 +24,7 @@ var PollResultsView = Backbone.View.extend({
 
     render: function()
     {
-        console.log('r');
+        // console.log('r');
         var template =  $( (this.chartType === 'bar') ? "#poll-results-graph-template-bar" : "#poll-results-graph-template-gauge").html();
         $(this.el).html( _.template( template )(this.global.resultsModel.toJSON()) );
 
@@ -66,7 +66,7 @@ var PollResultsView = Backbone.View.extend({
             poll.total_results += parseInt(value);
         });
 
-        console.log(poll.data);
+        // console.log(poll.data);
 
         var chartPoll = this.global.chartOptionsModel.get('poll');
 

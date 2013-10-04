@@ -17,7 +17,7 @@ var PollResultsModel = Backbone.Model.extend({
     initialize: function()
     {
         Backbone.on('call-pollResultsModel', function(){
-            console.log("Poll results model call");
+            // console.log("Poll results model call");
         });
     },
 
@@ -54,7 +54,7 @@ var PollResultsModel = Backbone.Model.extend({
             offset: 0,
             limit: 1000
         }, function(submissions){
-            console.log("REad submissions", submissions);
+            // console.log("REad submissions", submissions);
             self.initPollResults(formID, submissions);
         });
     }

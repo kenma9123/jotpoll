@@ -24,7 +24,7 @@ var PollNavigatorView = Backbone.View.extend({
         this.template = _.template( $("#poll-navigator-template").html() );
 
         Backbone.on('call-pollNavigatorView', function(){
-            console.log('Navigator call');
+            // console.log('Navigator call');
             self.ready();
         });
     },
@@ -74,7 +74,7 @@ var PollNavigatorView = Backbone.View.extend({
         this.setQuestion(false, false);
 
         //Check the picked question if valid or not
-        console.log(q);
+        // console.log(q);
         if ( this.global.pollDataModel.get('allowedControls').indexOf(q.type) == -1 )
         {
             alert("You selected an invalid type of question.\nOnly Dropdown, Radio, Star and Scale type of questions are accepted.");
@@ -85,7 +85,7 @@ var PollNavigatorView = Backbone.View.extend({
         var self = this;
         this.global.pollDataModel.getQuestionPollData(q, function(response){
             var poll_count = (self.toArray(response.results.value)).length;
-            console.log("Poll count", poll_count);
+            // console.log("Poll count", poll_count);
             //dont allow more than 5 counts and below 2 counts
             if ( poll_count > 5 || poll_count < 2 ) {
                 alert("We only support questions with atleast 2 options and no more than 5 options.");
@@ -168,7 +168,7 @@ var PollNavigatorView = Backbone.View.extend({
         this.formID = id;
         this.formTitle = title;
 
-        console.log("Form", this.formID, this.formTitle);
+        // console.log("Form", this.formID, this.formTitle);
     },
 
     setQuestion: function(id, title)
@@ -176,7 +176,7 @@ var PollNavigatorView = Backbone.View.extend({
         this.questionIndex = id;
         this.questionName = title;
 
-        console.log("Question", this.questionIndex, this.questionName);
+        // console.log("Question", this.questionIndex, this.questionName);
     },
 
     checkFormID: function()

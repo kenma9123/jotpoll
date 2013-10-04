@@ -11,7 +11,7 @@ var PollNavigatorModel = Backbone.Model.extend({
      */
     initialize: function(options){
         Backbone.on('call-pollNavigatorModel', function(){
-            console.log("Poll Navigator Model call");
+            // console.log("Poll Navigator Model call");
         });
     },
 

@@ -63,8 +63,8 @@ var PollRouter = Backbone.Router.extend({
         //init JF
         JF.init({
             enableCookieAuth : true,
-            appName: "Poll Results",
-            accesType: "full" //default "readOnly" or "full"
+            appName: "JotPoll",
+            accesType: "readOnly" //default "readOnly" or "full"
         });
 
         if ( !prompt )
@@ -77,17 +77,17 @@ var PollRouter = Backbone.Router.extend({
         }
         else
         {
-            console.log('key', JF.getAPIKey());
+            // console.log('key', JF.getAPIKey());
             // JF.initialize( {apiKey: "1c4efba0d67e0e77aee4dee551b4259f"} );/
             // if(cb) cb.apply(self);
             if ( !JF.getAPIKey() )
             {
                 var a = JF.login(
                     function success(){
-                        console.log('success');
+                        // console.log('success');
                     if(cb) cb.apply(self);
                 }, function error(e){
-                        console.log(e);
+                        // console.log(e);
                         $(".alert").show().alert();
                     // if(cb) cb.apply(self);
                 });
@@ -125,7 +125,7 @@ var PollRouter = Backbone.Router.extend({
     {
         this.addEventLandingPage();
 
-    	console.log('home');
+    	// console.log('home');
         this.initJF(function(){
             this.showContainers();
             //require some data
@@ -165,7 +165,7 @@ var PollRouter = Backbone.Router.extend({
             };
         }
 
-        console.log(parsed);
+        // console.log(parsed);
 
         this.initJF(function(){
             //require some data

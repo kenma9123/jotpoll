@@ -21,7 +21,7 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.chartOptionsModel.savePollData_Defaults();
 
         Backbone.on('call-chartOptionsView', function(){
-            console.log('chartOptionsView call');
+            // console.log('chartOptionsView call');
             self.buildOptionsTemplateData(function(){
                 self.updateChartType().redraw();
             });
@@ -167,7 +167,7 @@ var ChartOptionsView = Backbone.View.extend({
           , final_bars = []
           , final_markers = [];
 
-        console.log("Defaults poll", poll);
+        // console.log("Defaults poll", poll);
 
         //merge the user options to default
         var current_poll = this.global.chartOptionsModel.get('poll');

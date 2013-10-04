@@ -7,7 +7,7 @@ var DrawChartView = Backbone.View.extend({
         self.customOffsetLinear = [];
 
         Backbone.on('call-drawChart', function(){
-            console.log('drawchart call');
+            // console.log('drawchart call');
         });
     },
 
@@ -30,7 +30,7 @@ var DrawChartView = Backbone.View.extend({
 
         self.isPreview = (isPreview) ? true : false;
 
-        console.log( chartPoll );
+        // console.log( chartPoll );
         if ( drawData.fromPreview )
         {
             $(drawData.fromPreview).remove();
@@ -57,7 +57,7 @@ var DrawChartView = Backbone.View.extend({
             rangeBars: chartPoll.bars
         };
 
-        console.log("final", chartCommonOptions);
+        // console.log("final", chartCommonOptions);
 
         self.handleParentContainers(drawData, function(){
 
