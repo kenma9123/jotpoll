@@ -37,8 +37,50 @@
         <!--[if IE 7]><link rel="stylesheet" href="' . HTTP_URL . 'css/font-awesome-ie7.css"><![endif]-->
     ';
 
+    $scripts =
+    '
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jquery.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/underscore.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/backbone.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap.min.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/tools.js"></script>
+
+    <script type="text/javascript" src="//js.jotform.com/JotForm.js?3.1.{REV}"></script>
+    <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>
+    <script type="text/javascript" src="//js.jotform.com/QuestionPicker.js?3.1.{REV}"></script>
+
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jstorage.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jminicolors.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/clipboard/zclip.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/rawdeflate_inflate.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/base64.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/charts/dx.chartjs.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/charts/globalize.js"></script>
+    
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/account-model.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/account-view.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/pollDataModel.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/pollNavigatorModel.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/pollNavigatorView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/pollResultsModel.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/pollResultsView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/previewChartView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/generateView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/drawChartView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/chartOptionsModel.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/chartOptionsView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/router.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/maincore.js"></script>
+
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap-select.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/flatui-checkbox.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/flatui-radio.js"></script>
+    ';
+
     define("PAGE_HEAD", $header);
     define("PAGE_STYLES", $styles);
+    define("PAGE_SCRIPTS", $scripts);
     define("PAGE_TITLE", "JotPoll");
     define("JOTPOLL_NAME", "JotPoll");
 

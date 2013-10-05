@@ -7,7 +7,7 @@ Class User
     protected $_session;
 	protected $tablename = "accounts";
 
-    public static $sessionVariable = "_accounts_session";
+    public static $sessionVariable = "_accounts_jotpoll_session";
 
 	function __construct($username = null, $email = null, $apikey = null)
 	{

@@ -8,22 +8,24 @@ $(window).load(function(){
         // Extend Backbone with events so we can use custom events
         _.extend(Backbone, Backbone.Events);
 
-        var poll = {};
-        Backbone.View.prototype.global = poll;
-        Backbone.Model.prototype.global = poll;
-        Backbone.Router.prototype.global = poll;
+        var jotpoll = {};
+        Backbone.View.prototype.global = jotpoll;
+        Backbone.Model.prototype.global = jotpoll;
+        Backbone.Router.prototype.global = jotpoll;
 
-        poll.pollDataModel = new PollDataModel();
-        poll.resultsModel = new PollResultsModel();
-        poll.resultsView = new PollResultsView();
-        poll.navigatorModel = new PollNavigatorModel();
-        poll.navigatorView = new PollNavigatorView();
-        poll.generateView = new GenerateCodeView();
-        poll.drawChartView = new DrawChartView();
-        poll.chartOptionsModel = new ChartOptionsModel();
-        poll.chartOptionsView = new ChartOptionsView();
-        poll.previewChartView = new PreviewChartView();
-        poll.router = new PollRouter();
+        jotpoll.accountModel = new AccountModel();
+        jotpoll.accountView = new AccountView();
+        jotpoll.pollDataModel = new PollDataModel();
+        jotpoll.resultsModel = new PollResultsModel();
+        jotpoll.resultsView = new PollResultsView();
+        jotpoll.navigatorModel = new PollNavigatorModel();
+        jotpoll.navigatorView = new PollNavigatorView();
+        jotpoll.generateView = new GenerateCodeView();
+        jotpoll.drawChartView = new DrawChartView();
+        jotpoll.chartOptionsModel = new ChartOptionsModel();
+        jotpoll.chartOptionsView = new ChartOptionsView();
+        jotpoll.previewChartView = new PreviewChartView();
+        jotpoll.router = new PollRouter();
 
         window.base = $('base').attr('href').split(location.origin)[1];
         Backbone.history.start({pushState: true, root: base});
