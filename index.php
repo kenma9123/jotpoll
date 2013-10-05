@@ -196,6 +196,16 @@
         </div>
     </script>
 
+    <script type="text/template" id="account-info-template">
+        <div class="account-container">
+            <div class="account-div information">
+                <div class="account-info-div name"><%=user_data.username%></div>
+                <div class="account-info-div logout"><a id="logout" href="#">Logout</a></div>
+            </div>
+            <div class="account-div image" style="background:url('<%=user_data.avatarUrl%>') center center;"></div>
+            <div class="clearer"></div>
+        </div>
+    </script>
 
     <div id="application_landing">
         <div class="slides-background">
@@ -247,6 +257,7 @@
                 <li ><a href="contact.php">Contact Us</a></li>
               </ul>
             </div>
+            <div class="account-navigation"></div>
           </div>
         </div>
     </div>
@@ -292,7 +303,7 @@
     </div>
 
     <?=PAGE_SCRIPTS?>
-    
+
     <!-- Google Analytics Code -->
     <script type="text/javascript">
 

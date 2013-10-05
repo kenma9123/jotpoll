@@ -25,11 +25,9 @@
 
     $styles = '
         <link rel="Shortcut Icon" href="' . HTTP_URL . 'css/images/favicon.ico" />
-        <!-- <link rel="stylesheet" href="' . HTTP_URL . 'css/normal.css" type="text/css" media="screen, projection" /> -->
         <link rel="stylesheet" href="' . HTTP_URL . 'css/font/stylesheet.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="' . HTTP_URL . 'css/jminicolors.css">
         <link rel="stylesheet" href="' . HTTP_URL . 'css/bootstrap.css" type="text/css" media="screen, projection" />
-        <!-- <link rel="stylesheet" href="' . HTTP_URL . 'css/bootstrap-responsive.css" type="text/css" media="screen, projection" /> -->
         <link rel="stylesheet" href="' . HTTP_URL . 'css/flat-ui.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="' . HTTP_URL . 'css/poll.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="' . HTTP_URL . 'css/common-page-styles.css" type="text/css" media="screen, projection" />
