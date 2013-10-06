@@ -31,6 +31,11 @@ try
             Session::destroy();
             $httpresponse->success("Successfully logged out");
         break;
+        case 'saveSettings':
+            $result = Poll::save( $request['formID'], $request['questionID'], $request['settings'] );
+
+            $httpresponse->success("Poll options successfully processed", array('result' => $result));
+        break;
         default:
             $httpresponse->error("Invalid method - " . $request['action'] . " not found.");
         break;

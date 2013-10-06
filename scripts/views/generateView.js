@@ -45,19 +45,50 @@ var GenerateCodeView = Backbone.View.extend({
             this.defaults.isDisabled = '';
             this.render();
 
-            var formData = {
-                form: String(formID),
-                question: String(questionID),
-                apiKey: String(JF.getAPIKey()), 
-                chart: {
-                    poll: this.global.chartOptionsModel.get('poll')
+            var poll = this.global.chartOptionsModel.get('poll');
+            var settings = {
+                type: poll.type,
+                common: {
+                    scale: poll.common.scale.label.visible,
+                    marker: poll.common.marker.visible
                 }
             };
-            // console.log("RAW", formData);
-            var jsonFormData = JSON.stringify( formData );
-            var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
-            var generatedFormData = window.location.origin + window.base + "result/" + encodedFormData;
-            $("#generatedFormData", this.$el).val(generatedFormData);
+
+            //get bars
+            var bars = [];
+            _.each(poll.bars, function(value, key){
+                bars[key] = {};
+                bars[key].color = value.color;
+                bars[key].bgcolor = value.backgroundColor;
+            });
+
+            settings.bars = bars;
+            console.log(settings);
+
+            $.ajax({
+                url: 'server.php',
+                type: 'POST',
+                data: {
+                    action: 'saveSettings',
+                    formID: String(formID),
+                    questionID: String(questionID),
+                    settings: settings
+                },
+                success: function(response)
+                {
+                    console.log(response);
+                    // console.log("RAW", formData);
+                    // var jsonFormData = JSON.stringify( formData );
+                    // var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
+                    var generatedFormData = window.location.origin + window.base + "result/" + response.result.unique_id;
+                    $("#generatedFormData", this.$el).val(generatedFormData);
+
+                },
+                error: function(errors)
+                {
+                    console.error(errors);
+                }
+            });
 
             // console.log('new', jsonFormData);
         }
