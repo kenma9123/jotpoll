@@ -255,7 +255,6 @@
                 <li></li>
                 <li class="active"><a href=".">Home</a></li>
                 <li ><a href="howto.php">How it Works</a></li>
-                <li ><a href="contact.php">Contact Us</a></li>
               </ul>
             </div>
             <div class="account-navigation"></div>
@@ -321,5 +320,20 @@
           })();
 
      </script>
+
+    <script src="http://cdn.jotfor.ms/static/feedback2.js?3.1.12" type="text/javascript">
+        new JotformFeedback({
+            formId     : "32124156488960",
+            buttonText : "JotPoll Feedbacks",
+            base       : "http://jotformpro.com/",
+            background : "#F59202",
+            fontColor  : "#FFFFFF",
+            buttonSide : "bottom",
+            buttonAlign: "right",
+            type       : false,
+            width      : 700,
+            height     : 500
+        });
+    </script>
 </body>
 </html>
