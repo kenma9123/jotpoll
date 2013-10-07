@@ -39,7 +39,7 @@ Class Poll
             $commonValues['unique_id'] = uniqid();
             $commonValues['options'] = json_encode($settings);
             $result = $_db->insert(self::TABLE, $commonValues);
-            $poll = array_merge($poll, $commonValues);
+            $poll = $commonValues;
         }
 
         return ($result) ? $poll : false;
@@ -84,7 +84,7 @@ Class Poll
         $submissions_count = (int) $forms['count'];
 
         //request the submission
-        $submissions = [];
+        $submissions = array();
         $loopCount = ceil($submissions_count / $maxLimit);
 
         for( $x = $minoffset; $x < $loopCount; $x++ )
@@ -168,7 +168,7 @@ Class Poll
     {
 
         ini_set('max_execution_time', 300);
-        
+
         $formID = $poll['form_id'];
         $questionID = $poll['question_id'];
         $apikey = $poll['jotform_apikey'];

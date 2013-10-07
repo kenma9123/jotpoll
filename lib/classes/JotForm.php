@@ -9,7 +9,8 @@ Class JotForm
     {
         if ( self::$retry_count == 10 )
         {
-           throw new Exception("Unable to connect with JotForm, please try again later. : " . print_r($response, true));
+           // throw new Exception("Unable to connect with JotForm, please try again later. : " . print_r($response, true));
+           throw new Exception("Unable to connect with JotForm, please try again later.");
         }
 
         self::$retry_count++;

@@ -61,6 +61,9 @@ var DrawChartView = Backbone.View.extend({
 
         self.handleParentContainers(drawData, function(){
 
+            //put title on top of poll chart
+            $("#upper-chart-title").text(drawData.pollTitle);
+
             //before drawing choose what type
             if ( chartPoll.type === 'gauge' )
             {

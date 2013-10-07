@@ -45,7 +45,7 @@
         <div class ="form-divisions">
             <div id='poll-results'>
                 <div id="chart-gauge-container">
-                <div style="text-align: center;margin-top: 20px;font-size:20px;" id="upper-chart-title"></div>
+                <div style="text-align: center;margin-top: 15px;font-size:20px;" id="upper-chart-title"></div>
                     <%=chartPollElement%>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <%
                 $.each(legends, function(index, value){
                     var lName = value.name
-                      , lValue = value.value
+                      , lValue = (typeof value.value !== 'undefined') ? value.value : 0
                       , lHits = (value.hits > 1) ? value.hits + " hits" : ((value.hits === 0) ? 'nothing' : value.hits + " hit")
                       , lColor = value.color;
             %>

@@ -66,9 +66,6 @@ var PollResultsView = Backbone.View.extend({
                margin: "0 auto"
           });
 
-        //put title
-        $("#upper-chart-title", this.$el).html(poll.pollData.results.name);
-
         //remove any unused markers if any before execute the rest
         self.global.chartOptionsView.handle_Bars_Markers_total(settings.bars.length, function(){
 
@@ -77,8 +74,10 @@ var PollResultsView = Backbone.View.extend({
 
             //modify chart options, markers and scale visibility
             chartPoll.type = settings.type;
-            chartPoll.common.marker.visible = Boolean(settings.common.marker);
-            chartPoll.common.scale.label.visible = Boolean(settings.common.scale);
+            chartPoll.common.marker.visible = (settings.common.marker === 'true') ? true : false;
+            chartPoll.common.scale.label.visible = (settings.common.scale === 'true') ? true : false;
+
+            console.log(settings.common.scale, Boolean(settings.common.scale), chartPoll.common.scale);
 
             //modify poll bars
             _.each(chartPoll.bars, function(value, key){
