@@ -45,18 +45,18 @@
                         - star rating<br/>
                         - scale rating<br/>
                         <br/>
-                        Each question should have at-least 2 options and a maximum of 5 options only make things work. In the future we will expand this to handles options more than 5.<br/>
-                        After you created a form with at least one question then we will going to start how this cool poll works.<br/>
+                        Each question should have at least 2 options and a maximum of 5 options only make things work.<br/>
+                        After you created a form with at least one question, we will now start how this awesome poll works.<br/>
                         <br/>
-                        The first thing you may see on the Index page is a mini-dashboard where you can customize your poll look and feel. Currently we are using a Gauge Chart to show Poll results.<br/>
-                        You can customize each bars color and background( represents Bar A - Bar E tabs ), show markers, scale, etc. It is limited as of now but we will going to expand it too to have more options.<br/>
+                        The first thing you need to do is select your form containing the poll question and then select the question you wanted to show on the poll result later.<br/>
+                        Just click the "Generate form URL" and a URL will be generated on the text area next to it, you can visit the generated link for testing.
+                        <br/>
+                        <div class="images"><img src="http://www.clipular.com/c?12633027=aU-Qg_2Qjp-ABBWGeqEENCS8hCU&f=.png" title="dashboard look" alt="dashboard-look"/></div>
+                        At the very bottom of the page, you'll notice a mini-dashboard where you can customize your poll. Currently we are using a Gauge  and Linear Chart to show the Poll results.<br/>
+                        You can customize each bars color and background( represents Option1 - Option5 tabs ), show markers, scale, etc. It is limited as of now but we will going to expand it too to have more options.<br/>
                         <br/>
                         Along with the options, there is a preview window next to it where you can see what's your poll should look like.<br/>
                         You can press the "Update Preview" button to manually update the preview window.<br />
-                        <div class="images"><img src="http://www.clipular.com/c?12633027=aU-Qg_2Qjp-ABBWGeqEENCS8hCU&f=.png" title="dashboard look" alt="dashboard-look"/></div>
-                        <br/>
-                        At the very bottom of the page, you have to select your form containing the poll question and then select the question you wanted to show on the poll result later.<br/>
-                        Just click the "Generate form URL" and a URL will be created on the text area next to it, you can visit the generated link for testing.<br/>
                         <br/>
                         Your poll should look something like this. It was divided into two divisions, top is your actual poll and the bottom is a legend helper associates with your poll.
                         <div class="images"><img src="http://www.clipular.com/c?12638101=E6X6HE2TXR1EvwhdSHgVwZhbMwU&f=.png" title="Poll Result" alt="poll-result"/></div><br/>
