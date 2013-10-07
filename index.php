@@ -255,7 +255,7 @@
                 <li></li>
                 <li class="active"><a href=".">Home</a></li>
                 <li ><a href="howto.php">How it Works</a></li>
-                <li ><a href="javascript:void(0);">Create Poll</a><label class="teaser">Coming soon</label></li>
+                <!-- <li ><a href="javascript:void(0);">Create Poll</a><label class="teaser">Coming soon</label></li> -->
               </ul>
             </div>
             <div class="account-navigation"></div>
