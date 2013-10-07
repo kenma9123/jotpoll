@@ -20,7 +20,6 @@
                 <li></li>
                 <li ><a href=".">Home</a></li>
                 <li class="active"><a href="howto.php">How it Works</a></li>
-                <li ><a href="contact.php">Contact Us</a></li>
               </ul>
             </div>
           </div>
