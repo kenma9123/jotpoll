@@ -80,7 +80,7 @@
                 <div class="list-content">
                     <div class="paragraph">
                         We are in beta testing, we seek help, we need some feedbacks, ideas or improvement to make it even better.<br/>
-                        If you do came up with something please don't be shy to <a href="contact.php">share</a> it with us. You can email me directly at kenma9123@gmail.com<br/>
+                        If you do came up with something please don't be shy to share it with us. You can email me directly at kenneth@jotform.com<br/>
                         <br/>
                         Thank you for using both <a href="http://www.jotform.com" title="JotForm">JotForm</a> and <a href="http://www.jotpoll.com" title="JotPoll">JotPoll</a>, have a nice day!<br/>
                         -JotForm Team
