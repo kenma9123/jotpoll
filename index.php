@@ -45,6 +45,7 @@
         <div class ="form-divisions">
             <div id='poll-results'>
                 <div id="chart-gauge-container">
+                <div style="text-align: center;margin-top: 20px;font-size:20px;" id="upper-chart-title"></div>
                     <%=chartPollElement%>
                 </div>
             </div>

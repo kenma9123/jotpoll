@@ -159,22 +159,24 @@ var ChartOptionsView = Backbone.View.extend({
     /**
      * Depends how many is our poll count, remove some unused bars and markers or show them
      */
-    handle_Bars_Markers_Tabs: function()
+    handle_Bars_Markers_total: function(total_polls, next)
     {
         //get the default data of chart options
         var poll = this.global.chartOptionsModel.getPollData_Defaults()
-          , total_poll_to_draw = this.global.pollDataModel.get('total_polls')
+          , total_poll_to_draw = total_polls
           , final_bars = []
           , final_markers = [];
 
         // console.log("Defaults poll", poll);
 
         //merge the user options to default
-        var current_poll = this.global.chartOptionsModel.get('poll');
+        var current_poll = this.global.chartOptionsModel.get('poll')
+          , hasMarkers = (current_poll.markers.length > 0) ? true : false;
+        
         for( var x = 0; x < current_poll.bars.length; x++ )
         {
             poll.bars[x] = current_poll.bars[x];
-            poll.markers[x] = current_poll.markers[x];
+            if ( hasMarkers ) poll.markers[x] = current_poll.markers[x];
         }
 
         //cut
@@ -182,7 +184,7 @@ var ChartOptionsView = Backbone.View.extend({
         {
             //push bars and markers to finale array
             final_bars.push(poll.bars[i]);
-            final_markers.push(poll.markers[i]);
+            if ( hasMarkers ) final_markers.push(poll.markers[i]);
 
             //if reach maximum, break
             if ( (i + 1) == total_poll_to_draw )
@@ -196,20 +198,16 @@ var ChartOptionsView = Backbone.View.extend({
         poll.markers = final_markers;
         this.global.chartOptionsModel.set('poll', poll);
 
-        //modify the tabs, to only show specific tabs, depends on how many polls we have
-        this.handleBarTabs();
+        if (next) next();
     },
 
     /**
      * Responsible on showing and hiding of tabs
      */
-    handleBarTabs: function()
+    handleBarTabs: function(total_polls)
     {
         var tabs = $(".tab-content-options ul.nav-tabs", this.$el)
           , li = tabs.children();
-
-        //get total polls from questions
-        var total_polls = this.global.pollDataModel.get('total_polls');
 
         li.each(function(index){
             //hide anything greater than the polls, otherwise show it

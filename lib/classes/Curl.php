@@ -61,11 +61,8 @@ Class Curl
         $options = array(
             CURLOPT_RETURNTRANSFER => true,         // return web page
             CURLOPT_HEADER         => false,        // don't return headers
-            CURLOPT_FOLLOWLOCATION => true,         // follow redirects
-            CURLOPT_AUTOREFERER    => true,         // set referer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,          // timeout on connect
             CURLOPT_TIMEOUT        => 120,          // timeout on response
-            CURLOPT_MAXREDIRS      => 10,           // stop after 10 redirects
             CURLOPT_SSL_VERIFYPEER => $req['ssl'],  // verify ssl
             CURLOPT_SSLVERSION     => 3,            // ssl version
             CURLOPT_HTTPHEADER     => $req['headers']// included headers

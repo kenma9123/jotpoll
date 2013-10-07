@@ -13,7 +13,7 @@ var AccountView = Backbone.View.extend({
         this._acc_storage = '_jotPoll_userData';
 
         Backbone.on('call-accountView', function(){
-            console.log("Account View call");
+            //console.log("Account View call");
             self.handleJFUser(function(){
                 //render account template
                 self.renderAccountInfo();
@@ -58,7 +58,7 @@ var AccountView = Backbone.View.extend({
             },
             success: function(dataR)
             {
-                console.log(dataR);
+                //console.log(dataR);
                 //set data to model - to be accessed later
                 self.setAccountObject($.extend({}, user, dataR.user_data));
 
@@ -113,7 +113,7 @@ var AccountView = Backbone.View.extend({
             {
                 //send to server
                 self.handleAccount(user, function(response){
-                    console.log("Created", response);
+                    //console.log("Created", response);
                     if (next) next(response);
                 });
             } else {
@@ -131,7 +131,7 @@ var AccountView = Backbone.View.extend({
 
         this.global.accountModel.set('user_data', object);
 
-        console.log("User data", this.global.accountModel.get('user_data'));
+        //console.log("User data", this.global.accountModel.get('user_data'));
     },
 
     renderAccountInfo: function()

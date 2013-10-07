@@ -42,7 +42,7 @@ var PollRouter = Backbone.Router.extend({
     routes:
     {
         "" : "home",
-        "result/*encodedData": "showPollResultsData"
+        "result/*identifier": "showPollResultsData"
     },
 
     //handle what type is being taken
@@ -141,40 +141,45 @@ var PollRouter = Backbone.Router.extend({
         $(".hero-unit").fadeIn();
     },
 
-    showPollResultsData: function(encodedData)
+    showPollResultsData: function(identifier)
     {
-        // var arr = {
-        //     form:32011394412946,
-        //     question:5,
-        //     apiKey: "1c4efba0d67e0e77aee4dee551b4259f", 
-        // };
-        // console.log( _(arr).toJSON() );
+        var self = this;
+        $('body').height(window.innerHeight);
+        $('body').showLoading();
 
-        var parsed = JSON.parse( RawDeflate.inflate(B64.decode(encodedData)) );
+        //get the data identifier to the database, for options
+        $.ajax({
+            url: 'server.php',
+            type: 'POST',
+            data: {
+                action: 'getSettings',
+                id: identifier
+            },
+            success: function(response)
+            {
+                // console.log(response);
 
-        for (var x = 0; x < parsed.chart.poll.bars.length; x++ )
-        {
-            parsed.chart.poll.bars[x].value = {
-                backgroundColor: "#e3e3e3",
-                color: "#a6c567",
-                offset: 0,
-                text: {
-                    indent: 0
-                },
-                value: 70
-            };
-        }
+                //require some data
+                self.require([
+                    'pollDataModel','chartOptionsView', 'drawChart',
+                    'pollResultsView','pollResultsModel'
+                ]);
+                
+                self.global.resultsView.processPoll(response.poll_settings, response.generated_poll_data);
 
-        // console.log(parsed);
-
-        this.initJF(function(){
-            //require some data
-            this.require([
-                'pollDataModel','chartOptionsView', 'drawChart',
-                'pollResultsView','pollResultsModel'
-            ]);
-            
-            this.global.resultsView.processPoll(parsed);
-        }, false, parsed.apiKey);
+                $('body').hideLoading();
+            },
+            error: function(errors)
+            {
+                console.error(errors);
+                if ( IsJsonString(errors.responseText) ) {
+                    var error = JSON.parse(errors.responseText);
+                    if ( error.success == false ) {
+                        alert(error.message);
+                        console.error( error.message );
+                    }
+                }
+            }
+        });
     }
 });

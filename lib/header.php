@@ -42,6 +42,7 @@
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/backbone.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap.min.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/tools.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/loading.js"></script>
 
     <script type="text/javascript" src="//js.jotform.com/JotForm.js?3.1.{REV}"></script>
     <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>

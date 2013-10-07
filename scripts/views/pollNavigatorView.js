@@ -94,11 +94,11 @@ var PollNavigatorView = Backbone.View.extend({
                 //set question id and title
                 self.setQuestion(q.qid, q.text);
 
-                //set how many polls we have to draw later
-                self.global.pollDataModel.set('total_polls', poll_count);
-
                 //remove any unused bars, markers, tabs once a question is selected
-                self.global.chartOptionsView.handle_Bars_Markers_Tabs();
+                self.global.chartOptionsView.handle_Bars_Markers_total(poll_count);
+
+                //modify the tabs, to only show specific tabs, depends on how many polls we have
+                self.global.chartOptionsView.handleBarTabs(poll_count);
             }
             
         });

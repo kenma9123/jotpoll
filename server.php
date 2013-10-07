@@ -36,6 +36,29 @@ try
 
             $httpresponse->success("Poll options successfully processed", array('result' => $result));
         break;
+        case 'getSettings':
+            try
+            {
+                $unique_id = $request['id'];
+                $poll = Poll::fetch( $unique_id );
+
+                if ( !$poll ) {
+                    throw new Exception("No such poll existed!\nKey may already expired or revoked.\nTry to recreate your Poll.");
+                }
+
+                $poll_data = Poll::fetchPollData( $poll );
+
+                //unset jotform apikey
+                unset( $poll['jotform_apikey'] );
+
+                $httpresponse->success("Poll options fetching status", array('poll_settings' => $poll, 'generated_poll_data' => $poll_data));
+            }
+            catch (Exception $e)
+            {
+                $message = $e->getMessage();
+                $httpresponse->error($message);
+            }
+        break;
         default:
             $httpresponse->error("Invalid method - " . $request['action'] . " not found.");
         break;

@@ -35,84 +35,90 @@ var PollResultsView = Backbone.View.extend({
         return this;
     },
 
-    processPoll: function(responseData)
+    processPoll: function(pollSettings, pollGeneratedData)
     {
-        this.formID = responseData.form;
-        this.questionIndex = responseData.question;
+        var self = this
+          , formID = pollSettings.form_id
+          , settings = JSON.parse( pollSettings.options )
+          , poll = {
+                pollData:  pollGeneratedData,
+                opt_title: 0,
+                opt_value: 1,
+                total_results: 0,
+                data: []
+            }
+          , poll_answers_parts = poll.pollData.results.value;
 
-        //set now the options of the chart poll
-        this.global.chartOptionsModel.set('poll', responseData.chart.poll);
-
-        //get form submission from the form ID
-        this.global.resultsModel.getFormSubmissions(this.formID);
-    },
-
-    displayPollResults: function()
-    {
-        var self = this;
-
-        var poll = {
-            pollData:  this.global.pollDataModel.get('_pollData'),
-            opt_title: 0,
-            opt_value: 1,
-            total_results: 0,
-            data: []
-        };
-
-        var pollParts = poll.pollData.results.value;
-        $.each(pollParts, function(index, value){
-            poll.data.push([index,value]);
+        _.each(poll_answers_parts, function(value, key){
+            poll.data.push([key, value]);
             //get total results
             poll.total_results += parseInt(value);
         });
 
         // console.log(poll.data);
-
-        var chartPoll = this.global.chartOptionsModel.get('poll');
-
-        var pollID = "chartContainer-" + self.formID
+        var pollID = "chartContainer-" + formID
           , gWidth = $(self.el).parents('.hero-unit').width()
           , gHeight = (window.innerHeight - $(".navbar").height() - parseInt($('body').css('margin-top')))
           , legends = this.global.resultsModel.get('legends')
           , pollElem = $('<div />', {id: pollID}).css({
-               width: ( chartPoll.type === "gauge" ) ? 700 : 1024,
+               width: ( settings.type === "gauge" ) ? 700 : 1024,
                height: 600,
                margin: "0 auto"
           });
 
-        //modify chart options and value
-        $.each(chartPoll.bars, function(index, value){
+        //put title
+        $("#upper-chart-title", this.$el).html(poll.pollData.results.name);
 
-            //get the percent value of the poll and modify poll bar value
-            var percent = Math.round((parseInt(poll.data[index][poll.opt_value])/parseInt(poll.total_results))*100);
-            chartPoll.bars[index].value = percent;
+        //remove any unused markers if any before execute the rest
+        self.global.chartOptionsView.handle_Bars_Markers_total(settings.bars.length, function(){
 
-            chartPoll.bars[index].offset = chartPoll.bars[index].offset + (index*10);
+            var chartPoll = self.global.chartOptionsModel.get('poll')
+            //console.log("new chart", chartPoll);
 
-            //add title to legend
-            legends[index] = {};
-            legends[index].name = String(poll.data[index][poll.opt_title]);
-            legends[index].value = percent;
-            legends[index].hits = poll.data[index][poll.opt_value];
-            legends[index].color = chartPoll.bars[index].color;
+            //modify chart options, markers and scale visibility
+            chartPoll.type = settings.type;
+            chartPoll.common.marker.visible = Boolean(settings.common.marker);
+            chartPoll.common.scale.label.visible = Boolean(settings.common.scale);
 
-        });
+            //modify poll bars
+            _.each(chartPoll.bars, function(value, key){
 
-        //save to chartoption model
-        this.global.chartOptionsModel.set('poll', chartPoll);
+                //modify color ad bgcolor, get it from the settings
+                chartPoll.bars[key].color = settings.bars[key].color;
+                chartPoll.bars[key].backgroundColor = settings.bars[key].bgcolor;
 
-        //draw the graph when successfully rendered template
-        this.on('rendered', function(){
-            this.global.drawChartView.drawToDOM({
-                target: $("#"+pollID),
-                pollTitle: poll.pollData.results.name
+                //get the percent value of the poll and modify poll bar value
+                var percent = Math.round((parseInt(poll.data[key][poll.opt_value])/parseInt(poll.total_results))*100);
+                chartPoll.bars[key].value = percent;
+
+                //modify offset
+                chartPoll.bars[key].offset = chartPoll.bars[key].offset + (key*10);
+
+                //add title to legend
+                legends[key] = {};
+                legends[key].name = String(poll.data[key][poll.opt_title]);
+                legends[key].value = percent;
+                legends[key].hits = poll.data[key][poll.opt_value];
+                legends[key].color = chartPoll.bars[key].color;
+
             });
-        });
-            
-        //update result model
-        this.global.resultsModel.set({
-            legends: legends,
-            chartPollElement: $(pollElem).prop('outerHTML')
+
+            //save to chartoption model
+            self.global.chartOptionsModel.set('poll', chartPoll);
+
+            //draw the graph when successfully rendered template
+            self.on('rendered', function(){
+                self.global.drawChartView.drawToDOM({
+                    target: $("#"+pollID),
+                    pollTitle: poll.pollData.results.name
+                });
+            });
+                
+            //update result model
+            self.global.resultsModel.set({
+                legends: legends,
+                chartPollElement: $(pollElem).prop('outerHTML')
+            });
         });
     }
 });

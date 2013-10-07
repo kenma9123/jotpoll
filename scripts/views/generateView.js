@@ -46,6 +46,7 @@ var GenerateCodeView = Backbone.View.extend({
             this.render();
 
             var poll = this.global.chartOptionsModel.get('poll');
+
             var settings = {
                 type: poll.type,
                 common: {
@@ -63,7 +64,7 @@ var GenerateCodeView = Backbone.View.extend({
             });
 
             settings.bars = bars;
-            console.log(settings);
+            //console.log(settings);
 
             $.ajax({
                 url: 'server.php',
@@ -76,7 +77,7 @@ var GenerateCodeView = Backbone.View.extend({
                 },
                 success: function(response)
                 {
-                    console.log(response);
+                    //console.log(response);
                     // console.log("RAW", formData);
                     // var jsonFormData = JSON.stringify( formData );
                     // var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
