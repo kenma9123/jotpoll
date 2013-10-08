@@ -3,6 +3,9 @@ var PollResultsView = Backbone.View.extend({
 
     initialize: function()
     {
+        //create model
+        this.global.resultsModel = new PollResultsModel();
+        
         _.bindAll(this, 'render');
 
         this.standAlone = false;

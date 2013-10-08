@@ -9,6 +9,9 @@ var PollNavigatorView = Backbone.View.extend({
 
     initialize: function()
     {
+        //create model
+        this.global.navigatorModel = new PollNavigatorModel();
+
         _.bindAll(this, 'render', 'ready');
 
         var self = this;

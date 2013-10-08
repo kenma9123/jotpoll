@@ -10,6 +10,10 @@ var ChartOptionsView = Backbone.View.extend({
 
     initialize: function()
     {
+        //create models and views required
+        this.global.chartOptionsModel = new ChartOptionsModel();
+        this.global.previewChartView = new PreviewChartView();
+
         _.bindAll(this, 'render');
         this.template = _.template( $("#poll-chart-options-template").html() );
 

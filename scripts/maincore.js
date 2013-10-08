@@ -13,18 +13,6 @@ $(window).load(function(){
         Backbone.Model.prototype.global = jotpoll;
         Backbone.Router.prototype.global = jotpoll;
 
-        jotpoll.accountModel = new AccountModel();
-        jotpoll.accountView = new AccountView();
-        jotpoll.pollDataModel = new PollDataModel();
-        jotpoll.resultsModel = new PollResultsModel();
-        jotpoll.resultsView = new PollResultsView();
-        jotpoll.navigatorModel = new PollNavigatorModel();
-        jotpoll.navigatorView = new PollNavigatorView();
-        jotpoll.generateView = new GenerateCodeView();
-        jotpoll.drawChartView = new DrawChartView();
-        jotpoll.chartOptionsModel = new ChartOptionsModel();
-        jotpoll.chartOptionsView = new ChartOptionsView();
-        jotpoll.previewChartView = new PreviewChartView();
         jotpoll.router = new PollRouter();
 
         window.base = $('base').attr('href').split(location.origin)[1];

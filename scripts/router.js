@@ -42,6 +42,7 @@ var PollRouter = Backbone.Router.extend({
     routes:
     {
         "" : "home",
+        "create" : "createPoll",
         "result/*identifier": "showPollResultsData"
     },
 
@@ -117,6 +118,8 @@ var PollRouter = Backbone.Router.extend({
         $("#integrate_now-btn").click(function(){
             $(this).parents('#application_landing').slideUp('fast', function(){
                 $(this).remove();
+                $(".jmain").fadeIn('slow');
+                $("#updatePreview").trigger('click');
             });
         });
     },
@@ -125,13 +128,21 @@ var PollRouter = Backbone.Router.extend({
     {
         this.addEventLandingPage();
 
+        
+        this.global.accountView = new AccountView();
+        this.global.pollDataModel = new PollDataModel();
+        this.global.chartOptionsView = new ChartOptionsView();
+        this.global.navigatorView = new PollNavigatorView();
+        this.global.generateView = new GenerateCodeView();
+        this.global.drawChartView = new DrawChartView();
+
     	// console.log('home');
         this.initJF(function(){
             this.showContainers();
             //require some data
             this.require([
                 'accountView','pollDataModel', 'chartPreview', 'chartOptionsView', 
-                'pollNavigatorView','pollNavigatorModel', 'generateView', 
+                'pollNavigatorView', 'generateView', 
             ]);
         },true);
     },
@@ -141,11 +152,22 @@ var PollRouter = Backbone.Router.extend({
         $(".hero-unit").fadeIn();
     },
 
+    createPoll: function()
+    {
+
+    },
+
     showPollResultsData: function(identifier)
     {
         var self = this;
         $('body').height(window.innerHeight);
+        $(".jmain").fadeIn('slow');
         $('body').showLoading();
+
+        this.global.pollDataModel = new PollDataModel();
+        this.global.chartOptionsView = new ChartOptionsView();
+        this.global.drawChartView = new DrawChartView();
+        this.global.resultsView = new PollResultsView();
 
         //get the data identifier to the database, for options
         $.ajax({
@@ -161,8 +183,7 @@ var PollRouter = Backbone.Router.extend({
 
                 //require some data
                 self.require([
-                    'pollDataModel','chartOptionsView', 'drawChart',
-                    'pollResultsView','pollResultsModel'
+                    'pollDataModel','chartOptionsView', 'drawChart', 'pollResultsView'
                 ]);
                 
                 self.global.resultsView.processPoll(response.poll_settings, response.generated_poll_data);

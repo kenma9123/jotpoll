@@ -35,6 +35,13 @@
         <!--[if IE 7]><link rel="stylesheet" href="' . HTTP_URL . 'css/font-awesome-ie7.css"><![endif]-->
     ';
 
+    $jotformFiles = 
+    '
+    <script type="text/javascript" src="'. ((MODE == 'dev') ?  HTTP_URL . "scripts/lib/JotForm.js" : "//js.jotform.com/JotForm.js?3.1.{REV}") . '"></script>
+    <script type="text/javascript" src="'. ((MODE == 'dev') ?  HTTP_URL . "scripts/lib/FormPicker.js" : "//js.jotform.com/FormPicker.js?3.1.{REV}") . '"></script>
+    <script type="text/javascript" src="'. ((MODE == 'dev') ?  HTTP_URL . "scripts/lib/QuestionPicker.js" : "//js.jotform.com/QuestionPicker.js?3.1.{REV}") . '"></script>
+    ';
+
     $devscripts =
     '
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/json2.js"></script>
@@ -42,9 +49,7 @@
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/underscore.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/backbone.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap.min.js"></script>
-    <script type="text/javascript" src="//js.jotform.com/JotForm.js?3.1.{REV}"></script>
-    <script type="text/javascript" src="//js.jotform.com/FormPicker.js?3.1.{REV}"></script>
-    <script type="text/javascript" src="//js.jotform.com/QuestionPicker.js?3.1.{REV}"></script>
+    '. $jotformFiles .'
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/charts/dx.chartjs.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/charts/globalize.js"></script>
     ';

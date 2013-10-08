@@ -139,7 +139,7 @@ Class Poll
         );
 
         //don't allow special options
-        if ( ( $q->special && strtolower($q->special) === 'none' ) || !$q->special )
+        if ( ( isset($q->special) && strtolower($q->special) === 'none' ) || !isset($q->special) )
         {
             //register each control data to have an empty data
             switch($q->type)

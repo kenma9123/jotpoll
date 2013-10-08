@@ -59,7 +59,7 @@
             <%
                 $.each(legends, function(index, value){
                     var lName = value.name
-                      , lValue = (typeof value.value !== 'undefined') ? value.value : 0
+                      , lValue = (value.hits === 0) ? 0 : value.value
                       , lHits = (value.hits > 1) ? value.hits + " hits" : ((value.hits === 0) ? 'nothing' : value.hits + " hit")
                       , lColor = value.color;
             %>
@@ -244,7 +244,7 @@
         </div>
     </div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" style="position: absolute;">
+    <div class="jmain navbar navbar-inverse navbar-fixed-top dn" style="position: absolute;">
         <div class="navbar-inner">
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
@@ -263,7 +263,7 @@
         </div>
     </div>
 
-    <div class="container main-content">
+    <div class="jmain container main-content dn">
         <div class="alert alert-block alert-error hide-elem">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <div class="alert-content">

@@ -7,6 +7,9 @@ var AccountView = Backbone.View.extend({
     {
         var self = this;
 
+        //create model
+        this.global.accountModel = new AccountModel();
+
         this.template = _.template( $("#account-info-template").html());
 
         //console.log("init");

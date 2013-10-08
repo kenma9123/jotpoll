@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-
 //global file that will automatically call the required class
 require_once( __DIR__ . '/lib/init.php' );
 

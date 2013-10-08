@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
+.dn{display:none;}
 .varela{font-family:'Varela Round',sans-serif;}
 .header *{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 .header{width:100%;background-color:#313131;z-index:555557!important;-webkit-box-shadow:0 0 10px 0 rgba(0, 0, 0, 0.8);box-shadow:0 0 10px 0 rgba(0, 0, 0, 0.8);-moz-box-shadow:0 0 10px 0 rgba(0, 0, 0, 0.8);position:relative;}.header .header-content{height:100%;margin-right:auto;margin-left:auto;min-width:360px;}.header .header-content .logo-link{display:block;float:left;margin:15px 0 12px 0;}
@@ -33,7 +34,7 @@
     text-align: center;
     font-size: 150%;
 }
-.footer{text-align:center;padding:15px 0;border-top:1px solid #e5e5e5;background-color:#e8eaef;}.footer .tm{width:100%;text-align:center;overflow:hidden;font-family:'Montserrat',sans-serif;}.footer .tm span{display:inline-block;font-size:12px;line-height:16px;color:#969696;}.footer .tm span a{color:#dd8000;text-decoration:none;}
+.footer{text-align:center;padding:15px 0;border-top:1px solid #e5e5e5;background-color:#e8eaef;position: fixed;bottom: 0px;width: 100%;}.footer .tm{width:100%;text-align:center;overflow:hidden;font-family:'Montserrat',sans-serif;}.footer .tm span{display:inline-block;font-size:12px;line-height:16px;color:#969696;}.footer .tm span a{color:#dd8000;text-decoration:none;}
 .footer .tm span.app-g{margin-left:10px;padding-left:10px;border-left:1px solid #dd8000;}
 button,.button{background-color:#96a6a6;color:#fff;text-decoration:none;border:0;font-size:14px;text-align:center;cursor:pointer;-webkit-transition:all 0.1s linear;-moz-transition:all 0.1s linear;-o-transition:all 0.1s linear;transition:all 0.1s linear;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none;line-height:25px;display:block;}button:hover,.button:hover{background-color:#9fb0b0;text-decoration:none;color:#fff;}
 button:active,.button:active{background-color:#4b5353;text-decoration:none;color:#fff;}
