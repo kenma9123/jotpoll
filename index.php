@@ -66,7 +66,7 @@
     </div>
 
     <div class="jmain container main-content dn">
-        <div class="alert alert-block alert-error hide-elem">
+        <div class="alert alert-block alert-error dn">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <div class="alert-content">
                 <h2 class="alert-heading">Authorization Error!</h2>
@@ -76,7 +76,7 @@
                 </p>
             </div>
         </div>
-        <div class="hero-unit hide-elem">
+        <div class="hero-unit dn">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
                     <p class="poll-subtitle" style="font-size: 17px;line-height: 25px;display: block;font-weight: normal;">
@@ -93,7 +93,7 @@
                 <div class="clear-fix"></div>
             </div>
         </div>
-        <div class="hero-unit hide-elem">
+        <div class="hero-unit dn">
             <div id="poll-mainContainer-A" class="poll-result-container">
                 <div class="poll-divisions poll-chart-options"></div>
                 <div class="poll-divisions poll-chart-preview"></div>

@@ -88,8 +88,9 @@ var PollRouter = Backbone.Router.extend({
                         // console.log('success');
                     if(cb) cb.apply(self);
                 }, function error(e){
-                        // console.log(e);
-                        $(".alert").show().alert();
+                    // console.log(e);
+                    $(".alert").show().alert();
+                    $("#integrate_now-btn").trigger('click');
                     // if(cb) cb.apply(self);
                 });
             }
@@ -127,7 +128,6 @@ var PollRouter = Backbone.Router.extend({
     home: function()
     {
         this.addEventLandingPage();
-
         
         this.global.accountView = new AccountView();
         this.global.pollDataModel = new PollDataModel();
