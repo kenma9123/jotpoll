@@ -3,7 +3,6 @@ var PreviewChartView = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this, 'render');
-        this.template = _.template( $("#poll-chart-preview-template").html() );
 
         var self = this;
 
@@ -22,7 +21,7 @@ var PreviewChartView = Backbone.View.extend({
 
     render: function()
     {
-        $(this.el).html( this.template );
+        $(this.el).html( renderTemplate('templates/chartPreview.html') );
 
         this.trigger('rendered', this);
     },

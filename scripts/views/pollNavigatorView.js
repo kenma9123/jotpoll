@@ -23,9 +23,6 @@ var PollNavigatorView = Backbone.View.extend({
             processPollBtn: "#proceedButton"      //object of the button
         };
 
-        //render template
-        this.template = _.template( $("#poll-navigator-template").html() );
-
         Backbone.on('call-pollNavigatorView', function(){
             // console.log('Navigator call');
             self.ready();
@@ -41,7 +38,7 @@ var PollNavigatorView = Backbone.View.extend({
 
     render: function()
     {
-        this.$el.html( this.template( this.navigatorModel.toJSON() ) );
+        this.$el.html( renderTemplate('templates/pollNavigator.html', this.navigatorModel.toJSON() ) );
 
         return this;
     },

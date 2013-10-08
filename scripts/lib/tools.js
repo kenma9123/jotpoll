@@ -70,3 +70,31 @@ function IsJsonString(str) {
     }
     return true;
 }
+
+function renderTemplate(tmpl_file, tmpl_data) {
+    if ( typeof window.tmpl_cache === 'undefined' ) { 
+        window.tmpl_cache = {};
+    }
+
+    if ( typeof _ === 'undefined' ) {
+      console.error("Underscore.js required");
+    }
+
+    if ( typeof window.tmpl_cache[tmpl_file] === 'undefined' ) {
+        var tmpl_string;
+        $.ajax({
+            url: tmpl_file,
+            dataType: 'html',
+            method: 'GET',
+            async: false,
+            success: function(data) {
+                tmpl_string = data;
+                console.log(tmpl_string);
+            }
+        });
+
+        window.tmpl_cache[tmpl_file] = _.template(tmpl_string);
+    }
+
+    return window.tmpl_cache[tmpl_file](tmpl_data);
+}

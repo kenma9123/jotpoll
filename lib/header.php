@@ -75,6 +75,8 @@
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/drawChartView.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/chartOptionsModel.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/chartOptionsView.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/models/createPollModel.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/views/createPollView.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/router.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/maincore.js"></script>
     ';

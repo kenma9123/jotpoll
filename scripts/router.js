@@ -154,7 +154,7 @@ var PollRouter = Backbone.Router.extend({
 
     createPoll: function()
     {
-
+        this.global.createPoll = new CreatePollView();
     },
 
     showPollResultsData: function(identifier)

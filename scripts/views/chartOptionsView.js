@@ -15,7 +15,7 @@ var ChartOptionsView = Backbone.View.extend({
         this.global.previewChartView = new PreviewChartView();
 
         _.bindAll(this, 'render');
-        this.template = _.template( $("#poll-chart-options-template").html() );
+        // this.template = _.template( $("#poll-chart-options-template").html() );
 
         var self = this;
 
@@ -93,7 +93,7 @@ var ChartOptionsView = Backbone.View.extend({
      */
     render: function()
     {
-        $(this.el).html( this.template( this.global.chartOptionsModel.toJSON() ) );
+        $(this.el).html( renderTemplate('templates/chartOptions.html', this.global.chartOptionsModel.toJSON() ) );
 
         this.trigger('rendered');
     },

@@ -7,7 +7,6 @@ var GenerateCodeView = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this, 'render', 'generate');
-        this.template = _.template( $("#poll-code-generator-template").html() );
 
         var self = this;
 
@@ -28,7 +27,7 @@ var GenerateCodeView = Backbone.View.extend({
 
     render: function()
     {
-        $(this.el).html( this.template( this.defaults ) );
+        $(this.el).html( renderTemplate( 'templates/codeGenerator.html' ,this.defaults ) );
 
         this.trigger('rendered', this);
     },

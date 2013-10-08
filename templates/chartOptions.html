@@ -1,0 +1,81 @@
+<div class="form-division chart-options">
+    <h1 class="form-label">Options</h1>
+    <p class="poll-subtitle" style="line-height: 20px;">
+        You can customize your own poll style using some of the available options below. Play with it and viola!
+    </p>
+    <div class="tab-content-options">
+        <div class="tab-pane active" id="gaugeChart">
+            <div class="options-divisions">
+                <h4 class="options-title">Individual Bar Settings: <i style="font-size: 15px;"> ( may vary on how many options does your question have )</i></h4>
+                <div class="options-content">
+                    <ul class="nav nav-tabs">
+                        <%
+                            $.each(poll.bars, function(index,value){
+                                var active_index = 0
+                                  , bar_index = (index+1)
+                                  , elclass = (active_index===index) ? 'active' : '';
+                        %>
+                        <li><a class="<%=elclass%>" href="#bar<%=bar_index%>" data-toggle="tab"><%=bar_names[index]%></a></li>
+                        <%
+                            });
+                        %>
+                    </ul>
+                    <div class="tab-content hide-elem">
+                        <% $.each(poll.bars, function(index,value){
+                            var j = {
+                                barIndex: index + 1,
+                                barColor: poll.bars[index].color,
+                                barBgColor: poll.bars[index].backgroundColor
+                            };
+                        %>
+                        <div class="tab-pane active" id="bar<%=j.barIndex%>">
+                            <div class="bar-settings-division">
+                                <label class="settings-list bar-label">Color</label>
+                                <input class="settings-list bar-input" data-swatch-position="right" id="<%=element.bars.color + j.barIndex%>" type="text" value="<%=j.barColor%>"/>
+                            </div>
+                            <div class="clear-fix"></div>
+                            <div class="bar-settings-division">
+                                <label class="settings-list bar-label">Background</label>
+                                <input class="settings-list bar-input" id="<%=element.bars.backgroundColor + j.barIndex%>" type="text" value="<%=j.barBgColor%>"/>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+            <div class="options-divisions">
+                <h4 class="options-title">Common Settings:</h4>
+                <div class="options-content">
+                <div class="common-settings">
+                    <label class="common-list-box radio" id="<%=element.chart.gauge.id%>" >
+                        <% var isGaugeChecked = (element.chart.gauge.checked === true)?'checked="checked"':'';%>
+                        <input type="radio" name="chartType" data-toggle="radio" <%=isGaugeChecked%> value="gauge"> Use Gauge
+                    </label>
+                </div>
+               <div class="common-settings">
+                    <label class="common-list-box radio" id="<%=element.chart.linear.id%>" >
+                        <% var isLinearChecked = (element.chart.linear.checked === true)?'checked="checked"':'';%>
+                        <input type="radio" name="chartType" data-toggle="radio" <%=isLinearChecked%> value="linear"> Use Linear
+                    </label>
+                </div>
+                <div class="clear-fix"></div>
+                    <% $.each(element.common, function(index,value){
+                        var e = {
+                            id: value.id,
+                            text: value.text,
+                            checked: (value.checked === true ) ? 'checked="checked"' : '',
+                            invisible: (value.invisible === true) ? 'invisible-elem' : ''
+                        };
+                    %>
+                    <div class="common-settings <%=e.invisible%>">
+                        <label class="commons-list"><%=e.text%></label>
+                        <span class="settings-list"><input type="checkbox" data-toggle="switch" id="<%=e.id%>" <%=e.checked%>/></span>
+                    </div>
+                    <% }); %>
+                    <div class="clear-fix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="updatePreview" class="btn btn-small btn-block btn-info">Update Preview</button>

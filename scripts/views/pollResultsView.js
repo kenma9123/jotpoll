@@ -28,8 +28,7 @@ var PollResultsView = Backbone.View.extend({
     render: function()
     {
         // console.log('r');
-        var template =  $( (this.chartType === 'bar') ? "#poll-results-graph-template-bar" : "#poll-results-graph-template-gauge").html();
-        $(this.el).html( _.template( template )(this.global.resultsModel.toJSON()) );
+        $(this.el).html( renderTemplate('templates/pollResults.html', this.global.resultsModel.toJSON()) );
 
         // $(this.el).parents(".hero-unit").fadeIn();
 

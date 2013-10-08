@@ -10,8 +10,6 @@ var AccountView = Backbone.View.extend({
         //create model
         this.global.accountModel = new AccountModel();
 
-        this.template = _.template( $("#account-info-template").html());
-
         //console.log("init");
         this._acc_storage = '_jotPoll_userData';
 
@@ -139,6 +137,6 @@ var AccountView = Backbone.View.extend({
 
     renderAccountInfo: function()
     {
-        this.$el.html( this.template( this.global.accountModel.toJSON() ) );
+        this.$el.html( renderTemplate( 'templates/accountInfo.html', this.global.accountModel.toJSON() ) );
     }
 });
