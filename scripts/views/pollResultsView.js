@@ -17,9 +17,12 @@ var PollResultsView = Backbone.View.extend({
             self.render();
         });
 
-        this.on('rendered', function(){
-            self.$el.parents(".container").css('width', '100% !important');
-        });
+        // this.on('rendered', function(){
+        //     self.$el.parents(".container").css('width', '100% !important');
+        // });
+
+        //remove siblings
+        this.$el.parents('.hero-unit').siblings().remove();
 
         // this.render();
         this.global.resultsModel.bind('change', _.bind(this.render, this));

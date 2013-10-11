@@ -4,6 +4,11 @@ Class Poll
 {
     const TABLE = 'poll_options';
 
+    public static function create( $questionArr )
+    {
+        
+    }
+
     public static function save( $formID = null, $questionID = null, $settings = null )
     {
         if ( is_null($formID) ) throw new Exception("Form ID is missing");

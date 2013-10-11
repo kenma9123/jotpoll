@@ -56,7 +56,7 @@
                 <li></li>
                 <li class="active"><a href=".">Home</a></li>
                 <li ><a href="howto.php">How it Works</a></li>
-                <!-- <li ><a href="javascript:void(0);">Create Poll</a><label class="teaser">Coming soon</label></li> -->
+                <li ><a href="create">Create Poll</a><label class="teaser">Coming soon</label></li>
                 <!-- <li ><a href="javascript:void(0);">Widgets</a><label class="teaser">Coming soon</label></li> -->
               </ul>
             </div>
@@ -100,8 +100,56 @@
                 <div class="clear-fix"></div>
             </div>
         </div>
-        <div class="hero-unit invisible-elem">
+        <div class="hero-unit dn">
             <div class="poll-results-graph"></div>
+        </div>
+        <div class="hero-unit dn">
+            <form id="create_question_form" name="create_question" method="post" action="" onSubmit="return false;">
+                <div class="create-poll-container">
+                    <div class="question_name">
+                        <h1>Create a Question</h1>
+                        <div class="input_division">
+                            <textarea class="textarea_field" name="question_title" id="question_title" placeholder="Create a question in 100 characters or less " autocomplete="off"></textarea>
+                        </div>
+                    </div>
+                    <div class="question_type">
+                        <h1>Question Type</h1>
+                        <div class="input_division">
+                            <div class="wrapper-dropdown">
+                            <div id="dd" class="wrapper-dropdown-1" tabindex="1">
+                                <span>Type</span>
+                                <ul class="dropdown">
+                                    <li data-val="star"><a href="javascript:void(0);">Star Rating</a></li>
+                                    <li data-val="scale"><a href="javascript:void(0);">Scale Rating</a></li>
+                                    <li data-val="dropdown"><a href="javascript:void(0);">Dropdown</a></li>
+                                    <li data-val="radio"><a href="javascript:void(0);">Radio</a></li>
+                                </ul>
+                                <input type="hidden" id="question_type" name="question_type" />
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question_answers">
+                        <h1>Answers</h1>
+                        <ol class="optionList">
+                            <li>
+                                <input name="answers[]" id="option1" type="text" placeholder="Add an answer" autocomplete="off" class="input_field">
+                            </li>
+                            <li>
+                                <input name="answers[]" id="option2" type="text" placeholder="Add an answer" autocomplete="off" class="input_field">
+                            </li>
+                            <li>
+                                <input name="answers[]" id="option3" type="text" placeholder="Add an answer" autocomplete="off" class="input_field">
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="create_question">
+                        <div class="button_container">
+                            <button class="btn btn-large btn-block btn-primary" id="create_poll">Create Poll</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 

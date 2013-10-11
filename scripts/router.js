@@ -154,6 +154,7 @@ var PollRouter = Backbone.Router.extend({
 
     createPoll: function()
     {
+        $(".jmain").fadeIn('slow');
         this.global.createPoll = new CreatePollView();
     },
 

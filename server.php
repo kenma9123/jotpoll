@@ -57,6 +57,9 @@ try
                 $httpresponse->error($message);
             }
         break;
+        case 'createPoll':
+            $httpresponse->success($request);
+        break;
         default:
             $httpresponse->error("Invalid method - " . $request['action'] . " not found.");
         break;
