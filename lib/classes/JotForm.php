@@ -16,6 +16,39 @@ Class JotForm
         self::$retry_count++;
     }
 
+    public static function createForm($form, $apiKey)
+    {
+        $params = array();
+
+        foreach ($form as $key => $value) {
+            foreach ($value as $k => $v) {
+                if ($key == "properties") {
+                    $params[$key."[".$k."]"] = $v;
+                } else {
+                    foreach ($v as $a => $b) {
+                        $params[$key."[".$k."][".$a."]"] = $b;
+                    }
+                }
+            }
+        }
+
+        $call_url = sprintf( self::JOTFORM_API_URL . "/user/forms?apiKey=%s", $apiKey);
+        $response = Curl::post($call_url, array('params' => $params));
+
+        if ( $response['http_code'] == 200 )
+        {
+            //pull request content
+            $result = json_decode($response['content'], true);
+            return $result['content'];
+        }
+        else
+        {
+            //retry
+            self::handleRetry($response);
+            self::createForm($form, $apiKey);
+        }
+    }
+
     public static function getForm( $formID, $apiKey )
     {
         //formid with 41143submissions = 13535747232 / 76d37e1b759fcbe67063a39166747301
@@ -27,6 +60,7 @@ Class JotForm
         {
             //pull request content
             $result = json_decode($response['content'], true);
+            return $result['content'];
         }
         else
         {
@@ -34,8 +68,6 @@ Class JotForm
             self::handleRetry($response);
             self::getForm($formID, $apiKey);
         }
-
-        return $result['content'];
     }
 
     public static function getSubmissions( $formID, $apiKey, $offset, $maxLimit )
@@ -49,6 +81,7 @@ Class JotForm
         {
             //pull request content
             $result = json_decode($response['content'], true);
+            return $result;
         }
         else
         {
@@ -56,8 +89,6 @@ Class JotForm
             self::handleRetry($response);
             self::getSubmissions($formID, $apiKey, $offset, $maxLimit);
         }
-
-        return $result;
     }
 
     public static function getFormQuestion( $formID, $questionID, $apiKey )
@@ -71,6 +102,7 @@ Class JotForm
         {
             //pul request content
             $result = json_decode($response['content'], true);
+            return $result['content'];
         }
         else
         {
@@ -78,8 +110,6 @@ Class JotForm
             self::handleRetry($response);
             self::getFormQuestion($formID, $questionID, $apiKey);
         }
-
-        return $result['content'];
     }
 }
 

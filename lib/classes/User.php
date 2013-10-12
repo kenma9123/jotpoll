@@ -119,6 +119,16 @@ Class User
         }
     }
 
+    public static function getUser_APIKey()
+    {
+        $user = User::getUserData();
+        $_db = new MySQL(MYSQL_CONNECTION);
+        $stmt = $_db->query("SELECT `jotform_apikey` FROM `accounts` WHERE `id` = :id", array('id' => $user['id']))->limit(1);
+        $result = $stmt->fetchAssoc();
+
+        return ( $result ) ? $result['jotform_apikey'] : false;
+    }
+
     private function updateUser_APIkey()
     {
         $user = User::getUserData();

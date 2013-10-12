@@ -1,6 +1,9 @@
 /**
  * Override CSS
  */
+.ib {
+    display: inline-block;
+}
 ul,
 ol {
     padding: 0;
@@ -834,6 +837,13 @@ button.jf-select-form:active
     text-transform: uppercase;
 }
 
+.create-poll-container .sub-heading {
+    text-align: center;
+    font-size: 16px;
+    line-height: 15px;
+    margin-top: 10px;
+}
+
 /*.create-poll-container h1:nth-child() {
     padding-top: 40px;
 }
@@ -844,7 +854,17 @@ button.jf-select-form:active
 
 .create-poll-container .input_division {
     text-align: center;
-    padding: 30px 0px;
+    padding: 30px 0px 0px 0px;
+}
+
+.create-poll-container .question_type,
+.create-poll-container .question_name,
+.create-poll-container .question_answers {
+    padding: 25px 0px;
+}
+
+.create-poll-container .question_type {
+    margin-top: 20px;
 }
 
 .create-poll-container .input_field {
@@ -880,16 +900,13 @@ button.jf-select-form:active
     box-shadow: inset 0 1px 3px #ddd;
     font-weight: normal;
     color: #AA6E36;
-}
-
-.create-poll-container .question_name {
-    padding-top: 50px;
+    resize: none;
 }
 
 .create-poll-container .optionList {
-    width: 50%;
+    width: 53%;
     margin: 0 auto;
-    padding-left: 30px;
+    text-align: center;
 }
 
 .create-poll-container .optionList li {
@@ -903,11 +920,11 @@ button.jf-select-form:active
 }
 
 .create-poll-container .optionList .input_field {
-    width: 95%;
+    width: 90%;
 }
 
 .create-poll-container .create_question {
-    padding: 50px 0px;
+    /*padding: 50px 0px;*/
 }
 
 .create-poll-container .button_container {
@@ -982,7 +999,7 @@ button.jf-select-form:active
  
 /* Hover state */
 .create-poll-container .wrapper-dropdown-1 .dropdown li:hover a {
-    background: #f3f8f8;
+    background: #E6EBEB;
 }
 
 /* Active state */
@@ -990,6 +1007,9 @@ button.jf-select-form:active
     opacity: 1;
     pointer-events: auto;
     z-index: 999;
+    border: 1px solid #DADADA;
+    border-top: none;
+    border-right: none;
 }
  
 .create-poll-container .wrapper-dropdown-1.active:after {
@@ -1000,5 +1020,70 @@ button.jf-select-form:active
  
 .create-poll-container .wrapper-dropdown-1.active {
   background: #9bc7de;
-  background: linear-gradient(to right, #9bc7de 0%, #9bc7de 92%, #ffffff 92%, #ffffff 100%)
-}     
+  background: linear-gradient(to right, #9bc7de 0%, #9bc7de 90%, #ffffff 90%, #ffffff 100%)
+}
+
+.create-poll-container .add_more {
+    width: 50%;
+    margin: 0 auto;
+}
+.create-poll-container #add_more_btn {
+    float: right;
+    margin-right: -12px;
+}
+
+.create-poll-container .remove_btn {
+    text-align: center;
+    margin-left: -2px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid #48c9b0;
+    background: #E9E9E9;
+    position: absolute;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.create-poll-container .remove_btn:hover {
+    background: #E0DFDF;
+}
+
+.create-poll-container .remove_btn:hover {
+    cursor: pointer;
+}
+
+.create-poll-container .errors_cont {
+    line-height: 20px;
+    font-size: 16px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    color: #FA4141;
+    font-weight: bold;
+}
+
+.create-poll-container .poll_result_cont p {
+    text-align: center;
+    font-size: 17px;
+}
+
+.create-poll-container .poll_result_cont .create_success {
+    margin-right: 10px;
+    color: #008300;
+    font-weight: bold;
+}
+
+.create-poll-container .poll_result_cont a {
+    color: #FF2020;
+    font-weight: bold;
+    margin:0px 5px;
+}
+
+.create-poll-container .poll_result_cont a:hover {
+    text-decoration: underline;
+}

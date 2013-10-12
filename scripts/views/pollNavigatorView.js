@@ -150,6 +150,13 @@ var PollNavigatorView = Backbone.View.extend({
 
         var self = this;
         JF.QuestionPicker(this.formID, {
+            ignore_types: [
+                "control_head", 
+                "control_button", 
+                "control_pagebreak", 
+                "control_collapse", 
+                "control_text"
+            ],
             loadForm: false,
             onSelect : function(q) {
                 if (q.length > 1) {

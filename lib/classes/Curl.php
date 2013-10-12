@@ -55,7 +55,9 @@ Class Curl
             'headers' => array(),
             'method' => 'GET',
             'ssl' => false,
-            'get_binary' => false
+            'get_binary' => false,
+            'put_file' => false,
+            'put_data' => false
         ), $req);
 
         $options = array(
@@ -64,9 +66,13 @@ Class Curl
             CURLOPT_CONNECTTIMEOUT => 120,          // timeout on connect
             CURLOPT_TIMEOUT        => 120,          // timeout on response
             CURLOPT_SSL_VERIFYPEER => $req['ssl'],  // verify ssl
-            CURLOPT_SSLVERSION     => 3,            // ssl version
-            CURLOPT_HTTPHEADER     => $req['headers']// included headers
+            CURLOPT_SSLVERSION     => 3            // ssl version
         );
+
+        // included headers
+        if ( count($req['headers']) > 0 ) {
+            $options[CURLOPT_HTTPHEADER] = $req['headers'];
+        }
 
         if ( $req['method'] == 'GET' && $req['get_binary'] === true )
         {
@@ -75,16 +81,24 @@ Class Curl
 
         if ( $req['method'] == 'PUT' AND count($req['params']) > 0 )
         {
-            $options[CURLOPT_PUT] = true;
-            $options[CURLOPT_INFILE] = $req['params']['file'];
-            $options[CURLOPT_INFILESIZE] = $req['params']['fileSize'];
+            $options[CURLOPT_CUSTOMREQUEST] = "PUT";
+
+            if ( $req['put_data'] ) {
+                $options[CURLOPT_POSTFIELDS] = $req['params'];
+            }
+
+            if ( $req['put_file'] ) {
+                // $options[CURLOPT_PUT] = true;
+                $options[CURLOPT_INFILE] = $req['params']['file'];
+                $options[CURLOPT_INFILESIZE] = $req['params']['fileSize'];
+            }
         }
 
         if ( $req['method'] == 'POST' AND count($req['params']) > 0 )
         {
             $options[CURLOPT_POST] = true;
             $p = array();
-            foreach ($req['post_params'] as $key => $value){
+            foreach ($req['params'] as $key => $value){
                 if (is_string($value)) {
                     $p[] = $key."=".urlencode($value);
                 }

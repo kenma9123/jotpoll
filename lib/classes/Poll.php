@@ -4,9 +4,65 @@ Class Poll
 {
     const TABLE = 'poll_options';
 
-    public static function create( $questionArr )
+    public static function create( $questionData = null, $apikey = null )
     {
-        
+        if ( is_null($questionData) ) throw new Exception("Question object is missing");
+        if ( is_null($apikey) OR !$apikey ) throw new Exception("Api key is missing");
+
+        $answers = $questionData['answers'];
+        $title = $questionData['question_title'];
+        $type = 'control_radio'/*$questionData['question_type']*/;
+
+        $questions = array(
+            'type' => $type,
+            'order' => 1,
+            'text' => $title,
+            'name' => ('1' . str_replace(' ', '_', $title) ),
+            'required' => 'yes',
+        );
+
+        switch( $type )
+        {
+            case 'control_radio':
+            case 'control_dropdown':
+                //get the answers and build it
+                $answersStr = implode('|', $answers);
+                $questions['options'] = $answersStr;
+            break;
+
+            case 'control_rating':
+            case 'control_scale':
+                if ($type === 'control_rating')
+                {
+                    $questions['start'] = $answers;
+                    $questions['starStyle'] = 'Stars';
+                    $questions['defaultValue'] = 0;
+                }
+                else
+                {
+                    $questions['scaleAmount'] = $answers;
+                }
+            break;
+
+        }
+
+        //create the form data
+        $form = array(
+            'questions' => array(
+                $questions,
+                array(
+                    'type' => 'control_button',
+                    'order'  => 2,
+                    'text' => 'Cast Vote',
+                    'name' => 'submit'
+                )
+            ),
+            'properties' => array(
+                'title' => $title
+            )
+        );
+
+        return JotForm::createForm( $form, $apikey );
     }
 
     public static function save( $formID = null, $questionID = null, $settings = null )

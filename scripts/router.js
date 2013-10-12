@@ -65,7 +65,7 @@ var PollRouter = Backbone.Router.extend({
         JF.init({
             enableCookieAuth : true,
             appName: "JotPoll",
-            accesType: "readOnly" //default "readOnly" or "full"
+            accessType: "full" //default "readOnly" or "full"
         });
 
         if ( !prompt )
@@ -156,6 +156,9 @@ var PollRouter = Backbone.Router.extend({
     {
         $(".jmain").fadeIn('slow');
         this.global.createPoll = new CreatePollView();
+
+        $("#navigation-bar").find('#home').toggleClass('active');
+        $("#navigation-bar").find('#create').toggleClass('active');
     },
 
     showPollResultsData: function(identifier)
