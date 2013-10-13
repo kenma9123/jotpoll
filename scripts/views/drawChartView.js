@@ -34,7 +34,7 @@ var DrawChartView = Backbone.View.extend({
         if ( drawData.fromPreview )
         {
             $(drawData.fromPreview).remove();
-            $("<div />").addClass("chart-preview-area").appendTo(".chart-preview");
+            $("<div />").addClass("chart-preview-area").appendTo(".chart-preview .chart-preview-inner");
         }
 
         //draw poll title

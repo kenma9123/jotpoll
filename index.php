@@ -56,7 +56,7 @@
                 <li></li>
                 <li id="home" class="active"><a href=".">Home</a></li>
                 <li id="howto"><a href="howto.php">How it Works</a></li>
-                <li id="create"><a href="create">Create Poll</a><label class="teaser">Coming soon</label></li>
+                <li id="create"><a href="javascript:void(0);">Create Poll</a><label class="teaser">Coming soon</label></li>
                 <!-- <li ><a href="javascript:void(0);">Widgets</a><label class="teaser">Coming soon</label></li> -->
               </ul>
             </div>
@@ -89,16 +89,17 @@
             </div>
             <div id="poll-mainContainer-B" class="poll-result-container">
                 <div class="poll-divisions poll-navigator"></div>
+                <div class="clear-fix"></div>
                 <div class="poll-divisions poll-code-generator"></div>
                 <div class="clear-fix"></div>
-            </div>
-        </div>
-        <div class="hero-unit dn main">
-            <div id="poll-mainContainer-A" class="poll-result-container">
                 <div class="poll-divisions poll-chart-options"></div>
+                <div class="clear-fix"></div>
+            </div>
+            <div id="poll-mainContainer-A" class="poll-result-container">
                 <div class="poll-divisions poll-chart-preview"></div>
                 <div class="clear-fix"></div>
             </div>
+            <div class="clear-fix"></div>
         </div>
         <div class="hero-unit dn view">
             <div class="poll-results-graph"></div>
