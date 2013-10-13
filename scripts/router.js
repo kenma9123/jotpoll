@@ -120,7 +120,13 @@ var PollRouter = Backbone.Router.extend({
         $("#integrate_now-btn").click(function(){
             $(this).parents('#application_landing').slideUp('fast', function(){
                 $(this).remove();
-                $(".jmain").fadeIn('slow');
+                $(".jmain").fadeIn('slow', function(){
+                    $('#joyRideTipContent').joyride({
+                        autoStart : true,
+                        modal:true,
+                        cookieMonster: true
+                    });
+                });
                 $(".hero-unit").not('.main').remove();
                 $("#updatePreview").trigger('click');
             });

@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="' . HTTP_URL . 'css/poll.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="' . HTTP_URL . 'css/common-page-styles.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="' . HTTP_URL . 'css/font-awesome.css">
+        <link rel="stylesheet" href="' . HTTP_URL . 'scripts/lib/intro/joyride.css">
         <!--[if IE 7]><link rel="stylesheet" href="' . HTTP_URL . 'css/font-awesome-ie7.css"><![endif]-->
     ';
 
@@ -58,6 +59,7 @@
     '
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/tools.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/loading.js"></script>
+    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/intro/joyride.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jstorage.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jminicolors.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/clipboard/zclip.js"></script>

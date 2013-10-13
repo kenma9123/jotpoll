@@ -807,6 +807,10 @@ button.jf-select-form:active
     animation: blinker 1s linear infinite;
 }
 
+.teaser.new {
+    left: 80px; color: #23A823; 
+}
+
 .blink_me {
     animation-name: blinker;
     animation-duration: 1s;
@@ -1138,4 +1142,8 @@ button.jf-select-form:active
     border: 1px solid #C2C2C2;
     outline: 0;
     width: 100%;
+}
+
+.logout-tour .joyride-nub {
+    display: none !important;
 }

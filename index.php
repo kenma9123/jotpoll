@@ -56,7 +56,7 @@
                 <li></li>
                 <li id="home" class="active"><a href=".">Home</a></li>
                 <li id="howto"><a href="howto.php">How it Works</a></li>
-                <li id="create"><a href="create">Create Poll</a></li>
+                <li id="create"><a href="create">Create Poll<label class="teaser new">New</label></a></li>
                 <!-- <li ><a href="javascript:void(0);">Widgets</a><label class="teaser">Coming soon</label></li> -->
               </ul>
             </div>
@@ -108,6 +108,61 @@
             <div class="create-poll-container"></div>
         </div>
     </div>
+
+    <ol id="joyRideTipContent">
+      <li data-class="poll-navigator" data-button="Next" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>Pick!</h2>
+        <p>This section is your first step to get things started!</p>
+      </li>
+      <li data-id="pickFormWidget" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Form</h2>
+        <p>pick the Form on where to pull questions</p>
+      </li>
+      <li data-id="pickQuestionWidget" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Question</h2>
+        <p>pick the Question you wanted to use as the Poll</p>
+      </li>
+      <li data-id="proceedButton" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Proceed!</h2>
+        <p>and if everything is fine, click this button and we'll do the rest.</p>
+      </li>
+      <li data-id="generatedFormData" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Result</h2>
+        <p>as a result, the generated URL can be found here.</p>
+      </li>
+      <li data-id="copyToClipboard" data-button="Next" data-options="tipLocation:bottom;tipAnimation:fade">
+        <h2>Result</h2>
+        <p>you can copy it to clipboard</p>
+      </li>
+      <li data-id="visitLinkButton" data-button="Next" data-options="tipLocation:bottom;tipAnimation:fade">
+        <h2>Result</h2>
+        <p>or visit the link to test. And if everything looks fine you're ready to share your Poll. As simple as that</p>
+      </li>
+      <li data-class="chart-options" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>But wait! There's more!</h2>
+        <p>If you're not fan of default values, this section is for you.</p>
+      </li>
+      <li data-id="bar-color-settings" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Bar colors</h2>
+        <p>you can customize the bar colors from here! cooool eh?</p>
+      </li>
+      <li data-id="bar-common-settings" data-button="Next" data-options="tipLocation:right;tipAnimation:fade">
+        <h2>Others Settings</h2>
+        <p>and some other options that you want to play with</p>
+      </li>
+      <li data-class="chart-preview" data-button="Next" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>Preview</h2>
+        <p>now this super wide section is the preview window. From here, you can see your changes in real time!</p>
+      </li>
+      <li data-id="logout" data-button="Next" class="logout-tour" data-options="tipLocation:top;tipAnimation:fade;nubPosition:right;">
+        <h2>Logout</h2>
+        <p>if you want to switch account or just feel to logout, it is possible from here.</p>
+      </li>
+      <li data-id="create" data-button="Close" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>One more thing</h2>
+        <p>Finally! You can create polls from here</p>
+      </li>
+    </ol>
 
     <?=PAGE_SCRIPTS?>
 
