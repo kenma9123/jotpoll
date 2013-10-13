@@ -900,7 +900,7 @@ button.jf-select-form:active
     outline: 0;
     box-shadow: inset 0 1px 3px #ddd;
     font-weight: normal;
-    color: #AA6E36;
+    color: #696969;
 }
 
 .create-poll-container .input_field:hover,
@@ -922,7 +922,7 @@ button.jf-select-form:active
     outline: 0;
     box-shadow: inset 0 1px 3px #ddd;
     font-weight: normal;
-    color: #AA6E36;
+    color: #696969;
     resize: none;
 }
 

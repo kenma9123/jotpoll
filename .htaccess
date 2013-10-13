@@ -2,8 +2,8 @@
     RewriteEngine  on
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    
-    RewriteCond %{REQUEST_URI} [0-9]$
+
+    RewriteCond %{REQUEST_URI} edit/[0-9a-z]+$
     RewriteRule ^(.+)$ #$1 [L,NE]
 
     RewriteCond %{REQUEST_URI} result/(.*)

@@ -43,6 +43,7 @@ var PollRouter = Backbone.Router.extend({
     {
         "" : "home",
         "create" : "createPoll",
+        "edit/:poll_id": "editPoll",
         "result/*identifier": "showPollResultsData"
     },
 
@@ -143,6 +144,33 @@ var PollRouter = Backbone.Router.extend({
             //require some data
             this.require([
                 'accountView','pollDataModel', 'chartPreview', 'chartOptionsView', 
+                'pollNavigatorView', 'generateView', 
+            ]);
+        },true);
+    },
+
+    editPoll: function(id)
+    {
+        console.log(id);
+        this.global.accountView = new AccountView();
+        this.global.pollDataModel = new PollDataModel();
+        this.global.chartOptionsView = new ChartOptionsView();
+        this.global.navigatorView = new PollNavigatorView();
+        this.global.generateView = new GenerateCodeView();
+        this.global.drawChartView = new DrawChartView();
+
+        // console.log('home');
+        this.initJF(function(){
+            this.showContainers();
+
+                $(".jmain").fadeIn('slow');
+                $(".hero-unit").not('.main').remove();
+                $(".poll-panel").remove();
+                $("#updatePreview").trigger('click');
+
+            //require some data
+            this.require([
+                'accountView','pollDataModel', 'chartPreview', 'chartOptionsView',
                 'pollNavigatorView', 'generateView', 
             ]);
         },true);

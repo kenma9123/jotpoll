@@ -190,6 +190,7 @@ var CreatePollView = Backbone.View.extend({
         var self = this;
 
         self.showMessage("<p>Creating link for JotPoll, please wait...</p>");
+        this.handleAddAnswerBtn();
 
         setTimeout(function(){
             self.global.chartOptionsView.handle_Bars_Markers_total(self.global.createPollModel.get('total_answers'));
@@ -200,7 +201,7 @@ var CreatePollView = Backbone.View.extend({
                   , links = [
                         {name:'JotForm link', url: pollData.message.url },
                         {name:'JotPoll result link', url: generatedUrl },
-                        {name:'JotPoll customize link', url: window.location.origin + window.base + 'edit/' + generatedId}
+                        // {name:'JotPoll customize link', url: window.location.origin + window.base + 'edit/' + generatedId}
                     ];
 
                 for( var x = 0; x < links.length; x++ )
@@ -217,7 +218,7 @@ var CreatePollView = Backbone.View.extend({
 
 
                 html += '</div>';
-                console.log(html);
+
                 self.showMessage(html);
             });
         },2000);

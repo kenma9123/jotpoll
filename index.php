@@ -56,7 +56,7 @@
                 <li></li>
                 <li id="home" class="active"><a href=".">Home</a></li>
                 <li id="howto"><a href="howto.php">How it Works</a></li>
-                <li id="create"><a href="create">Create Poll</a><label class="teaser">Coming soon</label></li>
+                <li id="create"><a href="create">Create Poll</a></li>
                 <!-- <li ><a href="javascript:void(0);">Widgets</a><label class="teaser">Coming soon</label></li> -->
               </ul>
             </div>

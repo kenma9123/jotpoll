@@ -51,6 +51,11 @@ var PollResultsView = Backbone.View.extend({
             }
           , poll_answers_parts = poll.pollData.results.value;
 
+        if (poll_answers_parts.length < 1) {
+            console.error('No answers provided!');
+            return false;
+        }
+
         _.each(poll_answers_parts, function(value, key){
             poll.data.push([key, value]);
             //get total results
