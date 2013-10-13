@@ -306,7 +306,7 @@ select, textarea, input,
 
 .options-divisions
 {
-    padding: 20px 20px 0px 20px;
+    padding: 20px 20px 11px 20px;
 }
 .options-divisions .options-title
 {
@@ -393,7 +393,7 @@ select, textarea, input,
 .poll-legends-label
 {
     border-bottom: 1px solid #ddd;
-    padding: 5px 20px;
+    padding: 5px 60px;
 }
 .poll-legends-label .legend-label
 {
@@ -1125,7 +1125,7 @@ button.jf-select-form:active
 }
 .create-poll-container .poll_result_cont .results .result_links .links {
     float: left;
-    width: 120px;
+    width: 30%;
     text-align: right;
 }
 .create-poll-container .poll_result_cont .results .result_links .links.input {

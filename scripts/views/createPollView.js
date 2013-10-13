@@ -113,6 +113,9 @@ var CreatePollView = Backbone.View.extend({
 
         optList.append(li);
 
+        //focus to appended element
+        input.focus();
+
         this.handleAddAnswerBtn();
     },
 
@@ -195,9 +198,9 @@ var CreatePollView = Backbone.View.extend({
 
                 var html = '<div class="results"><h2>Success!</h2>'
                   , links = [
-                        {name:'JotForm Link', url: pollData.message.url },
-                        {name:'JotPoll Link', url: generatedUrl },
-                        {name:'Cuztomize JotPoll Link', url: window.location.origin + window.base + 'edit/' + generatedId}
+                        {name:'JotForm link', url: pollData.message.url },
+                        {name:'JotPoll result link', url: generatedUrl },
+                        {name:'JotPoll customize link', url: window.location.origin + window.base + 'edit/' + generatedId}
                     ];
 
                 for( var x = 0; x < links.length; x++ )

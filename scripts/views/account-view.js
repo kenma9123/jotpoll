@@ -118,10 +118,12 @@ var AccountView = Backbone.View.extend({
                     if (next) next(response);
                 });
             } else {
-                throw new Error("User is not ACTIVE anymore");
+                alert("User is not ACTIVE anymore\nPlease contact JotForm!");
             }
         }, function(e){
-            throw "Something went wrong when fetching User data with message:" + e;
+            console.error("Something went wrong when fetching User data with message:", e);
+            if (window.console && window.console.log) console.log("retrying...");
+            self.handleJFUser(next);
         });
     },
 

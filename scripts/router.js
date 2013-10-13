@@ -200,7 +200,7 @@ var PollRouter = Backbone.Router.extend({
 
                 //require some data
                 self.require([
-                    'pollDataModel','chartOptionsView', 'drawChart', 'pollResultsView'
+                    'pollDataModel', 'drawChart', 'pollResultsView'
                 ]);
                 
                 self.global.resultsView.processPoll(response.poll_settings, response.generated_poll_data);

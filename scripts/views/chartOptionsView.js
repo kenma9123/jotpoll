@@ -175,7 +175,7 @@ var ChartOptionsView = Backbone.View.extend({
 
         //merge the user options to default
         var current_poll = this.global.chartOptionsModel.get('poll')
-          , hasMarkers = (current_poll.markers.length > 0) ? true : false;
+          , hasMarkers = (current_poll.common.marker.visible || current_poll.markers.length > 0) ? true : false;
         
         for( var x = 0; x < current_poll.bars.length; x++ )
         {
