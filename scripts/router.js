@@ -154,11 +154,18 @@ var PollRouter = Backbone.Router.extend({
 
     createPoll: function()
     {
-        $(".jmain").fadeIn('slow');
-        this.global.createPoll = new CreatePollView();
+        this.global.accountView = new AccountView();
+        
+        this.initJF(function(){
 
-        $("#navigation-bar").find('#home').toggleClass('active');
-        $("#navigation-bar").find('#create').toggleClass('active');
+            this.require(['accountView']);
+
+            $(".jmain").fadeIn('slow');
+            this.global.createPoll = new CreatePollView();
+
+            $("#navigation-bar").find('#home').toggleClass('active');
+            $("#navigation-bar").find('#create').toggleClass('active');
+        },true);
     },
 
     showPollResultsData: function(identifier)
