@@ -58,7 +58,8 @@ Class Poll
                 )
             ),
             'properties' => array(
-                'title' => $title
+                'pagetitle' => $title,
+                'unique' => 'Strict'
             )
         );
 

@@ -4,18 +4,18 @@
     
     $header = '
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="keywords" content="jotpoll, jotform poll, poll view, online poll, web poll, online polls, web polls, view poll, view polls" />
-        <meta name="description" content="JotPoll, view amazing polls after a form submission with JotForm" />
+        <meta name="keywords" content="jotpoll, jotform poll, poll view, online poll, web poll, online polls, web polls, view poll, view polls, create poll, easy poll, cool poll, awesome poll" />
+        <meta name="description" content="JotPoll, view or create amazing polls after a form submission with JotForm" />
         <meta name="google-site-verification" content="CG6F2CQMNJ3nvu1pdPuN7Ww_YcG1-0cMc06ntbB12wk" />
         <meta property="og:title" content="JotPoll" />
-        <meta property="og:description" content="JotPoll, view amazing polls after a form submission with JotForm" />
+        <meta property="og:description" content="JotPoll, view or create amazing polls after a form submission with JotForm" />
         <meta property="og:image" content="http://cms.interlogy.com/uploads/image_upload/image_upload/global/9260_150X150.jpg" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://www.jotpoll.com" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="http://www.jotpoll.com" />
         <meta name="twitter:title" content="JotPoll" />
-        <meta name="twitter:description" content="JotPoll, view amazing polls after a form submission with JotForm" />
+        <meta name="twitter:description" content="JotPoll, view or create amazing polls after a form submission with JotForm" />
         <meta name="twitter:image" content="http://cms.interlogy.com/uploads/image_upload/image_upload/global/9260_150X150.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="HandheldFriendly" content="true" />

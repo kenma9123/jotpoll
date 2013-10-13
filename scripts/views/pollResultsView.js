@@ -21,9 +21,6 @@ var PollResultsView = Backbone.View.extend({
         //     self.$el.parents(".container").css('width', '100% !important');
         // });
 
-        //remove siblings
-        this.$el.parents('.hero-unit').siblings().remove();
-
         // this.render();
         this.global.resultsModel.bind('change', _.bind(this.render, this));
     },
@@ -82,7 +79,7 @@ var PollResultsView = Backbone.View.extend({
             chartPoll.common.marker.visible = (settings.common.marker === 'true') ? true : false;
             chartPoll.common.scale.label.visible = (settings.common.scale === 'true') ? true : false;
 
-            console.log(settings.common.scale, Boolean(settings.common.scale), chartPoll.common.scale);
+            // console.log(settings.common.scale, Boolean(settings.common.scale), chartPoll.common.scale);
 
             //modify poll bars
             _.each(chartPoll.bars, function(value, key){

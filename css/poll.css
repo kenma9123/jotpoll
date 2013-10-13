@@ -200,6 +200,10 @@ select, textarea, input,
 .poll-result-container
 {
     padding: 30px 20px;
+    float: left;
+}
+.poll-result-container #poll-mainContainer-B {
+    width: 30%;
 }
 .poll-divisions
 {
@@ -208,7 +212,7 @@ select, textarea, input,
 }
 .poll-divisions.poll-navigator
 {
-    width: 40%;
+    width: 100%;
 }
 .poll-divisions.poll-chart-preview
 {
@@ -835,6 +839,7 @@ button.jf-select-form:active
     text-align: center;
     font-size: 40px;
     text-transform: uppercase;
+    color: #FFAD61;
 }
 
 .create-poll-container .sub-heading {
@@ -1029,7 +1034,7 @@ button.jf-select-form:active
 }
 .create-poll-container #add_more_btn {
     float: right;
-    margin-right: -12px;
+/*    margin-right: -12px;*/
 }
 
 .create-poll-container .remove_btn {
@@ -1085,4 +1090,34 @@ button.jf-select-form:active
 
 .create-poll-container .poll_result_cont a:hover {
     text-decoration: underline;
+}
+
+.create-poll-container .poll_result_cont .results {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    font-size: 16px;
+}
+.create-poll-container .poll_result_cont .results h2 {
+    text-align: center;
+    color: #09A709;
+}
+.create-poll-container .poll_result_cont .results .result_links {
+    padding-bottom: 5px;
+}
+.create-poll-container .poll_result_cont .results .result_links .links {
+    float: left;
+    width: 120px;
+    text-align: right;
+}
+.create-poll-container .poll_result_cont .results .result_links .links.input {
+    width: 60%;
+    padding-left: 20px;
+}
+.create-poll-container .poll_result_cont .results .result_links .fields {
+    margin: 0px;
+    padding: 2px;
+    border: 1px solid #C2C2C2;
+    outline: 0;
+    width: 100%;
 }

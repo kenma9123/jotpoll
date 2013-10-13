@@ -32,7 +32,7 @@ var GenerateCodeView = Backbone.View.extend({
         this.trigger('rendered', this);
     },
 
-    generate: function(formID, questionID)
+    generate: function(formID, questionID, cb)
     {
         // console.log('got it', formID, questionID);
         if ( !JF.getAPIKey() )
@@ -81,7 +81,12 @@ var GenerateCodeView = Backbone.View.extend({
                     // var jsonFormData = JSON.stringify( formData );
                     // var encodedFormData = B64.encode(RawDeflate.deflate(jsonFormData.toString()));
                     var generatedFormData = window.location.origin + window.base + "result/" + response.result.unique_id;
-                    $("#generatedFormData", this.$el).val(generatedFormData);
+
+                    if ( $("#generatedFormData", this.$el).length > 0 ) {
+                        $("#generatedFormData", this.$el).val(generatedFormData);
+                    }
+
+                    if (cb) cb(generatedFormData, response.result.unique_id);
 
                 },
                 error: function(errors)

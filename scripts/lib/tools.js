@@ -89,7 +89,6 @@ function renderTemplate(tmpl_file, tmpl_data) {
             async: false,
             success: function(data) {
                 tmpl_string = data;
-                console.log(tmpl_string);
             }
         });
 

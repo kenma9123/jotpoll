@@ -120,6 +120,7 @@ var PollRouter = Backbone.Router.extend({
             $(this).parents('#application_landing').slideUp('fast', function(){
                 $(this).remove();
                 $(".jmain").fadeIn('slow');
+                $(".hero-unit").not('.main').remove();
                 $("#updatePreview").trigger('click');
             });
         });
@@ -155,13 +156,17 @@ var PollRouter = Backbone.Router.extend({
     createPoll: function()
     {
         this.global.accountView = new AccountView();
-        
+        this.global.pollDataModel = new PollDataModel();
+        this.global.chartOptionsView = new ChartOptionsView();
+        this.global.generateView = new GenerateCodeView();
+        this.global.createPoll = new CreatePollView();
+
         this.initJF(function(){
 
-            this.require(['accountView']);
+            this.require(['accountView', 'createPollView']);
 
             $(".jmain").fadeIn('slow');
-            this.global.createPoll = new CreatePollView();
+            $(".hero-unit").not('.create').remove();
 
             $("#navigation-bar").find('#home').toggleClass('active');
             $("#navigation-bar").find('#create').toggleClass('active');
@@ -173,6 +178,7 @@ var PollRouter = Backbone.Router.extend({
         var self = this;
         $('body').height(window.innerHeight);
         $(".jmain").fadeIn('slow');
+        $(".hero-unit").not('.view').remove();
         $('body').showLoading();
 
         this.global.pollDataModel = new PollDataModel();

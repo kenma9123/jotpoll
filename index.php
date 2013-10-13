@@ -76,7 +76,7 @@
                 </p>
             </div>
         </div>
-        <div class="hero-unit dn">
+        <div class="hero-unit dn main">
             <div class="poll-panel" style="border-bottom: 1px solid #BBB;padding: 0px;">
                 <div class="poll-panel-inner">
                     <p class="poll-subtitle" style="font-size: 17px;line-height: 25px;display: block;font-weight: normal;">
@@ -93,77 +93,18 @@
                 <div class="clear-fix"></div>
             </div>
         </div>
-        <div class="hero-unit dn">
+        <div class="hero-unit dn main">
             <div id="poll-mainContainer-A" class="poll-result-container">
                 <div class="poll-divisions poll-chart-options"></div>
                 <div class="poll-divisions poll-chart-preview"></div>
                 <div class="clear-fix"></div>
             </div>
         </div>
-        <div class="hero-unit dn">
+        <div class="hero-unit dn view">
             <div class="poll-results-graph"></div>
         </div>
-        <div class="hero-unit dn">
-            <p style="line-height: 20px;text-align: center;padding: 50px 0px 0px 0px;">
-                Simply create a Poll to JotForm without leaving JotPoll.<br/>
-                The default type of question to be use is "Radio buttons".
-            </p>
-            <form id="create_question_form" name="create_question" method="post" action="" onSubmit="return false;">
-                <div class="create-poll-container">
-<!--                     <div class="question_type">
-                        <h1>Question Type</h1>
-                        <p class="sub-heading">Select your question type.<br>This is necessary beause we're dealing with <i>Forms</i>.<br/>Note: Only supports Dropdown and Radio type questions</p>
-                        <div class="input_division">
-                            <div class="wrapper-dropdown">
-                            <div id="dd" class="wrapper-dropdown-1" tabindex="1">
-                                <span>Type</span>
-                                <ul class="dropdown">
-                                    <li data-val="control_rating"><a href="javascript:void(0);">Star Rating</a></li>
-                                    <li data-val="control_scale"><a href="javascript:void(0);">Scale Rating</a></li>
-                                    <li data-val="control_dropdown"><a href="javascript:void(0);">Dropdown</a></li>
-                                    <li data-val="control_radio"><a href="javascript:void(0);">Radio</a></li>
-                                </ul>
-                                <input type="hidden" id="question_type" name="question_type" data-required="yes"/>
-                            </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="question_name">
-                        <h1>Create a Question</h1>
-                        <p class="sub-heading">Name your question with 100 characters less.<br/><i>Note</i>: Question name will be set as your Form name.</p>
-                        <div class="input_division">
-                            <textarea class="textarea_field" name="question_title" id="question_title" placeholder="Your question" autocomplete="off" data-required="yes"></textarea>
-                        </div>
-                    </div>
-                    <div class="question_answers">
-                        <h1>Answers</h1>
-                        <p class="sub-heading">Add answers to your question.<br/>With a minimum of 2 and a maximum of 5 anwers.</p>
-                        <ol class="optionList">
-                            <li>
-                                <input name="answers[]" id="option1" type="text" placeholder="Add an answer" autocomplete="off" class="input_field" data-required="yes"/>
-                            </li>
-                            <li>
-                                <input name="answers[]" id="option2" type="text" placeholder="Add an answer" autocomplete="off" class="input_field" data-required="yes"/>
-                            </li>
-                            <li>
-                                <input name="answers[]" id="option3" type="text" placeholder="Add an answer" autocomplete="off" class="input_field" data-required="yes"/>
-                                <div class="remove_btn dn">&#10006;</div>
-                            </li>
-                        </ol>
-                        <div class="add_more">
-                            <button class="btn btn-danger" id="add_more_btn">Add question</button>
-                            <div class="clearer"></div>
-                        </div>
-                    </div>
-                    <div class="create_question">
-                        <div class="button_container">
-                            <button class="btn btn-large btn-block btn-primary" id="create_poll">Create Poll</button>
-                        </div>
-                        <div class="errors_cont"></div>
-                        <div class="poll_result_cont"></div>
-                    </div>
-                </div>
-            </form>
+        <div class="hero-unit dn create">
+            <div class="create-poll-container"></div>
         </div>
     </div>
 

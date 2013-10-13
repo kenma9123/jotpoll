@@ -13,6 +13,8 @@ var CreatePollView = Backbone.View.extend({
 
     initialize: function()
     {
+        var self = this;
+
         //create model
         this.global.createPollModel = new CreatePollModel();
 
@@ -22,8 +24,22 @@ var CreatePollView = Backbone.View.extend({
         //remove siblings
         this.$el.parents('.hero-unit').show().siblings().remove();
 
-        this.initDropdown();
+        Backbone.on('call-createPollView', function(){
+            self.render();
+        });
 
+        this.on('rendered', function(){
+            self.initDropdown();
+        });
+    },
+
+    render: function()
+    {
+        $(this.el).html( renderTemplate('templates/createPoll.html') );
+
+        this.trigger('rendered', this);
+
+        return this;
     },
 
     initDropdown: function()
@@ -104,9 +120,12 @@ var CreatePollView = Backbone.View.extend({
     {
         var el = $("#add_more_btn")
           , cont = el.parents('.question_answers')
-          , optList = $('ol.optionList', cont);
+          , optList = $('ol.optionList', cont)
+          , total_answer = optList.children().length;
 
-        if ( optList.children().length >= 5 )
+        this.global.createPollModel.set('total_answers', total_answer);
+
+        if ( total_answer >= this.global.createPollModel.get('max_answers') )
         {
             el.hide();
         }
@@ -163,9 +182,48 @@ var CreatePollView = Backbone.View.extend({
         }
     },
 
+    generatePollLink: function(pollData)
+    {
+        var self = this;
+
+        self.showMessage("<p>Creating link for JotPoll, please wait...</p>");
+
+        setTimeout(function(){
+            self.global.chartOptionsView.handle_Bars_Markers_total(self.global.createPollModel.get('total_answers'));
+
+            self.global.generateView.generate(pollData.message.id, 1, function(generatedUrl, generatedId){
+
+                var html = '<div class="results"><h2>Success!</h2>'
+                  , links = [
+                        {name:'JotForm Link', url: pollData.message.url },
+                        {name:'JotPoll Link', url: generatedUrl },
+                        {name:'Cuztomize JotPoll Link', url: window.location.origin + window.base + 'edit/' + generatedId}
+                    ];
+
+                for( var x = 0; x < links.length; x++ )
+                {
+                    html +=
+                        '<div class="result_links">' +
+                            '<div class="links">' + links[x].name + '</div>' +
+                            '<div class="links input">' +
+                                '<input type="text" class="fields" value="' + links[x].url + '" onclick="this.select();"/>' +
+                            '</div>' +
+                            '<div class="clearer"></div>' +
+                        '</div>';
+                }
+
+
+                html += '</div>';
+                console.log(html);
+                self.showMessage(html);
+            });
+        },2000);
+    },
+
     createPoll: function(e)
     {
         var el = e.target
+          , self = this
           , form = $(el).parents('#create_question_form')
           , form_val = 'action=createPoll&' + form.serialize();
 
@@ -173,8 +231,7 @@ var CreatePollView = Backbone.View.extend({
             return false;
         }
 
-        var result_cont = $(".poll_result_cont");
-        result_cont.html('<p>Creating poll, please wait...</p>');
+        this.showMessage('<p>Creating form with JotForm, please wait...</p>');
 
         $.ajax({
             url: 'server.php',
@@ -185,13 +242,7 @@ var CreatePollView = Backbone.View.extend({
                 console.log(response);
                 if ( response.success == true )
                 {
-                    var url = response.message.url
-                      , id = response.message.id
-                      , success = $('<span/>').addClass('create_success').text('Success!')
-                      , visit = $('<a/>',{href:url, target:'_blank'}).text('Visit Poll')
-                      , customize = $('<a/>',{href:id, target:'_blank'}).text('Customize your Poll')
-                      , p = $('<p/>').append(success).append(visit).append('|').append(customize);
-                    result_cont.html(p[0].outerHTML);
+                    self.generatePollLink(response);
                 }
             },
             error: function(errors)
@@ -201,6 +252,11 @@ var CreatePollView = Backbone.View.extend({
         });
 
         return false;
+    },
+
+    showMessage: function(msg)
+    {
+        $(".poll_result_cont").html(msg);
     },
 
     removeAnswer: function(e)
