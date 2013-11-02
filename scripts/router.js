@@ -120,7 +120,7 @@ var PollRouter = Backbone.Router.extend({
         $("#integrate_now-btn").click(function(){
             $(this).parents('#application_landing').slideUp('fast', function(){
                 $(this).remove();
-                $(".jmain").fadeIn('slow', function(){
+                $(".jmain, .jotpoll-footer").fadeIn('slow', function(){
                     $('#joyRideTipContent').joyride({
                         autoStart : true,
                         modal:true,
@@ -169,7 +169,7 @@ var PollRouter = Backbone.Router.extend({
         this.initJF(function(){
             this.showContainers();
 
-                $(".jmain").fadeIn('slow');
+                $(".jmain, .jotpoll-footer").fadeIn('slow');
                 $(".hero-unit").not('.main').remove();
                 $(".poll-panel").remove();
                 $("#updatePreview").trigger('click');
@@ -199,7 +199,7 @@ var PollRouter = Backbone.Router.extend({
 
             this.require(['accountView', 'createPollView']);
 
-            $(".jmain").fadeIn('slow');
+            $(".jmain, .jotpoll-footer").fadeIn('slow');
             $(".hero-unit").not('.create').remove();
 
             $("#navigation-bar").find('#home').toggleClass('active');
@@ -211,7 +211,7 @@ var PollRouter = Backbone.Router.extend({
     {
         var self = this;
         $('body').height(window.innerHeight);
-        $(".jmain").fadeIn('slow');
+        $(".jmain, .jotpoll-footer").fadeIn('slow');
         $(".hero-unit").not('.view').remove();
         $('body').showLoading();
 

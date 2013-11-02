@@ -59,6 +59,15 @@ Class User
         return $user_data;
     }
 
+    public static function countUsers()
+    {
+        $_db = new MySQL(MYSQL_CONNECTION);
+        $stmt = $_db->query("SELECT id FROM `accounts`");
+        $results = $stmt->fetchAllAssoc();
+
+        return count($results);
+    }
+
     public function createAccount()
     {
         $values = array(
