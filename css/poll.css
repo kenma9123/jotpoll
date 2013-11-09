@@ -37,6 +37,7 @@ ol {
 }
 .container.main-content{
     margin-top: 1%;
+    min-height: 100%;
 }
 .tab-content,
 .tab-content-options
@@ -121,7 +122,9 @@ ol {
 {
     width: 180px !important;
 }
-
+.jmain .view {
+    min-width: 700px;
+}
 .hero-unit
 {
   -webkit-border-radius: 0px;
