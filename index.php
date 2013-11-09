@@ -198,19 +198,6 @@
 
      </script>
 
-    <script src="http://cdn.jotfor.ms/static/feedback2.js?3.1.12" type="text/javascript">
-        new JotformFeedback({
-            formId     : "32124156488960",
-            buttonText : "Feedbacks",
-            base       : "http://jotformpro.com/",
-            background : "#F59202",
-            fontColor  : "#FFFFFF",
-            buttonSide : "bottom",
-            buttonAlign: "right",
-            type       : false,
-            width      : 700,
-            height     : 500
-        });
-    </script>
+     <?=$feedback?>
 </body>
 </html>

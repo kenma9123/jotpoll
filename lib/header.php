@@ -91,6 +91,24 @@
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/flatui-radio.js"></script>
     ';
 
+    $feedback = ( isset($_SERVER['REQUEST_URI']) AND !strpos($_SERVER['REQUEST_URI'], 'result') ) ?
+    '
+    <script src="http://cdn.jotfor.ms/static/feedback2.js?3.1.12" type="text/javascript">
+        new JotformFeedback({
+            formId     : "32124156488960",
+            buttonText : "Feedbacks",
+            base       : "http://jotformpro.com/",
+            background : "#F59202",
+            fontColor  : "#FFFFFF",
+            buttonSide : "bottom",
+            buttonAlign: "right",
+            type       : false,
+            width      : 700,
+            height     : 500
+        });
+    </script>
+    ' : '';
+
     $livescript = '<script type="text/javascript" src="' . HTTP_URL . 'scripts/scripts-min.js?v3.1{REV}"></script>';
 
     define("PAGE_HEAD", $header);
