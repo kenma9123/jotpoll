@@ -42,8 +42,8 @@ var PollRouter = Backbone.Router.extend({
     routes:
     {
         "" : "home",
-        "create" : "createPoll",
-        "edit/:poll_id": "editPoll",
+        // "create" : "createPoll",
+        // "edit/:poll_id": "editPoll",
         "result/*identifier": "showPollResultsData"
     },
 

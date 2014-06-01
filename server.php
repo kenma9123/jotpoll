@@ -57,11 +57,11 @@ try
                 $httpresponse->error($message);
             }
         break;
-        case 'createPoll':
-            $userApi = User::getUser_APIKey();
-            $result = Poll::create( $request, $userApi );
-            $httpresponse->success($result);
-        break;
+        // case 'createPoll':
+        //     $userApi = User::getUser_APIKey();
+        //     $result = Poll::create( $request, $userApi );
+        //     $httpresponse->success($result);
+        // break;
         default:
             $httpresponse->error("Invalid method - " . $request['action'] . " not found.");
         break;

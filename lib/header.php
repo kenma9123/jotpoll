@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="keywords" content="jotpoll, jotform poll, poll view, online poll, web poll, online polls, web polls, view poll, view polls, create poll, easy poll, cool poll, awesome poll" />
         <meta name="description" content="JotPoll, view or create amazing polls after a form submission with JotForm" />
-        <meta name="google-site-verification" content="CG6F2CQMNJ3nvu1pdPuN7Ww_YcG1-0cMc06ntbB12wk" />
+        <meta name="google-site-verification" content="etrJ06ZHFrub2uJvarIaWW9Fpn7Oxhqk1eGzkDWqZ1A" />
         <meta property="og:title" content="JotPoll" />
         <meta property="og:description" content="JotPoll, view or create amazing polls after a form submission with JotForm" />
         <meta property="og:image" content="http://cms.interlogy.com/uploads/image_upload/image_upload/global/9260_150X150.jpg" />
@@ -45,10 +45,10 @@
 
     $devscripts =
     '
-    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/json2.js"></script>
-    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/jquery.js"></script>
-    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/underscore.js"></script>
-    <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/backbone.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/flat/bootstrap.min.js"></script>
     '. $jotformFiles .'
     <script type="text/javascript" src="' . HTTP_URL . 'scripts/lib/charts/dx.chartjs.js"></script>
