@@ -1,6 +1,6 @@
-Weebly-App
+JotPoll-App
 ==========
-JotForm application for Weebly
+JotForm application
 
 Built using
 -----------
