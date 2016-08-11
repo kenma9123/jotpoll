@@ -1,19 +1,25 @@
 
-/**
- * Ticket actions constants
- */
-export const TICKETS_FETCH = 'TICKETS_FETCH';
-export const TICKETS_FETCH_SUCCESS = 'TICKETS_FETCH_SUCCESS';
-export const TICKETS_FETCH_FAILURE = 'TICKETS_FETCH_FAILURE';
+export const User = {
+  login: 'user:login',
+  logout: 'user:logout'
+};
 
-export const TICKETS_FETCH_BY = 'TICKETS_FETCH_BY';
-export const TICKETS_FETCH_BY_SUCCESS = 'TICKETS_FETCH_BY_SUCCESS';
-export const TICKETS_FETCH_BY_FAILURE = 'TICKETS_FETCH_BY_FAILURE';
+export const Form = {
+  toggle: 'form:toggle'
+};
 
-export const TICKET_FETCH = 'TICKET_FETCH';
-export const TICKET_FETCH_SUCCESS = 'TICKET_FETCH_SUCCESS';
-export const TICKET_FETCH_FAILURE = 'TICKET_FETCH_FAILURE';
+export const Forms = {
+  fetch: 'forms:fetch',
+  success: 'forms:fetch:success',
+  failed: 'forms:fetch:failed'
+};
 
-export const TICKET_FETCH_RANDOM = 'TICKET_FETCH_RANDOM';
-export const TICKET_FETCH_RANDOM_SUCCESS = 'TICKET_FETCH_RANDOM_SUCCESS';
-export const TICKET_FETCH_RANDOM_FAILURE = 'TICKET_FETCH_RANDOM_FAILURE';
+export const Question = {
+  toggle: 'question:toggle'
+};
+
+export const Questions = {
+  fetch: 'questions:fetch',
+  success: 'questions:fetch:success',
+  failed: 'questions:fetch:failed'
+};

@@ -22,9 +22,6 @@ export default class Root extends Component {
           <Router history={history}>
             <Route path="/" component={App}>
               <IndexRoute component={Stage} />
-              <Route path="/test" component={Container}>
-              
-              </Route>
             </Route>
             <Route path="*" component={NotFound}/>
           </Router>

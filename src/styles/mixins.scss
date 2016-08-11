@@ -1,0 +1,20 @@
+%navi-before-mixin {
+  content: ' ';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  background: #34495E;
+  border-top: 1px solid #34495E;
+  width: 4px;
+  height: 100%;
+}
+
+%full-height {
+  height: 100vh;
+}
+
+@mixin shadow($value) {
+-webkit-box-shadow: $value;
+-moz-box-shadow: $value;
+box-shadow: $value;
+}

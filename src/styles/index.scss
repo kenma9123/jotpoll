@@ -1,0 +1,112 @@
+@import "mixins";
+@import "variables";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.jotpoll {
+  font-family: $app-universal-font-family;
+
+  &.section {
+    .division {
+      @extend %full-height;
+      width: 400px;
+      display: inline-block;
+      vertical-align: top;
+      background: #F4F6F9;
+
+      &.navigation {
+        border: none;
+        width: 65px;
+        display: none;
+      }
+
+      &.data-list {
+
+      }
+    }
+
+    .section-title {
+      background-color: $section-title-bg-color;
+      color: $section-title-txt-color;
+      padding: 20px;
+      font-size: 0.9em;
+      border-right: 1px solid #617386;
+
+      .icon-container {
+        float: right;
+      }
+    }
+  }
+
+  .list {
+    padding: 10px 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+
+    &.scroll {
+      overflow-y: scroll;
+    }
+
+    .list-item {
+      cursor: pointer;
+      background: $list-item-bg-color;
+
+      i.fa {
+        position: absolute;
+        top: 13px;
+        left: 20px;
+      }
+
+      position: relative;
+      padding: 10px 20px 10px 50px;
+      border-bottom: 1px solid #ECECEC;
+      border-right: 1px solid #ECECEC;
+      border-left: 1px solid #ECECEC;
+
+      * {
+        margin: 5px 0;
+      }
+
+      .primaryText {
+        color: $list-item-text-color;
+        font-size: 0.9em;
+      }
+
+      .secondaryText {
+        font-size: 0.9em;
+        color: $list-item-date-color;
+      }
+
+      &.selected {
+        background: $list-item-selected-color;
+        border-right: none;
+        @include shadow(0px 0px 55px -23px rgba(99,99,99,1));
+
+        &:before {
+            @extend %navi-before-mixin;
+        }
+
+        &:hover {
+            background: $list-item-hover-color;
+        }
+      }
+
+      &.disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+      }
+
+      &:hover {
+        background: $list-item-hover-color;
+        &:before {
+          @extend %navi-before-mixin;
+        }
+      }
+    }
+  }
+}

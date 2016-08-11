@@ -62,7 +62,7 @@ export default store => next => action => {
 
   // if payload exist
   if (!isEmpty(payload)) {
-    payload['data']['user'] = JSON.stringify(window.User);
+    // payload['data']['user'] = JSON.stringify(window.User);
     requestOptions = {
       ...requestOptions,
       ...payload

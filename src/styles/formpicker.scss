@@ -1,0 +1,13 @@
+@import "mixins";
+@import "variables";
+
+.formpicker-cont {
+  display: inline-block;
+  width: 400px !important;
+
+  .formpicker-list {
+    i.fa {
+      color: $list-item-fonts-icon-color;
+    }
+  }
+}

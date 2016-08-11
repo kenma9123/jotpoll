@@ -1,30 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import { hashHistory } from 'react-router';
-import classNames from 'classnames';
-import { isUndefined, isEmpty } from 'lodash/lang';
 import DocumentTitle  from 'react-document-title';
 import Link from 'react-router/lib/Link';
 
-export default class Stage extends Component {
+import FormPicker from '../components/FormPicker';
+import QuestionPicker from '../components/QuestionPicker';
 
-  static propTypes = {
-    ticket: PropTypes.object,
-    actions: PropTypes.object
-  };
-
+class Stage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { ticket,  } = this.props;
     return (
-      <DocumentTitle title='Weebly App'>
-        <div>
-            Hello World
-            <Link to="/test">Test</Link>
-        </div>
+      <DocumentTitle title='JotPoll'>
+        <section id="stage-root" className="jotpoll section">
+          <FormPicker />
+          <QuestionPicker />
+        </section>
       </DocumentTitle>
     );
   }
 }
+
+export default Stage;
