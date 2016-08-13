@@ -1,13 +1,19 @@
 @import "mixins";
 @import "variables";
+@import "helpers";
 
 html, body {
   margin: 0;
   padding: 0;
 }
 
+body {
+  overflow: hidden;
+}
+
 .jotpoll {
   font-family: $app-universal-font-family;
+  white-space: nowrap;
 
   &.section {
     .division {
@@ -36,7 +42,11 @@ html, body {
       border-right: 1px solid #617386;
 
       .icon-container {
-        float: right;
+       padding: 0 5px;
+
+        &.right {
+          float: right;
+        }
       }
     }
   }
@@ -57,16 +67,51 @@ html, body {
       background: $list-item-bg-color;
 
       i.fa {
-        position: absolute;
-        top: 13px;
-        left: 20px;
+        // position: absolute;
+        // top: 13px;
+        // left: 20px;
       }
 
       position: relative;
-      padding: 10px 20px 10px 50px;
+      padding: 10px;
       border-bottom: 1px solid #ECECEC;
       border-right: 1px solid #ECECEC;
       border-left: 1px solid #ECECEC;
+
+      &.with-left-icon {
+        padding-left: 50px;
+
+        .left-icon {
+          position: absolute;
+          top: 7px;
+          left: 20px;
+        }
+      }
+
+      &.with-right-icon {
+        padding-right: 50px;
+
+        .right-icon {
+          position: absolute;
+          top: 7px;
+          right: 20px;
+          padding: 0 10px;
+          margin: 0;
+        }
+      }
+
+      .list-item-content {
+        display: inline-block;
+        margin: 0;
+      }
+
+      // &.right-icon {
+      //   padding-right: 50px;
+
+      //   i.fa {
+      //     right: 20px;
+      //   }
+      // }
 
       * {
         margin: 5px 0;
@@ -75,6 +120,7 @@ html, body {
       .primaryText {
         color: $list-item-text-color;
         font-size: 0.9em;
+        font-weight: 600;
       }
 
       .secondaryText {
@@ -83,7 +129,7 @@ html, body {
       }
 
       &.disabled {
-        opacity: 0.2;
+        opacity: 0.3;
         cursor: not-allowed;
       }
     }

@@ -1,0 +1,13 @@
+@import "mixins";
+
+.left-text {
+  @include alignText(left);
+}
+
+.center-text {
+  @include alignText(center);
+}
+
+.right-text {
+  @include alignText(right);
+}
