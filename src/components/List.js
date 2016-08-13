@@ -9,18 +9,46 @@ class List extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired,
-    selected: PropTypes.object.isRequired,
     onItemSelect: PropTypes.func,
     primaryProp: PropTypes.string.isRequired,
     secondaryProp: PropTypes.string.isRequired,
     disableUnsupported: PropTypes.bool
   };
 
-  selectItem(item) {
-    if (item && !this.isNotSupported(item)) {
-      this.props.onItemSelect(item);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      height: this.getScrollHeight(),
+      selected: {}
+    };
+
+    this.handleResize = this.handleResize.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize(e) {
+    this.setState({
+      height: this.getScrollHeight()
+    });
+  }
+
+  selectItem(selected) {
+    if (selected && !this.isNotSupported(selected)) {
+      this.setState({
+        selected
+      }, () => {
+        this.props.onItemSelect(selected);
+      });
     } else {
-      console.log(item, 'is not supported');
+      console.log(selected, 'is not supported');
     }
   }
 
@@ -34,14 +62,14 @@ class List extends Component {
   }
 
   render() {
-    const { items, name, selected, scroll } = this.props;
+    const { items, name, scroll } = this.props;
     const listClassName = classNames(name + '-list', 'list');
 
     return (
-      <Scrollbars autoHide style={{height: this.getScrollHeight()}}>
+      <Scrollbars autoHide style={{height: this.state.height}}>
         <ul className={listClassName}>
           { items.map((item, index) => {
-            const isSelected = isEqual(item, selected);
+            const isSelected = isEqual(item, this.state.selected);
             const listItemClass = classNames('list-item', {
               'selected': isSelected,
               'disabled': this.isNotSupported(item)
