@@ -20,6 +20,10 @@ class QuestionPicker extends Component {
     actions: PropTypes.object.isRequired
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     // load form list if empty
     // const { actions, forms, questions, user } = this.props;
@@ -51,12 +55,17 @@ class QuestionPicker extends Component {
     }
   }
 
+  selectQuestion(question) {
+    this.props.actions.toggleQuestion(question);
+  }
+
   render() {
     const { forms, questions } = this.props;
     let content = <div>Select a form first</div>;
     if (!isEmpty(forms.selected)) {
-      content = <div>Loading Questions for form { forms.selected.title }...</div>;
-      if (!isEmpty(questions.items)) {
+      if (questions.isFetching) {
+        content = <div>Loading Questions for form { forms.selected.title }...</div>;
+      } else if (!isEmpty(questions.items)) {
 
         // modify control text to not show its HTML content
         let newItems = [];
@@ -84,14 +93,12 @@ class QuestionPicker extends Component {
               secondaryProp={'type'}
               disableUnsupported={true}
               selected={questions.selected}
-              onItemSelect={(item) => console.log("Item selected", item)}
+              onItemSelect={(question) => this.selectQuestion(question)}
             />
           );
         } else {
           content = <div>No questions supported</div>;
         }
-
-
       }
     }
 

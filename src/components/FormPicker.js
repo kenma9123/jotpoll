@@ -17,6 +17,10 @@ class FormPicker extends Component {
     actions: PropTypes.object.isRequired
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     // load form list if empty
     const { actions, forms, user } = this.props;
@@ -39,8 +43,7 @@ class FormPicker extends Component {
           items={forms.items}
           primaryProp={'title'}
           secondaryProp={'updated_at'}
-          selected={forms.selected}
-          onItemSelect={(item) => this.selectForm(item)}
+          onItemSelect={(form) => this.selectForm(form)}
         />
       );
     }
