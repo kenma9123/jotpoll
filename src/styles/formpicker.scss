@@ -6,8 +6,12 @@
   width: 400px !important;
 
   .formpicker-list {
-    i.fa {
-      color: $list-item-fonts-icon-color;
+    .list-item {
+      @include list-item-mixin(
+        $list-item-selected-color,
+        $list-item-hover-color,
+        $list-item-fonts-icon-color
+      );
     }
   }
 }

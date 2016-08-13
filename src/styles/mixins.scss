@@ -14,7 +14,41 @@
 }
 
 @mixin shadow($value) {
--webkit-box-shadow: $value;
--moz-box-shadow: $value;
-box-shadow: $value;
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin navi-before-mixin($color) {
+  content: ' ';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  background: $color;
+  border-top: 1px solid $color;
+  width: 4px;
+  height: 100%;
+}
+
+@mixin list-item-mixin($selectedBg, $hoverBg, $iconNaviColor) {
+  i.fa {
+    color: $iconNaviColor;
+  }
+
+  &.selected {
+    background: $selectedBg;
+    border-right: none;
+    @include shadow(0px 0px 55px -23px rgba(99,99,99,1));
+
+    &:before {
+      @include navi-before-mixin($iconNaviColor);
+    }
+  }
+
+  &:hover {
+    background: $hoverBg;
+    &:before {
+      @include navi-before-mixin($iconNaviColor);
+    }
+  }
 }

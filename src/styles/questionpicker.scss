@@ -4,4 +4,16 @@
 .questionpicker-cont {
   display: inline-block;
   width: 300px !important;
+
+  .questionpicker-list {
+    .list-item {
+      &:not(.disabled) {
+        @include list-item-mixin(
+          $list-item-selected-color,
+          $list-item-hover-color,
+          $list-item-fonts-icon-color-available
+        );
+      }
+    }
+  }
 }
