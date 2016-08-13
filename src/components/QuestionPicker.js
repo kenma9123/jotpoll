@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { isEmpty, isEqual } from 'lodash/lang';
 import { sortBy } from 'lodash/collection';
 import { SUPPORTED_QUESTIONS } from '../config';
+import * as Utils from '../utils';
 import '../styles/questionpicker.scss';
 
 import { bindActionCreators } from 'redux';
@@ -47,16 +48,13 @@ class QuestionPicker extends Component {
     return span.textContent || span.innerText;
   }
 
-  truncate(string){
-    if (string && string.length > 30) {
-      return string.substring(0, 30) + '...';
-    } else {
-      return string;
-    }
-  }
-
   selectQuestion(question) {
     this.props.actions.toggleQuestion(question);
+  }
+
+  formatSecondaryText(question) {
+    const supported = (question.supported) ? <i>Compatible</i> : <i>Incompatible</i>
+    return supported;
   }
 
   render() {
@@ -75,7 +73,7 @@ class QuestionPicker extends Component {
             item.text = this.extractHTMLContent(item.text);
           }
 
-          item.text = this.truncate(item.text);
+          item.text = Utils.truncate(item.text, 30);
 
           newItems.push(item);
         });
@@ -89,8 +87,8 @@ class QuestionPicker extends Component {
             <List
               name="questionpicker"
               items={newItems}
-              primaryProp={'text'}
-              secondaryProp={'type'}
+              primaryProp={(question) => question.text}
+              secondaryProp={(question) => this.formatSecondaryText(question)}
               disableUnsupported={true}
               selected={questions.selected}
               onItemSelect={(question) => this.selectQuestion(question)}
@@ -103,10 +101,10 @@ class QuestionPicker extends Component {
     }
 
     return (
-      <div className="division questionpicker-cont">
+      <div className="division questionpicker-cont" id="questionpicker">
           <div className="section-title">
             Question List
-            <span className="icon-container">
+            <span className="icon-container right">
               <i className="fa fa-th-list"></i>
             </span>
           </div>

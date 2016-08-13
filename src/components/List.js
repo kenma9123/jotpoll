@@ -10,9 +10,10 @@ class List extends Component {
     name: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired,
     onItemSelect: PropTypes.func,
-    primaryProp: PropTypes.string.isRequired,
-    secondaryProp: PropTypes.string.isRequired,
-    disableUnsupported: PropTypes.bool
+    primaryProp: PropTypes.func.isRequired,
+    secondaryProp: PropTypes.func.isRequired,
+    disableUnsupported: PropTypes.bool,
+    rightIcon: PropTypes.func
   };
 
   constructor(props) {
@@ -62,7 +63,7 @@ class List extends Component {
   }
 
   render() {
-    const { items, name, scroll } = this.props;
+    const { items, name, scroll, primaryProp, secondaryProp, rightIcon = false } = this.props;
     const listClassName = classNames(name + '-list', 'list');
 
     return (
@@ -70,7 +71,8 @@ class List extends Component {
         <ul className={listClassName}>
           { items.map((item, index) => {
             const isSelected = isEqual(item, this.state.selected);
-            const listItemClass = classNames('list-item', {
+            const listItemClass = classNames('list-item with-left-icon', {
+              'with-right-icon': rightIcon,
               'selected': isSelected,
               'disabled': this.isNotSupported(item)
             });
@@ -85,15 +87,20 @@ class List extends Component {
                 key={index}
                 onClick={ () => this.selectItem(item) }
               >
-                <i className={ iconClass }></i>
+                <div className="left-icon">
+                  <i className={ iconClass }></i>
+                </div>
                 <div className="list-item-content">
-                  <div className="primaryText">
-                    {item[this.props.primaryProp]}
+                  <div className="primaryText" title={primaryProp(item)}>
+                    { primaryProp && primaryProp(item) }
                   </div>
                   <div className="secondaryText">
-                    {item[this.props.secondaryProp]}
+                    { secondaryProp && secondaryProp(item)  }
                   </div>
                 </div>
+                { rightIcon && <div className="right-icon">
+                  { rightIcon(item) }
+                </div>}
               </ListItem>
             );
           }) }
