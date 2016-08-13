@@ -13,9 +13,7 @@ export default createReducer({
   [types.Question.toggle]: (state, action) => {
     return  {
       ...state,
-      selected: filter(state.items, (form) =>
-        (form.id === action.id)
-      )[0]
+      selected: action.question
     };
   },
   [types.Questions.fetch]: (state, action) => {

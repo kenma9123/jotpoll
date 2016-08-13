@@ -13,7 +13,7 @@ export default createReducer({
   [types.Form.toggle]: (state, action) => {
     return  {
       ...state,
-      selected: action.selected
+      selected: action.form
     };
   },
   [types.Forms.fetch]: (state, action) => {
