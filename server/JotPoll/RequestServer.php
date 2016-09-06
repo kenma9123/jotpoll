@@ -44,6 +44,20 @@ class RequestServer extends AjaxHandler {
       'result' => $questionsArr
     ));
   }
+
+  public function result() {
+    // get the result data based from the result id
+    $poll = new \JotPoll\PollResult($this->get('id'));
+
+    $result = $poll->getData();
+    if (array_key_exists('error', $result)) {
+      $this->error($result['error']['message'], array('code' => $result['error']['code']));
+    }
+
+    $this->success("Poll result", array(
+      'result' => $result,
+    ));
+  }
 }
 
 ?>
