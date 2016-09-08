@@ -10,10 +10,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': '"production"'
-      },
-      __DEVELOPMENT__: false,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      '__DEVELOPMENT__': false,
     }),
     new ExtractTextPlugin('bundle.css', {
         allChunks: true

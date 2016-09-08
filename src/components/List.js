@@ -10,6 +10,7 @@ class List extends Component {
     name: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired,
     onItemSelect: PropTypes.func,
+    selected: PropTypes.object,
     primaryProp: PropTypes.func.isRequired,
     secondaryProp: PropTypes.func.isRequired,
     disableUnsupported: PropTypes.bool,
@@ -21,7 +22,7 @@ class List extends Component {
 
     this.state = {
       height: this.getScrollHeight(),
-      selected: {}
+      // selected: {}
     };
 
     this.handleResize = this.handleResize.bind(this);
@@ -43,11 +44,11 @@ class List extends Component {
 
   selectItem(selected) {
     if (selected && !this.isNotSupported(selected)) {
-      this.setState({
-        selected
-      }, () => {
+      // this.setState({
+      //   selected
+      // }, () => {
         this.props.onItemSelect(selected);
-      });
+      // });
     } else {
       console.log(selected, 'is not supported');
     }
@@ -63,14 +64,14 @@ class List extends Component {
   }
 
   render() {
-    const { items, name, scroll, primaryProp, secondaryProp, rightIcon = false } = this.props;
+    const { items, name, selected, scroll, primaryProp, secondaryProp, rightIcon = false } = this.props;
     const listClassName = classNames(name + '-list', 'list');
 
     return (
       <Scrollbars autoHide style={{height: this.state.height}}>
         <ul className={listClassName}>
           { items.map((item, index) => {
-            const isSelected = isEqual(item, this.state.selected);
+            const isSelected = isEqual(item, selected);
             const listItemClass = classNames('list-item with-left-icon', {
               'with-right-icon': rightIcon,
               'selected': isSelected,

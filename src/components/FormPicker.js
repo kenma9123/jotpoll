@@ -1,15 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash/lang';
+import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 import * as Utils from '../utils';
 import '../styles/formpicker.scss';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as ActionCreators from '../actions';
-import { routeActions } from 'react-router-redux';
-
 import List from './List';
+import Loading from './Loading';
 
 class FormPicker extends Component {
 
@@ -59,12 +55,13 @@ class FormPicker extends Component {
 
   render() {
     const { forms } = this.props;
-    let content = <div>Loading forms...</div>;
+    let content = <Loading text="Loading Forms" spinnerName="three-bounce"/>;
     if (!isEmpty(forms.items)) {
       content = (
         <List
           name="formpicker"
           items={forms.items}
+          selected={forms.selected}
           primaryProp={(form) => this.formaPrimaryText(form)}
           secondaryProp={(form) => this.formatSecondaryText(form)}
           onItemSelect={(form) => this.selectForm(form)}
@@ -76,7 +73,7 @@ class FormPicker extends Component {
     return (
       <div className="division formpicker-cont" id="formpicker">
           <div className="section-title">
-            Widget List
+            Form List
             <span className="icon-container right">
               <i className="fa fa-th-list"></i>
             </span>
@@ -87,20 +84,4 @@ class FormPicker extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    forms: state.forms,
-    user: state.user
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(Object.assign({}, ActionCreators, routeActions), dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FormPicker);
+export default FormPicker;

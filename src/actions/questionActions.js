@@ -7,7 +7,9 @@ import { SERVER_URL } from '../config';
 export function toggleQuestion(question) {
   return {
     type: types.Question.toggle,
-    question
+    payload: {
+      question
+    }
   };
 }
 

@@ -1,0 +1,96 @@
+
+.jotpoll {
+  &.section {
+    .division {
+      &.pollchart-cont {
+        background: #fff;
+
+        .chart-holder {
+          padding-left: 30px;
+          height: 100vh;
+
+          .chart-area {
+            background: #f4f6f9;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+          }
+
+          .chart-division {
+            width: 75%;
+            height: 100vh;
+            display: inline-block;
+            padding: 0 40px;
+
+            .chart-preview {
+              h2 {
+                margin-top: 0px;
+              }
+            }
+
+            .chart-control {
+              border-top: 1px solid #e2e2e2;
+              margin-top: 50px;
+
+              // h2 {
+              //   margin-top: 0px;
+              // }
+
+              .ctrl-section {
+                margin: 0;
+                margin-left: 15px;
+
+                .ctrl-division {
+                  // width: 50%;
+                  display: inline-block;
+                  vertical-align: top;
+
+                  .ctrl-input {
+                    padding: 0 10px 10px 0px;
+
+                    .ctrl-label {
+                      padding: 8px 8px 8px 0px;
+                      font-size: 14px;
+                      font-weight: 700;
+                      display: block;
+                    }
+
+                    .ctrl-field {
+                      display: block;
+                      // width: 300px;
+                      box-sizing: border-box;
+
+                      .fields {
+                        margin-bottom: 10px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .table-division {
+            width: 25%;
+            height: 100vh;
+            display: inline-block;
+            vertical-align: top;
+            border-left: 1px solid #e2e2e2;
+            height: 100vh;
+
+            table {
+              width: 100%;
+              text-align: left;
+              white-space: pre-line;
+              padding: 0 20px;
+            }
+          }
+        }
+
+        .notification-custom {
+          right: 1em;
+        }
+      }
+    }
+  }
+}

@@ -72,13 +72,16 @@ export default store => next => action => {
   return callApi(requestOptions).then(
     response => next({
       type: successType,
-      response
+      payload: {
+        response
+      }
     }),
     error => {
       let errors = JSON.parse(error.responseText);
       next({
         type: failureType,
-        error: errors
+        payload: errors,
+        error: true
       })
     }
   );

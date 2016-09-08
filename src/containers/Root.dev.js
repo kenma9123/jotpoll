@@ -10,7 +10,7 @@ import DevTools from './DevTools';
 
 import App from './App';
 import Stage from './Stage';
-import Container from './Container';
+import Result from './Result';
 
 export default class Root extends Component {
   render() {
@@ -22,6 +22,7 @@ export default class Root extends Component {
           <Router history={history}>
             <Route path="/" component={App}>
               <IndexRoute component={Stage} />
+              <Route path="result/:resultid" component={Result}/>
             </Route>
             <Route path="*" component={NotFound}/>
           </Router>

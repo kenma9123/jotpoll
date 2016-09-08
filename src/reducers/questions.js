@@ -11,9 +11,10 @@ const initialState = {
 
 export default createReducer({
   [types.Question.toggle]: (state, action) => {
+    let { question } = action.payload;
     return  {
       ...state,
-      selected: action.question
+      selected: question
     };
   },
   [types.Questions.fetch]: (state, action) => {
@@ -23,17 +24,26 @@ export default createReducer({
     };
   },
   [types.Questions.success]: (state, action) => {
+    let { response } = action.payload;
     return {
       ...state,
       isFetching: false,
-      items: action.response.result
+      items: response.result
     };
   },
   [types.Questions.failed]: (state, action) => {
     return {
       ...state,
       isFetching: false,
-      error: action.error
+      error: action.payload
+    };
+  },
+
+  // reset to initial state every time a form toggles
+  [types.Form.toggle]: (state, action) => {
+    return  {
+      ...state,
+      ...initialState
     };
   }
 }, initialState);

@@ -1,16 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, isEqual } from 'lodash/lang';
-import { sortBy } from 'lodash/collection';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import sortBy from 'lodash/sortBy';
 import { SUPPORTED_QUESTIONS } from '../config';
 import * as Utils from '../utils';
 import '../styles/questionpicker.scss';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as ActionCreators from '../actions';
-import { routeActions } from 'react-router-redux';
-
 import List from './List';
+import Loading from './Loading';
+import CenterText from './CenterText';
 
 class QuestionPicker extends Component {
 
@@ -44,7 +42,7 @@ class QuestionPicker extends Component {
 
   extractHTMLContent(s) {
     var span= document.createElement('span');
-    span.innerHTML= s;
+    span.innerHTML = s;
     return span.textContent || span.innerText;
   }
 
@@ -59,10 +57,10 @@ class QuestionPicker extends Component {
 
   render() {
     const { forms, questions } = this.props;
-    let content = <div>Select a form first</div>;
+    let content = <CenterText text="Select a form" icon="fa-info-circle"/>;
     if (!isEmpty(forms.selected)) {
       if (questions.isFetching) {
-        content = <div>Loading Questions for form { forms.selected.title }...</div>;
+        content = <Loading text="Loading Questions" spinnerName="three-bounce"/>;
       } else if (!isEmpty(questions.items)) {
 
         // modify control text to not show its HTML content
@@ -80,7 +78,7 @@ class QuestionPicker extends Component {
 
         newItems = sortBy(newItems, function(item) { return !item.supported; });
 
-        console.log("new Items", newItems);
+        // console.log("new Items", newItems);
 
         if (!isEmpty(newItems)) {
           content = (
@@ -95,7 +93,7 @@ class QuestionPicker extends Component {
             />
           );
         } else {
-          content = <div>No questions supported</div>;
+          content = <CenterText text="No questions supported" />;
         }
       }
     }
@@ -114,21 +112,4 @@ class QuestionPicker extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    forms: state.forms,
-    questions: state.questions,
-    user: state.user
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(Object.assign({}, ActionCreators, routeActions), dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuestionPicker);
+export default QuestionPicker;

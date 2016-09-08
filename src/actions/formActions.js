@@ -7,7 +7,9 @@ import { SERVER_URL } from '../config';
 export function toggleForm(form) {
   return {
     type: types.Form.toggle,
-    form
+    payload: {
+      form
+    }
   };
 }
 
