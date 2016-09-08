@@ -3,9 +3,12 @@
 namespace JotPoll;
 
 use \JotPoll\JotForm;
+use \JotPoll\JotFormClient;
 use \JotPoll\Utils\AjaxHandler;
 use \JotPoll\Interfaces\AjaxInterface;
 use \JotPoll\Exceptions\JotPollException;
+
+use \JotPoll\Utils\Session;
 
 use \Exception;
 
@@ -19,6 +22,43 @@ class RequestServer extends AjaxHandler {
 
     $this->apikey = $args['apikey'];
     $this->jotform = new JotForm($this->apikey);
+  }
+
+  public function loginUser() {
+    $apikey = $this->get('apikey');
+
+    $jotform = new JotFormClient($apikey);
+    if ($jotform->isApiKeyValid()) {
+      // check db for email
+      // and update api key accordingly
+      $jUser = $jotform->getUser();
+      if (isset($jUser['email'])) {
+        $user = new \JotPoll\User();
+
+        // exist or not update/insert data
+        $user->set('username', $jUser['username']);
+        $user->set('email', $jUser['email']);
+        $user->set('apikey', $apikey);
+
+        $result = '';
+        if ($user->exist('email', $jUser['email'])) {
+          $id = $user->update();
+          $result = array($id => 'updated');
+        } else {
+          $id = $user->insert();
+          $result = array($id => 'inserted');
+        }
+
+        // finally get the updated or inserted user
+        $this->success("User details", array(
+          'user' => array_merge($user->getData(), array('avatarUrl' => $jUser['avatarUrl'])),
+          'result' => $result
+        ));
+      }
+    } else {
+      // api key is not valid
+      $this->error('API key is not valid');
+    }
   }
 
   public function formList() {
@@ -47,15 +87,34 @@ class RequestServer extends AjaxHandler {
 
   public function result() {
     // get the result data based from the result id
-    $poll = new \JotPoll\PollResult($this->get('id'));
+    $poll = new \JotPoll\Poll();
 
-    $result = $poll->getData();
+    $result = $poll->getData($this->get('id'));
     if (array_key_exists('error', $result)) {
       $this->error($result['error']['message'], array('code' => $result['error']['code']));
     }
 
     $this->success("Poll result", array(
       'result' => $result,
+    ));
+  }
+
+  public function savePoll() {
+    // get the user base on API key
+    $user = new \JotPoll\User();
+    $userObject = $user->getFilter('apikey', $this->get('apikey'));
+
+    // save the poll
+    $poll = new \JotPoll\Poll();
+    $result = $poll->save(array(
+      'uid' => $userObject['id'],
+      'form_id' => $this->get('formID'),
+      'question_id' => $this->get('questionID'),
+      'options' => $this->get('options')
+    ));
+
+    $this->success("Poll saved", array(
+      'result' => $result
     ));
   }
 }

@@ -6,21 +6,16 @@ use \JotPoll\Database\MysqliDb;
 use \JotPoll\Config;
 use \Exception;
 
-class PollResult {
+class Poll {
 
-  protected $db;
-  protected $resultID;
+  private $db;
+  private $resultID;
 
   protected $apikey;
   protected $formID;
   protected $questionID;
 
-  function __construct($resultID = false) {
-    if (!$resultID) {
-      throw new Exception('Result ID is missing');
-    }
-
-    $this->resultID = $resultID;
+  function __construct() {
     $this->db = new MysqliDb(array(
       'host' => Config::MYSQL_HOST,
       'username' => Config::MYSQL_USER,
@@ -31,43 +26,18 @@ class PollResult {
   }
 
   private function getPoll() {
-    $this->db->join('accounts', '`poll`.`uid` = `accounts`.`id`', 'LEFT');
+    $this->db->join('users', '`poll`.`uid` = `users`.`id`', 'LEFT');
     $this->db->where('`poll`.`unique_id`', $this->resultID);
 
     $poll = $this->db->getOne('poll', implode(',', array(
       '`poll`.*',
-      '`accounts`.`jotform_apikey` AS `apikey`'
+      '`users`.`apikey`'
     )));
 
     // decode options
     $poll['options'] = json_decode($poll['options'], true);
 
     return $poll;
-  }
-
-  private function generatePollResults($questionPoll, $submissions) {
-    foreach ($submissions as $submission) {
-        $answers = $submission['answers'];
-
-        //check if the selected question is included in the answers of each submission
-        if ( isset($answers[ $question_id ]) AND isset($answers[ $question_id ]['answer']) )
-        {
-            $qAns = $answers[ $question_id ]['answer'];
-
-            //check wheter the qAns property is existed inside the object
-            if ( isset( $pollData['results']['value'][ $qAns ] ) )
-            {
-                if ( $pollData['results']['value'][ $qAns ] === "" )
-                {
-                    $pollData['results']['value'][ $qAns ] = 0;
-                }
-
-                $pollData['results']['value'][ $qAns ]++;
-            }
-        }
-    }
-
-    return $pollData;
   }
 
   private function getQuestionPoll($question) {
@@ -90,7 +60,7 @@ class PollResult {
           case 'control_rating':
           case 'control_scale':
             $counts = ($question['type'] === 'control_rating') ? $question['stars'] : $question['scaleAmount'];
-            for ($x = 0; $x < $counts; $x++) {
+            for ($x = 1; $x <= $counts; $x++) {
               $values[$x] = 0;
             }
           break;
@@ -104,7 +74,12 @@ class PollResult {
     );
   }
 
-  public function getData() {
+  public function getData($resultID = false) {
+    if (!$resultID) {
+      throw new Exception('Result ID is missing');
+    }
+
+    $this->resultID = $resultID;
     $poll = $this->getPoll();
 
     // set api key, qid, and formid
@@ -161,6 +136,25 @@ class PollResult {
       'options' => $poll['options'],
       'others' => $poll
     );
+  }
+
+  public function save($data = array()) {
+    $this->db->where('`poll`.`uid`', $data['uid']);
+    $this->db->where('`poll`.`form_id`', $data['form_id']);
+    $this->db->where('`poll`.`question_id`', $data['question_id']);
+    $existed = $this->db->getOne('poll');
+
+    // if already exist, just update
+    if ($this->db->count > 0) {
+      $this->db->where('id', $existed['id']);
+      $this->db->update('poll', $data);
+      $data = array_merge($data, $existed);
+    } else {
+      $data['unique_id'] = uniqid();
+      $this->db->insert('poll', $data);
+    }
+
+    return $data;
   }
 }
 
