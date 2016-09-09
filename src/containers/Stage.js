@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle  from 'react-document-title';
+import Granim from 'granim';
+import Color from 'color';
 import Link from 'react-router/lib/Link';
 import isEmpty from 'lodash/isEmpty';
 
@@ -8,6 +10,7 @@ import QuestionPicker from '../components/QuestionPicker';
 import PollChart from '../components/PollChart';
 import UserBar from '../components/UserBar';
 import Loading from '../components/Loading';
+import Logo from '../components/Logo';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -28,6 +31,23 @@ class Stage extends Component {
   }
 
   componentDidMount() {
+    // init granim
+    var granimInstance = new Granim({
+       element: '#granim-stage',
+       name: 'granim',
+       // direction: 'radial',
+       opacity: [.7, .9],
+       states : {
+         "default-state": {
+           gradients: [
+             ['#009688', '#01CBB8'],
+             ['#545da9', '#4CAAF6'],
+             ['#ffae27', '#de496d'],
+           ]
+         }
+       }
+    });
+
     if (!this.props.user.isLoggedIn) {
       if (typeof JF === 'undefined') {
         throw new Error("JotForm SDK is missing");
@@ -91,6 +111,16 @@ class Stage extends Component {
     });
   }
 
+  randomLoadingMessage() {
+    var lines = [
+      "Locating the required gigapixels to render",
+      "Spinning up the hamster",
+      "Shovelling coal into the server",
+      "Programming the flux capacitor"
+    ];
+    return lines[Math.round(Math.random()*(lines.length-1))];
+  }
+
   renderContent() {
     const {
       user, forms,
@@ -128,9 +158,11 @@ class Stage extends Component {
     } else {
       return (
         <Loading
-          text="Loading JotForm user"
+          className="startup"
+          text={this.randomLoadingMessage()}
           spinnerName="rotating-plane"
-          noFadeIn={false}
+          noFadeIn={true}
+          before={<Logo />}
         />
       );
     }
@@ -139,7 +171,8 @@ class Stage extends Component {
   render() {
     return (
       <DocumentTitle title='JotPoll'>
-        <section id="stage-root" className="jotpoll section">
+        <section id="stage-root" className="jotpoll section stage-main">
+          <canvas id="granim-stage" className="granim"></canvas>
           { this.renderContent() }
         </section>
       </DocumentTitle>

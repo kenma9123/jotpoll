@@ -44,4 +44,18 @@
     }
   }
 
+  &.startup {
+    .wrapper {
+      .spinner {
+        div {
+          background-color: #fff;
+        }
+      }
+
+      .text {
+        color: #fff;
+      }
+    }
+  }
+
 }

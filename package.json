@@ -26,6 +26,7 @@
     "file-loader": "^0.8.5",
     "file-name": "^0.1.0",
     "file-size": "^1.0.0",
+    "granim": "^1.0.31",
     "history": "^2.1.2",
     "html-loader": "^0.4.3",
     "json-loader": "^0.5.4",
