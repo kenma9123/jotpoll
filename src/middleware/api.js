@@ -71,7 +71,7 @@ export default store => next => action => {
 
   return callApi(requestOptions).then(
     response => next({
-      type: successType,
+      type: (response.success) ? successType : failureType,
       payload: {
         response
       }
