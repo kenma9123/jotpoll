@@ -20,11 +20,11 @@ class FormPicker extends Component {
   }
 
   componentWillMount() {
-    // load form list if empty
-    const { actions, forms, user } = this.props;
-    if (isEmpty(forms.items)) {
-      actions.fetchAndFilterForms(user.apikey);
-    }
+    // // load form list if empty
+    // const { actions, forms, user } = this.props;
+    // if (isEmpty(forms.items)) {
+    //   actions.fetchAndFilterForms(user.apikey);
+    // }
   }
 
   selectForm(form) {

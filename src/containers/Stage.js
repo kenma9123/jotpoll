@@ -28,6 +28,11 @@ class Stage extends Component {
     if (!isEmpty(nextProps.user.apikey) && !nextProps.user.isLoggedIn && !nextProps.user.isLoggingIn) {
       this.props.actions.loginUser(nextProps.user.apikey);
     }
+
+    // load form list if empty
+    if (isEmpty(nextProps.forms.items) && nextProps.user.isLoggedIn && !nextProps.forms.isFetching) {
+      this.props.actions.fetchAndFilterForms(nextProps.user.apikey);
+    }
   }
 
   componentDidMount() {
@@ -128,9 +133,9 @@ class Stage extends Component {
       poll, actions
     } = this.props;
 
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn && forms.isLoaded) {
       return (
-        <div>
+        <div className="fadeIn animated">
           <UserBar
             user={user}
           />

@@ -4,6 +4,7 @@ import { filter } from 'lodash/collection';
 
 const initialState = {
   isFetching: false,
+  isLoaded: false,
   error: {},
   selected: {},
   items: []
@@ -27,6 +28,7 @@ export default createReducer({
     let { response } = action.payload;
     return {
       ...state,
+      isLoaded: true,
       isFetching: false,
       items: response.result
     };

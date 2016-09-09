@@ -303,6 +303,10 @@ body {
       color: #fff;
       cursor: pointer;
       outline: 1px;
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
   }
 
