@@ -54,11 +54,11 @@ class ChartCtrl extends Component {
         );
       break;
       case 'generateview':
-        let { text, ...others } = ctrl.button;
+        let { text, disabled = false, ...others } = ctrl.button;
         return (
           <div>
             <div className="fields input-button">
-              <button {...others}>{ text }</button>
+              <button type="button" {...others} disabled={disabled}>{ text }</button>
             </div>
             <div className="fields input-group table">
               <input type="text" className="table-cell" value={ctrl.field.value}/>
