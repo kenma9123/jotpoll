@@ -10,7 +10,9 @@ class Loading extends Component {
     noFadeIn: PropTypes.bool,
     spinnerName: PropTypes.string,
     before: PropTypes.element,
-    className: PropTypes.string
+    className: PropTypes.string,
+    wrapperClass: PropTypes.string,
+    position: PropTypes.string
   };
 
   render() {
@@ -19,14 +21,17 @@ class Loading extends Component {
       text = false,
       noFadeIn = true,
       before = false,
-      className = false
+      className = false,
+      wrapperClass =false,
+      position = 'middle'
     } = this.props;
 
-    let loading = classNames('loading', className);
+    let loading = classNames('loading', className, position);
+    let wrapper = classNames('wrapper', wrapperClass);
 
     return (
       <div className={ loading }>
-        <div className="wrapper">
+        <div className={ wrapper }>
           { before && before }
           <Spinner spinnerName={spinnerName} noFadeIn={noFadeIn}/>
           <div className="text">{text && text}</div>

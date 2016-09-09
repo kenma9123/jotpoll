@@ -3,15 +3,19 @@
 <head>
     <meta charset="utf-8">
     <title>JotPoll</title>
-    <link rel="Shortcut Icon" href="//max.jotfor.ms/favicon.ico?v=3.0.0" />
+    <link rel="Shortcut Icon" href="/assets/favicon.ico" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta name="HandheldFriendly" content="true" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="static/bundle.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="root"></div>
-    <script src="/ticket-categorize/static/vendors.js"></script>
-    <script src="/ticket-categorize/static/bundle.js"></script>
+    <script src="https://js.jotform.com/JotForm.min.js"></script>
+    <script src="static/vendors.js"></script>
+    <script src="static/bundle.js"></script>
 </body>
 </html>

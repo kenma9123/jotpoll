@@ -20,6 +20,10 @@ import { routeActions } from 'react-router-redux';
 class Stage extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      JFauth: true
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,10 +65,10 @@ class Stage extends Component {
       // call Jotform js
       //init JF
       JF.init({
-        enableCookieAuth: true,
+        enableCookieAuth: false,
         appName: 'JotPoll',
         accessType: 'read',
-        authType: 'signup'
+        authType: 'login'
       });
 
       // login user if API key is missing
@@ -72,13 +76,19 @@ class Stage extends Component {
         this.jfAuth();
       } else {
         console.log('Already loggedin with API key', JF.getAPIKey());
-        this.setUserAPIkey();
+        this.jfAuthSuccess();
       }
     }
   }
 
-  setUserAPIkey() {
-    this.props.actions.setUserAPIkey(JF.getAPIKey());
+  jfAuthSuccess() {
+    // update state
+    this.setState({
+      JFauth: false
+    }, () => {
+      // set the user api key
+      this.props.actions.setUserAPIkey(JF.getAPIKey());
+    });
   }
 
   jfAuth() {
@@ -87,7 +97,7 @@ class Stage extends Component {
       // weebly redirect
       if (JF.getAPIKey()) {
         console.log('JF login success with API key', JF.getAPIKey());
-        this.setUserAPIkey();
+        this.jfAuthSuccess();
       } else {
         console.log('JF API key is empty - it seems the user registered');
         // otherwise, we have to show a button
@@ -164,10 +174,12 @@ class Stage extends Component {
       return (
         <Loading
           className="startup"
+          wrapperClass={ this.state.JFauth ? 'bounceInUp animated' : 'fadeIn animated' }
           text={this.randomLoadingMessage()}
           spinnerName="rotating-plane"
           noFadeIn={true}
           before={<Logo />}
+          position={ this.state.JFauth ? 'bottom' : 'middle' }
         />
       );
     }

@@ -2,7 +2,6 @@ import Color from 'color';
 
 import range from 'lodash/range';
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import has from 'lodash/has';
 

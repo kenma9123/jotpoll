@@ -1,16 +1,28 @@
 var path = require('path');
+var pkg = require('../package.json');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   entry: {
     bundle: path.join(__dirname, '../src/index.js'),
-    vendors: ['react']
+    // vendors: Object.keys(pkg.dependencies)
+    vendors: [
+      'react',
+      'react-dom',
+      'redux',
+      'react-redux',
+      'react-router',
+      'moment',
+      'lodash'
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      },
       '__DEVELOPMENT__': false,
     }),
     new ExtractTextPlugin('bundle.css', {
@@ -21,9 +33,10 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       comments: false,
-      sourceMap: false
+      sourceMap: false,
+      output: {comments: false}
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js', Infinity)
   ],
   output: {
     path: path.join(__dirname, '../static/'),

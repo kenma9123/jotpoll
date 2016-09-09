@@ -1,9 +1,6 @@
 import reqwest from 'reqwest';
-import {
-  isArray,
-  isEmpty
-}
-from 'lodash/lang';
+import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 
 /**
  * Fetches an API response

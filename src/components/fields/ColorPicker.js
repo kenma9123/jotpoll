@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import ColorsPicker  from 'react-colors-picker';
+import ColorsPicker from 'react-colors-picker';
 import 'react-colors-picker/assets/index.css';
 
 class ColorPicker extends Component {
+
+  static propTypes = {
+    onChange: PropTypes.func,
+    onClose: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
@@ -34,7 +39,7 @@ class ColorPicker extends Component {
     return (
       <ColorsPicker
         {...others}
-        onChange={ (value) =>this.onChange(value) }
+        onChange={ (value) => this.onChange(value) }
         onClose={ () => this.onClose() }
       />
     );

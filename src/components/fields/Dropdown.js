@@ -4,18 +4,18 @@ import classNames from 'classnames';
 class Dropdown extends Component {
 
   static propTypes = {
-    name: React.PropTypes.string,
-    className: React.PropTypes.string.isRequired, // class added to <select>
-    options: React.PropTypes.array,
-    size: React.PropTypes.string,
-    onChange: React.PropTypes.func, // on select change
-    defaultValue: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array
+    name: PropTypes.string,
+    className: PropTypes.string.isRequired, // class added to <select>
+    options: PropTypes.array,
+    size: PropTypes.string,
+    onChange: PropTypes.func, // on select change
+    defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array
     ]),
-    multiple: React.PropTypes.bool
+    multiple: PropTypes.bool
   };
 
   static defaultProps = {

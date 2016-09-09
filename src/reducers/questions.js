@@ -1,6 +1,5 @@
 import * as types from '../constants/ActionTypes';
 import createReducer from '../utils/createReducer';
-import { filter } from 'lodash/collection';
 
 const initialState = {
   isFetching: false,

@@ -4,8 +4,6 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import Color from 'color';
 import '../styles/pollchart.scss';
-
-import ChartGenerator from './ChartGenerator';
 import { NotificationStack } from 'react-notification';
 
 // import ChartArea from './ChartArea';

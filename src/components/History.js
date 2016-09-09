@@ -3,7 +3,7 @@ import { createHistory } from 'history';
 
 const basepath = {
     dev: '/',
-    production: '/weebly/app'
+    production: '/jotpoll'
 };
 
 const history = (environment) => {

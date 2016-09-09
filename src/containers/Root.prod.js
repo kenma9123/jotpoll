@@ -9,21 +9,19 @@ import NotFound from './NotFound';
 
 import App from './App';
 import Stage from './Stage';
-import Container from './Container';
+import Result from './Result';
 
 export default class Root extends Component {
   render() {
     const { store } = this.props;
-    const history = syncHistoryWithStore(browserHistory('dev'), store);
+    const history = syncHistoryWithStore(browserHistory('production'), store);
     return (
       <Provider store={store}>
         <div>
           <Router history={history}>
             <Route path="/" component={App}>
               <IndexRoute component={Stage} />
-              <Route path="/test" component={Container}>
-                <IndexRoute component={Stage} />
-              </Route>
+              <Route path="result/:resultid" component={Result}/>
             </Route>
             <Route path="*" component={NotFound}/>
           </Router>
