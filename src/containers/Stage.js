@@ -65,7 +65,7 @@ class Stage extends Component {
       // call Jotform js
       //init JF
       JF.init({
-        enableCookieAuth: false,
+        enableCookieAuth: true,
         appName: 'JotPoll',
         accessType: 'read',
         authType: 'login'
