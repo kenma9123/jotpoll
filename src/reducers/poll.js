@@ -3,47 +3,7 @@ import createReducer from '../utils/createReducer';
 import isEqual from 'lodash/isEqual';
 
 const initialState = {
-  items: [{
-    qid: 1,
-    label: 'Question 1',
-    value: 1,
-    style: {
-      backgroundColor: '#34495E',
-      hoverBackgroundColor: '#3F5973'
-    }
-  }, {
-    qid: 2,
-    label: 'Question 2',
-    value: 2,
-    style: {
-      backgroundColor: '#34495E',
-      hoverBackgroundColor: '#3F5973'
-    }
-  }, {
-    qid: 3,
-    label: 'Question 3',
-    value: 3,
-    style: {
-      backgroundColor: '#34495E',
-      hoverBackgroundColor: '#3F5973'
-    }
-  }, {
-    qid: 4,
-    label: 'Question 4',
-    value: 4,
-    style: {
-      backgroundColor: '#34495E',
-      hoverBackgroundColor: '#3F5973'
-    }
-  }, {
-    qid: 5,
-    label: 'Question 5',
-    value: 5,
-    style: {
-      backgroundColor: '#34495E',
-      hoverBackgroundColor: '#3F5973'
-    }
-  }],
+  items: [],
   defaultItem: {
     label: '',
     value: 0,
@@ -59,7 +19,9 @@ const initialState = {
     'control_dropdown','control_radio',
     'control_rating','control_scale'
   ],
-  generated: {}
+  generated: {},
+  isSaving: false,
+  errors: {}
 };
 
 export default createReducer({
@@ -85,11 +47,25 @@ export default createReducer({
       items
     };
   },
+  [types.Poll.save]: (state, action) => {
+    return {
+      ...state,
+      isSaving: true
+    };
+  },
   [types.Poll.saveSuccess]: (state, action) => {
     let { result } = action.payload.response
     return {
       ...state,
-      generated: result
+      generated: result,
+      isSaving: false
+    };
+  },
+  [types.Poll.saveFailed]: (state, action) => {
+    return {
+      ...state,
+      isSaving: false,
+      errors: action.payload
     };
   },
 
