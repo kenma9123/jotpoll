@@ -5,6 +5,12 @@
       &.pollchart-cont {
         background: #fff;
 
+        .section-title {
+          background-color: #3399ff;
+          background-image: url('/assets/pw_maze_white.png');
+          background-blend-mode: multiply;
+        }
+
         .chart-holder {
           padding-left: 30px;
           height: 100vh;

@@ -1,18 +1,29 @@
 @import "mixins";
 @import "variables";
 
-.questionpicker-cont {
-  display: inline-block;
-  width: 300px !important;
+.jotpoll {
+  &.section {
+    .questionpicker-cont {
+      display: inline-block;
+      width: 300px !important;
 
-  .questionpicker-list {
-    .list-item {
-      &:not(.disabled) {
-        @include list-item-mixin(
-          $list-item-selected-color,
-          $list-item-hover-color,
-          $list-item-fonts-icon-color-available
-        );
+      .section-title {
+        background-color: #ffcc00;
+        color: #565656;
+        background-image: url('/assets/pw_maze_white.png');
+        background-blend-mode: multiply;
+      }
+
+      .questionpicker-list {
+        .list-item {
+          &:not(.disabled) {
+            @include list-item-mixin(
+              $list-item-selected-color,
+              $list-item-hover-color,
+              $list-item-fonts-icon-color-available
+            );
+          }
+        }
       }
     }
   }

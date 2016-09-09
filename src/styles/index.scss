@@ -323,4 +323,12 @@ body {
     font-size: 13px;
     padding: 2px;
   }
+
+  .granim {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    background-image: url('/assets/congruent_pentagon.png');
+  }
 }

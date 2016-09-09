@@ -1,17 +1,28 @@
 @import "mixins";
 @import "variables";
 
-.formpicker-cont {
-  display: inline-block;
-  width: 400px !important;
+.jotpoll {
+  &.section {
+    .formpicker-cont {
+      display: inline-block;
+      width: 400px !important;
 
-  .formpicker-list {
-    .list-item {
-      @include list-item-mixin(
-        $list-item-selected-color,
-        $list-item-hover-color,
-        $list-item-fonts-icon-color
-      );
+      .section-title {
+        background-color: #009999;
+        background-image: url('/assets/pw_maze_white.png');
+        background-blend-mode: multiply;
+      }
+
+      .formpicker-list {
+        .list-item {
+          @include list-item-mixin(
+            $list-item-selected-color,
+            $list-item-hover-color,
+            $list-item-fonts-icon-color
+          );
+        }
+      }
     }
   }
 }
+
