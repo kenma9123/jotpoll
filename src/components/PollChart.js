@@ -130,6 +130,16 @@ class PollChart extends Component {
     this.props.onSave();
   }
 
+  getGeneratedValue() {
+    const { poll } = this.props;
+    let link = !isEmpty(poll.generated) ? `${APP_URL}result/${poll.generated.unique_id}` : '';
+    if (!isEmpty(link)) {
+      console.log('Link successfully generated.');
+    }
+
+    return link;
+  }
+
   generateCtrls() {
     const { poll, chart } = this.props;
 
@@ -288,11 +298,12 @@ class PollChart extends Component {
       titleIcon: <i className="fa fa-gear"></i>,
       input: 'generateview',
       field: {
-        value: !isEmpty(poll.generated) ? `${APP_URL}result/${poll.generated.unique_id}` : '',
-        onCopy: () => this.addNotification('Generated Link copied')
+        value: this.getGeneratedValue(),
+        onCopy: () => this.addNotification('Link has been copied to clipboard.')
       },
       button: {
-        text: 'Generate',
+        disabled: poll.isSaving,
+        text: (poll.isSaving) ? 'Please wait...' : 'Generate',
         onClick: () => this.generateLink()
       }
     }];
