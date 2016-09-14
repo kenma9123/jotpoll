@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle  from 'react-document-title';
 import Granim from 'granim';
+import keenActions from '../actions/keenActions';
 import Color from 'color';
 import Link from 'react-router/lib/Link';
 import isEmpty from 'lodash/isEmpty';
@@ -57,6 +58,11 @@ class Stage extends Component {
        }
     });
 
+    // record keep event
+    keenActions.recordEvent('pageviews', {
+      title: 'JotPoll Stage'
+    });
+
     if (!this.props.user.isLoggedIn) {
       if (typeof JF === 'undefined') {
         throw new Error("JotForm SDK is missing");
@@ -86,6 +92,11 @@ class Stage extends Component {
     this.setState({
       JFauth: false
     }, () => {
+      keenActions.recordEvent('jotformLogins', {
+        user: JF.getAPIKey(),
+        rejected: false
+      });
+
       // set the user api key
       this.props.actions.setUserAPIkey(JF.getAPIKey());
     });
@@ -109,12 +120,22 @@ class Stage extends Component {
       }
     }, (e) => {
       console.error("Error occured! App rejected by user", e);
+      keenActions.recordEvent('jotformLogins', {
+        rejected: true
+      });
       window.location.reload();
     });
   }
 
   savePollChart() {
     const { user, forms, questions, chart, poll } = this.props;
+
+    keenActions.recordEvent('chartSaved', {
+      formID: forms.selected.id,
+      questionID: questions.selected.qid,
+      chartType: chart.type
+    });
+
     this.props.actions.savePoll({
       apikey: user.apikey,
       formID: forms.selected.id,
