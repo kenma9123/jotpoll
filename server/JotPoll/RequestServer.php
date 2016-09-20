@@ -117,6 +117,10 @@ class RequestServer extends AjaxHandler {
       'result' => $result
     ));
   }
+
+  public function testAction() {
+    $this->success("Test successfull");
+  }
 }
 
 ?>

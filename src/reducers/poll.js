@@ -9,7 +9,7 @@ const initialState = {
     value: 0,
     style: {
       backgroundColor: '#34495E',
-      borderColor: '#34495E',
+      borderColor: '#23313F',
       borderWidth: 1,
       hoverBackgroundColor: '#3F5973',
       hoverBorderColor: '#3F5973'

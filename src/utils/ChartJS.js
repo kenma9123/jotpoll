@@ -42,7 +42,9 @@ class ChartJS extends Component {
     }
 
     // if options are updater, redraw chart
-    if (!isEqual(this.props.options, nextProps.options)) {
+    if (!isEqual(this.props.options, nextProps.options) ||
+      !isEqual(this.props.type, nextProps.type)
+    ) {
       this.destroyChart();
       this.initializeChart(nextProps);
     }

@@ -41,6 +41,10 @@ class ResultView extends Component {
     if (!isEmpty(nextProps.result.poll)) {
       this.resulDataLoaded();
     }
+
+    if (!isEmpty(nextProps.poll.items) && !nextProps.chart.ready) {
+      this.props.actions.generateChart();
+    }
   }
 
   resulDataLoaded() {

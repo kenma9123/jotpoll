@@ -8,8 +8,8 @@
       width: 300px !important;
 
       .section-title {
-        background-color: #ffcc00;
-        color: #565656;
+        background-color: $list-item-fonts-icon-color-available;
+        color: #fff;
         background-image: url('/assets/pw_maze_white.png');
         background-blend-mode: multiply;
       }

@@ -335,4 +335,18 @@ body {
     z-index: -1;
     background-image: url('/assets/congruent_pentagon.png');
   }
+
+  .cu-pointer {
+    cursor: pointer;
+  }
+
+}
+
+.rc-tooltip{
+  .rc-tooltip-inner {
+    max-width: 130px;
+    min-height: 100%;
+    font-size: 1.1em;
+    font-family: Roboto, sans-serif;
+  }
 }

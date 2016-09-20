@@ -9,6 +9,7 @@ import '../styles/questionpicker.scss';
 import List from './List';
 import Loading from './Loading';
 import CenterText from './CenterText';
+import Icon from './Icon';
 
 class QuestionPicker extends Component {
 
@@ -57,7 +58,20 @@ class QuestionPicker extends Component {
 
   render() {
     const { forms, questions } = this.props;
-    let content = <CenterText text="Select a form" icon="fa-info-circle"/>;
+    let content = (
+      <CenterText
+        text="Select a form"
+        icon={
+          <Icon
+            name="fa-info-circle"
+            tip={{
+              content: 'You have to select a form to render the questions.'
+            }}
+          />
+        }
+      />
+    );
+
     if (!isEmpty(forms.selected)) {
       if (questions.isFetching) {
         content = <Loading text="Loading Questions" spinnerName="three-bounce"/>;

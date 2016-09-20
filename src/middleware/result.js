@@ -41,7 +41,7 @@ export default store => next => action => {
         });
       });
 
-      next({
+      return next({
         steps: [{
           ...action,
           from: 'middleware',
@@ -56,26 +56,38 @@ export default store => next => action => {
           payload: {
             items: polls
           }
+        }, {
+          type: types.Chart.setType,
+          payload: {
+            type: result.options.type
+          }
         }]
       });
 
       // generate chart data
-      return middlewareActions.generateChartData(polls, result.poll.name, {}).then(({labels, datasets, options}) => {
-        // set the poll data based from the question options
-        next({
-          type: types.Chart.setData, //dispatch set Items
-          payload: {
-            data: {
-              labels,
-              datasets
-            },
-            options: {
-              ...options,
-              ...state.chart.options // make sure existing options remain
-            }
-          }
-        });
-      });
+      // return next({
+      //   type: types.Chart.generate,
+      //   payload: {
+      //     type: result.options.type
+      //   }
+      // });
+      // return middlewareActions.generateChartData(result.options.type, polls, result.poll.name).then(({labels, datasets, options}) => {
+      //   // set the poll data based from the question options
+      //   next({
+      //     type: types.Chart.setData, //dispatch set Items
+      //     payload: {
+      //       type: result.options.type,
+      //       data: {
+      //         labels,
+      //         datasets
+      //       },
+      //       options: {
+      //         ...options,
+      //         ...state.chart.options // make sure existing options remain
+      //       }
+      //     }
+      //   });
+      // });
     }).catch(() => {
       next(action);
     });

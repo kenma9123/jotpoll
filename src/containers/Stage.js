@@ -51,8 +51,8 @@ class Stage extends Component {
          "default-state": {
            gradients: [
              ['#009688', '#01CBB8'],
-             ['#545da9', '#4CAAF6'],
-             ['#ffae27', '#de496d'],
+             ['#4CAAF6', '#545da9'],
+             ['#5C91BC', '#83C8D3'],
            ]
          }
        }

@@ -11,6 +11,15 @@ export function setChartData(data, options) {
   };
 }
 
+export function setChartType(type) {
+  return {
+    type: types.Chart.setType,
+    payload: {
+      type
+    }
+  };
+}
+
 export function updateChartOptions(poll) {
   return {
     type: types.Chart.updatePollCtrl,
@@ -30,11 +39,18 @@ export function updateChartOptions(key, value) {
   };
 }
 
-export function generateChart(options = {}) {
+export function generateChart() {
+  return {
+    type: types.Chart.generate,
+    payload: {}
+  };
+}
+
+export function generateChartWithType(type) {
   return {
     type: types.Chart.generate,
     payload: {
-      options
+      type
     }
   };
 }

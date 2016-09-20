@@ -12,9 +12,11 @@ const initialState = {
       data: [31, 99, 39, 66, 40]
     }]
   },
-  options: {
+  options: {},
+  defaultOptions: {
     legend: {
-      display: false
+      display: false,
+      fontFamily: 'Roboto'
     },
     title: {
       display: false,
@@ -23,12 +25,21 @@ const initialState = {
     tooltips: {
       titleFontFamily: 'Roboto',
       enabled: true,
-      callbacks: {
-        label: (opt) => `Value: ${opt.xLabel}%`
-      }
+      bodyFontSize: 15,
+      bodySpacing: 4
     },
     scales: {
       xAxes: [{
+        ticks: {
+          min: 0,
+          max: 100
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Percentage (%)'
+        }
+      }],
+      yAxes: [{
         ticks: {
           min: 0,
           max: 100
@@ -51,10 +62,11 @@ export default createReducer({
     };
   },
   [types.Chart.setData]: (state, action) => {
-    let { data, options } = action.payload;
+    let { data, options, type = initialState.type } = action.payload;
     return {
       ...state,
       ready: true,
+      type,
       data,
       options
     };

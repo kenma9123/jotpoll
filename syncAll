@@ -1,0 +1,5 @@
+#!/bin/bash
+USERNAME=`grep "user" sftp-config.json | awk {'print $2'} | sed 's/"//g' | sed 's/,//g'`
+REMOTE_PATH=`grep "remote_path" sftp-config.json | awk {'print $2'} | sed 's/"//g' | sed 's/,//g'`
+rsync --delete --exclude-from ".gitignore" --exclude ".git" --exclude "old-app" -aze ssh2 . $USERNAME@$USERNAME.com:$REMOTE_PATH --verbose
+ssh2 $USERNAME@$USERNAME.com "chmod 755 -R $REMOTE_PATH/"

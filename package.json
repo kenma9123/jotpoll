@@ -26,6 +26,7 @@
     "md5": "^2.1.0",
     "moment": "^2.14.1",
     "query-string": "^4.2.3",
+    "rc-tooltip": "^3.4.2",
     "react": "^15.3.1",
     "react-chartjs2": "^1.0.3",
     "react-colors-picker": "^2.3.1",
@@ -83,7 +84,6 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "stats-webpack-plugin": "^0.3.1",
-    "webpack": "^1.13.1",
     "webpack-dashboard": "^0.1.2",
     "webpack-dev-server": "^1.14.1"
   }

@@ -52,7 +52,7 @@ export const generateQuestionPollData = (question) => {
   });
 };
 
-export const generateChartData = (polls, label, options = {}) => {
+export const generateChartData = (polls, label) => {
 
   return new Promise((resolve, reject) => {
     let labels = [];
@@ -76,33 +76,9 @@ export const generateChartData = (polls, label, options = {}) => {
       hoverBorderColor: polls.map((item) => item.style.hoverBorderColor)
     }];
 
-    // global options
-    if (isEmpty(options)) {
-      console.log("OPTIONS");
-      options = {
-        legend: { display: true },
-        title: {
-          display: true,
-          text: label + ' - CHART'
-        },
-        scales: {
-          xAxes: [{
-            ticks: {
-              min: 0,
-              max: 100
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Percentage (%)'
-            }
-          }]
-        }
-      };
-    }
-
-    // console.log(labels, datasets, options);
+    // console.log(labels, datasets);
     if (labels.length > 0) {
-      resolve({labels, datasets, options});
+      resolve({labels, datasets});
     } else {
       reject();
     }

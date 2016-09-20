@@ -11,6 +11,7 @@ import ChartJS from '../utils/ChartJS';
 import ChartCtrl from './ChartCtrl';
 
 import CenterText from './CenterText';
+import Icon from './Icon';
 
 class PollChart extends Component {
 
@@ -19,6 +20,9 @@ class PollChart extends Component {
 
     this.state = {
       width: 0,
+      chart: {
+        type: props.chart.type
+      },
       ctrl: {
         generated: '',
         common: {},
@@ -36,7 +40,7 @@ class PollChart extends Component {
       !isEmpty(nextProps.poll.items) &&
       !isEqual(this.props.poll.items, nextProps.poll.items)
     ) {
-      console.log("Not equal", nextProps);
+      // console.log("Not equal", nextProps);
       this.props.actions.generateChart();
 
       // set default selected props
@@ -110,7 +114,7 @@ class PollChart extends Component {
   }
 
   handleResize(e) {
-    console.log(e);
+    // console.log(e);
     this.setState({
       width: this.getChartContWidth()
     });
@@ -141,32 +145,43 @@ class PollChart extends Component {
   generateCtrls() {
     const { poll, chart } = this.props;
 
-    console.log("Common", this.state.ctrl.common);
+    // console.log("Common", this.state.ctrl.common);
 
     let controllers = [{
       title: 'Chart Type',
       name: 'chartType',
       input: 'dropdown',
-      disabled: true,
-      default: 'horizontalBar',
+      // disabled: true,
+      default: this.state.chart.type,
       options: [{
         text: 'Horizontal Bar',
         value: 'horizontalBar'
       }, {
-        text: 'Bar',
+        text: 'Vertical Bar',
         value: 'bar'
       }, {
         text: 'Pie',
         value: 'pie'
       }, {
-        text: 'Polar',
-        value: 'polar'
+        text: 'Doughnut',
+        value: 'doughnut'
+      }, {
+        text: 'Polar Area',
+        value: 'polarArea'
       }],
-      onChange: (value) => {
-        console.log('Chart Type', value);
+      onChange: (el) => {
+        let value = el.target.value;
+        // console.log('Chart Type', value);
+        this.setState({
+          chart: {
+            type: value
+          }
+        }, () => {
+          this.props.actions.generateChartWithType(value);
+        });
       }
     }, {
-      title: 'Polls',
+      title: <div>Polls <Icon name="fa-info-circle" tip={{content: 'You can customize each poll options.', placement: 'top'}}/></div>,
       name: 'polls',
       input: 'dropdown',
       default: `${this.state.ctrl.selected.key}_${this.state.ctrl.selected.label}`,
@@ -311,19 +326,29 @@ class PollChart extends Component {
 
   getDefaultStatusText() {
     const { forms, questions } = this.props;
-    let ctext = "Select ";
+    let text = "Select ";
     if (isEmpty(forms.selected)) {
-      ctext += "a form and ";
+      text += "a form and ";
     }
 
     if (isEmpty(questions.selected)) {
-      ctext += "a question";
+      text += "a question";
     }
 
-    ctext += " to render preview chart."
+    text += " to render preview chart."
 
     return (
-      <CenterText text={ctext} icon="fa-info-circle"/>
+      <CenterText
+        text={text}
+        icon={
+          <Icon
+            name="fa-info-circle"
+            tip={{
+              content: 'Before rendering the preview chart, a form and question must be selected.'
+            }}
+          />
+        }
+      />
     );
   }
 
@@ -334,16 +359,29 @@ class PollChart extends Component {
     console.log("Render pollchart");
     if (chart.ready) {
 
-      let { options, data } = chart;console.log("OPTIONS !!!!", data, options);
+      let { options, data } = chart;
+      // console.log("OPTIONS !!!!", data, options);
       let type = chart.type;
-      if (['polarArea', 'pie', 'doughnut'].indexOf(type) > -1) {
-        options = {};
-      }
+      // if (['polarArea', 'pie', 'doughnut'].indexOf(type) > -1) {
+      //   options = {};
+      // }
 
       // only allow 20 items on the chart
       if (data.labels.length > 20) {
         const text = `It appears that you selected a question with ${data.labels.length} options.\nJotPoll only support up to 20 options per question.`;
-        content = <CenterText text={text} icon="fa-warning" />;
+        content = (
+          <CenterText
+            text={text}
+            icon={
+              <Icon
+                name="fa-warning"
+                tip={{
+                  content: 'You have to select a form to render the questions.'
+                }}
+              />
+            }
+          />
+        );
       } else {
         content = (
           <div className="chart-area">

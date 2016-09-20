@@ -6,6 +6,7 @@ import '../styles/formpicker.scss';
 
 import List from './List';
 import Loading from './Loading';
+import Icon from './Icon';
 
 class FormPicker extends Component {
 
@@ -45,10 +46,21 @@ class FormPicker extends Component {
     );
   }
 
+  externalClick(e) {
+    e.stopPropagation();
+  }
+
   setRightIcon(form) {
+    const content = 'Preview';
     return (
-      <a href={form.url} target="_blank" >
-        <i className="fa fa-external-link-square"></i>
+      <a href={form.url} onClick={this.externalClick} target="_blank" >
+        <Icon
+          name="fa-external-link-square"
+          tip={{
+            content,
+            placement: 'top'
+          }}
+        />
       </a>
     );
   }
