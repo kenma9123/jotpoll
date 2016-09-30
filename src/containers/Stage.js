@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FORMPICKER_LIMIT } from '../config';
+import { JOTFORM_COOKIE_AUTH, FORMPICKER_LIMIT } from '../config';
 import DocumentTitle  from 'react-document-title';
 import Granim from 'granim';
 import keenActions from '../actions/keenActions';
@@ -94,7 +94,7 @@ class Stage extends Component {
       // call Jotform js
       //init JF
       JF.init({
-        enableCookieAuth: true,
+        enableCookieAuth: JOTFORM_COOKIE_AUTH,
         appName: 'JotPoll',
         accessType: 'read',
         authType: 'login'

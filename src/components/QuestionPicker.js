@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
-import { SUPPORTED_QUESTIONS } from '../config';
+import { SUPPORTED_QUESTIONS, QUESTIONTEXT_TRUNCATE } from '../config';
 import * as Utils from '../utils';
 import '../styles/questionpicker.scss';
 
@@ -85,7 +85,7 @@ class QuestionPicker extends Component {
             item.text = this.extractHTMLContent(item.text);
           }
 
-          item.text = Utils.truncate(item.text, 30);
+          item.text = Utils.truncate(item.text, QUESTIONTEXT_TRUNCATE);
 
           newItems.push(item);
         });

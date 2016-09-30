@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FORMTITLE_TRUNCATE } from '../config';
 import isEmpty from 'lodash/isEmpty';
 import moment from 'moment';
 import * as Utils from '../utils';
@@ -27,7 +28,7 @@ class FormPicker extends Component {
   }
 
   formaPrimaryText(form) {
-    return Utils.truncate(form.title, 40);
+    return Utils.truncate(form.title, FORMTITLE_TRUNCATE);
   }
 
   formatSecondaryText(form) {
