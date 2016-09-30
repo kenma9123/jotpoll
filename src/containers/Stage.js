@@ -28,20 +28,30 @@ class Stage extends Component {
     super(props);
 
     this.state = {
-      JFauth: true
+      JFauth: true,
+      errored: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     // if user is not ready - or no details
     // then fetch the user details
-    if (!isEmpty(nextProps.user.apikey) && !nextProps.user.isLoggedIn && !nextProps.user.isLoggingIn) {
+    if (isEmpty(nextProps.user.error) && !isEmpty(nextProps.user.apikey) &&
+      !nextProps.user.isLoggedIn && !nextProps.user.isLoggingIn) {
       this.props.actions.loginUser(nextProps.user.apikey);
     }
 
     // load form list if empty
-    if (isEmpty(nextProps.forms.items) && nextProps.user.isLoggedIn && !nextProps.forms.isFetching) {
-      this.props.actions.fetchAndFilterForms(nextProps.user.apikey);
+    if (isEmpty(nextProps.forms.error)) {
+      if (isEmpty(nextProps.forms.items) && nextProps.user.isLoggedIn && !nextProps.forms.isFetching) {
+        this.loadUserForms(nextProps.user.apikey, 0, 20);
+        this.props.actions.fetchAndFilterForms(nextProps.user.apikey, 0, 20);
+      }
+    } else {
+      console.error("Form error", nextProps.forms.error);
+      this.setState({
+        errored: true
+      });
     }
   }
 
@@ -160,6 +170,18 @@ class Stage extends Component {
     });
   }
 
+  loadUserForms(apikey, offset, limit) {
+    this.props.actions.fetchAndFilterForms(apikey, offset, limit);
+  }
+
+  getLoadingMessage() {
+    if (this.state.errored) {
+      return 'Something went wrong, please reload the page.';
+    } else {
+      return this.randomLoadingMessage();
+    }
+  }
+
   randomLoadingMessage() {
     var lines = [
       "Locating the required gigapixels to render",
@@ -187,6 +209,7 @@ class Stage extends Component {
             forms={forms}
             user={user}
             actions={actions}
+            onLoadMore={(offset, limit) => this.loadUserForms(user.apikey, offset, limit)}
           />
           <QuestionPicker
             questions={questions}
@@ -209,7 +232,7 @@ class Stage extends Component {
         <Loading
           className="startup"
           wrapperClass={ this.state.JFauth ? 'bounceInUp animated' : 'fadeIn animated' }
-          text={this.randomLoadingMessage()}
+          text={this.getLoadingMessage()}
           spinnerName="rotating-plane"
           noFadeIn={true}
           before={<Logo />}

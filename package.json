@@ -1,6 +1,6 @@
 {
   "name": "weebly-app",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Weebly Application",
   "main": "index.js",
   "scripts": {

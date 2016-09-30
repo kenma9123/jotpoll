@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import ListItem from './ListItem';
 import { isEqual } from 'lodash/lang';
 import { Scrollbars } from 'react-custom-scrollbars';
+import Loading from './Loading';
 
 class List extends Component {
 
@@ -14,14 +15,22 @@ class List extends Component {
     primaryProp: PropTypes.func.isRequired,
     secondaryProp: PropTypes.func.isRequired,
     disableUnsupported: PropTypes.bool,
-    rightIcon: PropTypes.func
+    rightIcon: PropTypes.func,
+    infiniteScroll: PropTypes.object
   };
 
   constructor(props) {
     super(props);
 
+    const { infiniteScroll = false } = props;
+    const page = infiniteScroll.start || 0
+
     this.state = {
       height: this.getScrollHeight(),
+      page: page,
+      offset: 0,
+      limit: 20,
+      infiniteScroll: false
       // selected: {}
     };
 
@@ -30,6 +39,13 @@ class List extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { infiniteScroll = false } = nextProps;
+    if (infiniteScroll && !infiniteScroll.isFetching) {
+      this.setState({ infiniteScroll: false });
+    }
   }
 
   componentWillUnmount() {
@@ -63,50 +79,104 @@ class List extends Component {
     return window.innerHeight - 60;
   }
 
+  handleScroll(e) {
+    // console.log('Handling scroll', e);
+    let element = e.srcElement;
+    let padding = 0;
+    if ((element.scrollHeight - element.scrollTop) <= element.clientHeight + padding) {
+      this.loadMore();
+    }
+  }
+
+  loadMore() {
+    const state = { ...this.state };
+    const { infiniteScroll = false } = this.props;
+
+    // if no infinitescroll prop object
+    // or is in infinitescroll state
+    // do not call load more
+    if (!infiniteScroll || state.infiniteScroll) {
+      return false;
+    }
+
+    this.setState({
+      infiniteScroll: true
+    }, () => {
+
+      let page = state.page + 1;
+      let offset = (page - 1) * state.limit;
+
+      // call the callback
+      if (infiniteScroll && infiniteScroll.onLoadMore) {
+        infiniteScroll.onLoadMore(offset, state.limit);
+
+        // update state
+        this.setState({
+          page,
+          offset,
+          limit: state.limit
+        });
+      }
+    });
+  }
+
+  getLoadingComponent(loadingText = 'Loading...') {
+    return (
+      <div className="list-loader-overlay" style={{height: this.state.height}}>
+        <Loading text={loadingText} spinnerName="three-bounce"/>
+      </div>
+    );
+  }
+
   render() {
     const { items, name, selected, scroll, primaryProp, secondaryProp, rightIcon = false } = this.props;
     const listClassName = classNames(name + '-list', 'list');
 
     return (
-      <Scrollbars autoHide style={{height: this.state.height}}>
-        <ul className={listClassName}>
-          { items.map((item, index) => {
-            const isSelected = isEqual(item, selected);
-            const listItemClass = classNames('list-item with-left-icon', {
-              'with-right-icon': rightIcon,
-              'selected': isSelected,
-              'disabled': this.isNotSupported(item)
-            });
-            const iconClass = classNames('fa', {
-              'fa-circle': !isSelected,
-              'fa-check-circle': isSelected
-            });
+      <div className="list-container">
+        { this.state.infiniteScroll && this.getLoadingComponent(this.props.infiniteScroll.loadingText) }
+        <Scrollbars
+          onScroll={ (e) => this.handleScroll(e) }
+          style={{height: this.state.height}}>
+          <ul className={listClassName}>
+            { items.map((item, index) => {
+              const isSelected = isEqual(item, selected);
+              const listItemClass = classNames('list-item with-left-icon', {
+                'with-right-icon': rightIcon,
+                'selected': isSelected,
+                'disabled': this.isNotSupported(item)
+              });
+              const iconClass = classNames('fa', {
+                'fa-circle': !isSelected,
+                'fa-check-circle': isSelected
+              });
 
-            return (
-              <ListItem
-                className={listItemClass}
-                key={index}
-                onClick={ () => this.selectItem(item) }
-              >
-                <div className="left-icon">
-                  <i className={ iconClass }></i>
-                </div>
-                <div className="list-item-content">
-                  <div className="primaryText" title={primaryProp(item)}>
-                    { primaryProp && primaryProp(item) }
+              return (
+                <ListItem
+                  className={listItemClass}
+                  key={index}
+                  onClick={ () => this.selectItem(item) }
+                >
+                  <div className="left-icon">
+                    <i className={ iconClass }></i>
                   </div>
-                  <div className="secondaryText">
-                    { secondaryProp && secondaryProp(item)  }
+                  <div className="list-item-content">
+                    <div className="primaryText" title={primaryProp(item)}>
+                      { primaryProp && primaryProp(item) }
+                    </div>
+                    <div className="secondaryText">
+                      { secondaryProp && secondaryProp(item)  }
+                    </div>
                   </div>
-                </div>
-                { rightIcon && <div className="right-icon">
-                  { rightIcon(item) }
-                </div>}
-              </ListItem>
-            );
-          }) }
-        </ul>
-      </Scrollbars>
+                  { rightIcon && <div className="right-icon">
+                    { rightIcon(item) }
+                  </div>}
+                </ListItem>
+              );
+            }) }
+          </ul>
+        </Scrollbars>
+      </div>
     );
   }
 }

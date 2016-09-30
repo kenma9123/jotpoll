@@ -13,19 +13,12 @@ class FormPicker extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     forms: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    onLoadMore: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    // // load form list if empty
-    // const { actions, forms, user } = this.props;
-    // if (isEmpty(forms.items)) {
-    //   actions.fetchAndFilterForms(user.apikey);
-    // }
   }
 
   selectForm(form) {
@@ -78,6 +71,12 @@ class FormPicker extends Component {
           secondaryProp={(form) => this.formatSecondaryText(form)}
           onItemSelect={(form) => this.selectForm(form)}
           rightIcon={(form) => this.setRightIcon(form)}
+          infiniteScroll={{
+            start: 1,
+            isFetching: forms.isFetching,
+            onLoadMore: this.props.onLoadMore,
+            loadingText: 'Loading forms...'
+          }}
         />
       );
     }

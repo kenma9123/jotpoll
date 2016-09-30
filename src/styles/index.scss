@@ -53,88 +53,100 @@ body {
       }
     }
   }
+  
+  .list-container {
+    position: relative;
 
-  .list {
-    padding: 10px 20px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    overflow: hidden;
-
-    &.scroll {
-      overflow-y: scroll;
+    .list-loader-overlay {
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      background: #fff;
+      opacity: 0.8;
     }
 
-    .list-item {
-      cursor: pointer;
-      background: $list-item-bg-color;
+    .list {
+      padding: 10px 20px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: hidden;
 
-      i.fa {
-        // position: absolute;
-        // top: 13px;
-        // left: 20px;
+      &.scroll {
+        overflow-y: scroll;
       }
 
-      position: relative;
-      padding: 10px;
-      border-bottom: 1px solid #ECECEC;
-      border-right: 1px solid #ECECEC;
-      border-left: 1px solid #ECECEC;
+      .list-item {
+        cursor: pointer;
+        background: $list-item-bg-color;
 
-      &.with-left-icon {
-        padding-left: 50px;
-
-        .left-icon {
-          position: absolute;
-          top: 7px;
-          left: 20px;
+        i.fa {
+          // position: absolute;
+          // top: 13px;
+          // left: 20px;
         }
-      }
 
-      &.with-right-icon {
-        padding-right: 50px;
+        position: relative;
+        padding: 10px;
+        border-bottom: 1px solid #ECECEC;
+        border-right: 1px solid #ECECEC;
+        border-left: 1px solid #ECECEC;
 
-        .right-icon {
-          position: absolute;
-          top: 7px;
-          right: 0px;
-          padding: 5px 20px 5px 10px;
+        &.with-left-icon {
+          padding-left: 50px;
+
+          .left-icon {
+            position: absolute;
+            top: 7px;
+            left: 20px;
+          }
+        }
+
+        &.with-right-icon {
+          padding-right: 50px;
+
+          .right-icon {
+            position: absolute;
+            top: 7px;
+            right: 0px;
+            padding: 5px 20px 5px 10px;
+            margin: 0;
+            background: #f4f6f9;
+          }
+        }
+
+        .list-item-content {
+          display: inline-block;
           margin: 0;
-          background: #f4f6f9;
         }
-      }
 
-      .list-item-content {
-        display: inline-block;
-        margin: 0;
-      }
+        // &.right-icon {
+        //   padding-right: 50px;
 
-      // &.right-icon {
-      //   padding-right: 50px;
+        //   i.fa {
+        //     right: 20px;
+        //   }
+        // }
 
-      //   i.fa {
-      //     right: 20px;
-      //   }
-      // }
+        * {
+          margin: 5px 0;
+        }
 
-      * {
-        margin: 5px 0;
-      }
+        .primaryText {
+          color: $list-item-text-color;
+          font-size: 0.9em;
+          font-weight: 600;
+        }
 
-      .primaryText {
-        color: $list-item-text-color;
-        font-size: 0.9em;
-        font-weight: 600;
-      }
+        .secondaryText {
+          font-size: 0.9em;
+          color: $list-item-date-color;
+        }
 
-      .secondaryText {
-        font-size: 0.9em;
-        color: $list-item-date-color;
-      }
-
-      &.disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
+        &.disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
       }
     }
   }

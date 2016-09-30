@@ -31,7 +31,7 @@ export function fetchForms(apikey) {
   };
 }
 
-export function fetchAndFilterForms(apikey) {
+export function fetchAndFilterForms(apikey, offset, limit) {
   return {
     types: [types.Forms.fetch, types.Forms.success, types.Forms.failed],
     endpoint: SERVER_URL,
@@ -41,12 +41,12 @@ export function fetchAndFilterForms(apikey) {
         apikey,
         action: 'formList',
         filtered: true,
-        offset: 0,
-        limit: 20,
+        offset,
+        limit,
         orderby: 'updated_at',
-        filter: JSON.stringify({
+        filter: {
           status: 'ENABLED'
-        })
+        }
       }
     }
   };
