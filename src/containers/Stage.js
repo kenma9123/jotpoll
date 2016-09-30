@@ -5,6 +5,7 @@ import keenActions from '../actions/keenActions';
 import Color from 'color';
 import Link from 'react-router/lib/Link';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 
 import FormPicker from '../components/FormPicker';
 import QuestionPicker from '../components/QuestionPicker';
@@ -17,6 +18,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import { routeActions } from 'react-router-redux';
+
+function requireDefault(module) {
+  return isUndefined(module.default) ? module : module.default;
+}
 
 class Stage extends Component {
   constructor(props) {
@@ -38,6 +43,14 @@ class Stage extends Component {
     if (isEmpty(nextProps.forms.items) && nextProps.user.isLoggedIn && !nextProps.forms.isFetching) {
       this.props.actions.fetchAndFilterForms(nextProps.user.apikey);
     }
+  }
+
+  componentWillMount() {
+    console.log('Stage will mount', require('../components/Walkthrough'));
+    require.ensure([], () => {
+      const Walkthrough = requireDefault(require('../components/Walkthrough'));
+      console.log('Walkthrough', <Walkthrough/>);
+    });
   }
 
   componentDidMount() {
