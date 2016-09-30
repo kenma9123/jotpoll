@@ -31,23 +31,38 @@ export function fetchForms(apikey) {
   };
 }
 
+const commonFormPayloadData = (opt) => {
+  const { apikey, offset, limit } = opt;
+  return {
+    apikey,
+    offset,
+    limit,
+    action: 'formList',
+    orderby: 'updated_at',
+    filter: {
+      status: 'ENABLED'
+    }
+  };
+};
+
 export function fetchAndFilterForms(apikey, offset, limit) {
   return {
     types: [types.Forms.fetch, types.Forms.success, types.Forms.failed],
     endpoint: SERVER_URL,
     payload: {
       method: 'POST',
-      data: {
-        apikey,
-        action: 'formList',
-        filtered: true,
-        offset,
-        limit,
-        orderby: 'updated_at',
-        filter: {
-          status: 'ENABLED'
-        }
-      }
+      data: commonFormPayloadData({apikey, offset, limit})
+    }
+  };
+}
+
+export function refreshForms(apikey, offset, limit) {
+  return {
+    types: [types.Forms.fetch, types.Forms.refreshSuccess, types.Forms.failed],
+    endpoint: SERVER_URL,
+    payload: {
+      method: 'POST',
+      data: commonFormPayloadData({apikey, offset, limit})
     }
   };
 }

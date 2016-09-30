@@ -45,7 +45,17 @@ body {
       border-right: 1px solid #617386;
 
       .icon-container {
-       padding: 0 5px;
+        padding: 0 5px;
+
+        .icon {
+          display: inline-block;
+          padding-left: 10px;
+        }
+
+        .link {
+          color: #fff;
+          text-decoration: none;
+        }
 
         &.right {
           float: right;

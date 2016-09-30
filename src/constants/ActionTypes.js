@@ -13,6 +13,7 @@ export const Form = {
 export const Forms = {
   fetch: 'forms:fetch',
   success: 'forms:fetch:success',
+  refreshSuccess: 'forms:fetch:refreshSuccess',
   failed: 'forms:fetch:failed'
 };
 

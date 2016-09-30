@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FORMPICKER_LIMIT } from '../config';
 import DocumentTitle  from 'react-document-title';
 import Granim from 'granim';
 import keenActions from '../actions/keenActions';
@@ -44,8 +45,7 @@ class Stage extends Component {
     // load form list if empty
     if (isEmpty(nextProps.forms.error)) {
       if (isEmpty(nextProps.forms.items) && nextProps.user.isLoggedIn && !nextProps.forms.isFetching) {
-        this.loadUserForms(nextProps.user.apikey, 0, 20);
-        this.props.actions.fetchAndFilterForms(nextProps.user.apikey, 0, 20);
+        this.loadUserForms(nextProps.user.apikey, 0, FORMPICKER_LIMIT);
       }
     } else {
       console.error("Form error", nextProps.forms.error);
@@ -174,6 +174,10 @@ class Stage extends Component {
     this.props.actions.fetchAndFilterForms(apikey, offset, limit);
   }
 
+  refreshUserForms(apikey, offset, limit) {
+    this.props.actions.refreshForms(apikey, offset, limit);
+  }
+
   getLoadingMessage() {
     if (this.state.errored) {
       return 'Something went wrong, please reload the page.';
@@ -210,6 +214,7 @@ class Stage extends Component {
             user={user}
             actions={actions}
             onLoadMore={(offset, limit) => this.loadUserForms(user.apikey, offset, limit)}
+            onRefresh={(offset, limit) => this.refreshUserForms(user.apikey, offset, limit)}
           />
           <QuestionPicker
             questions={questions}

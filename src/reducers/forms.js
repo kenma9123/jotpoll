@@ -34,6 +34,17 @@ export default createReducer({
       items
     };
   },
+  [types.Forms.refreshSuccess]: (state, action) => {
+    let { response } = action.payload;
+    // merge new data when loaded
+    let items = response.result;
+    return {
+      ...state,
+      isLoaded: true,
+      isFetching: false,
+      items
+    };
+  },
   [types.Forms.failed]: (state, action) => {
     return {
       ...state,

@@ -14,7 +14,8 @@ class FormPicker extends Component {
     user: PropTypes.object.isRequired,
     forms: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    onLoadMore: PropTypes.func.isRequired
+    onLoadMore: PropTypes.func.isRequired,
+    onRefresh: PropTypes.func
   };
 
   constructor(props) {
@@ -58,12 +59,28 @@ class FormPicker extends Component {
     );
   }
 
+  refreshFormList(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const { onRefresh = false, forms } = this.props;
+    if (onRefresh) {
+      // offset at 0, to load it from the start
+      // and the limit on how many items to pull out
+      // based on the current loaded items
+      onRefresh(0, forms.items.length);
+
+      // call the loading overlay on the list
+      this.refs.list.showLoadingOverlay('Refreshing forms...');
+    }
+  }
+
   render() {
     const { forms } = this.props;
     let content = <Loading text="Loading Forms" spinnerName="three-bounce"/>;
     if (!isEmpty(forms.items)) {
       content = (
         <List
+          ref="list"
           name="formpicker"
           items={forms.items}
           selected={forms.selected}
@@ -86,7 +103,21 @@ class FormPicker extends Component {
           <div className="section-title">
             Form List
             <span className="icon-container right">
-              <i className="fa fa-th-list"></i>
+              <div className="icon">
+                { forms.isFetching && <i className="fa fa-circle-o-notch fa-spin"></i> }
+                { !forms.isFetching && <a href='#' className="link" onClick={ (e) => this.refreshFormList(e) }>
+                  <Icon
+                    name="fa fa-refresh"
+                    tip={{
+                      content: 'Refresh',
+                      placement: 'left'
+                    }}
+                  />
+                </a> }
+              </div>
+              <div className="icon">
+                <i className="fa fa-th-list" aria-hidden="true"></i>
+              </div>
             </span>
           </div>
         { content }

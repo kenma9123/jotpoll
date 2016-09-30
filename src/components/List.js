@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FORMPICKER_LIMIT } from '../config';
 import classNames from 'classnames';
 import ListItem from './ListItem';
 import { isEqual } from 'lodash/lang';
@@ -29,8 +30,10 @@ class List extends Component {
       height: this.getScrollHeight(),
       page: page,
       offset: 0,
-      limit: 20,
-      infiniteScroll: false
+      limit: FORMPICKER_LIMIT,
+      infiniteScroll: false,
+      showLoader: false,
+      loaderMessage: infiniteScroll.loadingText || 'Loading...'
       // selected: {}
     };
 
@@ -44,7 +47,11 @@ class List extends Component {
   componentWillReceiveProps(nextProps) {
     const { infiniteScroll = false } = nextProps;
     if (infiniteScroll && !infiniteScroll.isFetching) {
-      this.setState({ infiniteScroll: false });
+      this.setState({
+        infiniteScroll: false,
+        showLoader: false,
+        loaderMessage: infiniteScroll.loadingText
+      });
     }
   }
 
@@ -120,7 +127,18 @@ class List extends Component {
     });
   }
 
-  getLoadingComponent(loadingText = 'Loading...') {
+  showLoadingOverlay(loaderMessage) {
+    this.setState({
+      showLoader: true,
+      loaderMessage
+    });
+  }
+
+  willLoadLoader() {
+    return this.state.infiniteScroll || this.state.showLoader;
+  }
+
+  getLoadingComponent(loadingText) {
     return (
       <div className="list-loader-overlay" style={{height: this.state.height}}>
         <Loading text={loadingText} spinnerName="three-bounce"/>
@@ -134,7 +152,7 @@ class List extends Component {
 
     return (
       <div className="list-container">
-        { this.state.infiniteScroll && this.getLoadingComponent(this.props.infiniteScroll.loadingText) }
+        { this.willLoadLoader() && this.getLoadingComponent(this.state.loaderMessage) }
         <Scrollbars
           onScroll={ (e) => this.handleScroll(e) }
           style={{height: this.state.height}}>
