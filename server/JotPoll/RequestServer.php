@@ -18,6 +18,13 @@ class RequestServer extends AjaxHandler {
   protected $jotform;
 
   public function __construct($args) {
+    // convert array reques to json string
+    foreach ($args as &$arg) {
+      if (is_array($arg)) {
+        $arg = json_encode($arg);
+      }
+    }
+
     parent::__construct($args);
 
     $this->apikey = $args['apikey'];
@@ -63,8 +70,9 @@ class RequestServer extends AjaxHandler {
 
   public function formList() {
     // get the users forms
+    $filter = ($this->get('filter')) ? json_decode($this->get('filter'), true) : null;
     $forms = $this->jotform->getForms($this->get('offset'), $this->get('limit'),
-      $this->get('filter'), $this->get('orderby'));
+      $filter, $this->get('orderby'));
     $this->success("Form list successfully fetched", array(
       'result' => $forms
     ));
