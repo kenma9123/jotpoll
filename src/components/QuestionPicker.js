@@ -115,10 +115,12 @@ class QuestionPicker extends Component {
     return (
       <div className="division questionpicker-cont" id="questionpicker">
           <div className="section-title">
-            Question List
-            <span className="icon-container right">
-              <i className="fa fa-th-list"></i>
-            </span>
+            <div className="title-content">
+              Question List
+              <span className="icon-container right">
+                <i className="fa fa-th-list"></i>
+              </span>
+            </div>
           </div>
         { content }
       </div>

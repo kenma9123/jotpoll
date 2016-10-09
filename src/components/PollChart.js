@@ -411,10 +411,12 @@ class PollChart extends Component {
     return (
       <div className="division pollchart-cont" style={{width: this.state.width}}>
         <div className="section-title center-text">
-          Poll Chart
-          <span className="icon-container">
-            <i className="fa fa-pie-chart"></i>
-          </span>
+          <div className="title-content">
+            Poll Chart
+            <span className="icon-container">
+              <i className="fa fa-pie-chart"></i>
+            </span>
+          </div>
         </div>
         <div className="container chart-holder">
           { content }
