@@ -58,7 +58,7 @@ class FormPicker extends Component {
     this.props.actions.toggleForm(form);
   }
 
-  formaPrimaryText(form) {
+  formatPrimaryText(form) {
     return _unescape(Utils.truncate(form.title, FORMTITLE_TRUNCATE));
   }
 
@@ -188,7 +188,7 @@ class FormPicker extends Component {
           items={formItems}
           itemId={(form) => form.id}
           selected={forms.selected}
-          primaryProp={(form) => this.formaPrimaryText(form)}
+          primaryProp={(form) => this.formatPrimaryText(form)}
           secondaryProp={(form) => this.formatSecondaryText(form)}
           onItemSelect={(form) => this.selectForm(form)}
           rightIcon={(form) => this.setRightIcon(form)}
