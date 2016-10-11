@@ -7,7 +7,8 @@ export default class Icon extends Component {
 
   static propTypes = {
     name: PropTypes.string.isRequired,
-    tip: PropTypes.object
+    tip: PropTypes.object,
+    spin: PropTypes.bool
   };
 
   constructor(props) {
@@ -15,10 +16,14 @@ export default class Icon extends Component {
   }
 
   render() {
-    const { name, tip = false } = this.props;
-    if (tip) {
-      let iconClass = classNames(`fa ${name}`, 'cu-pointer');
-      let {content,placement ='left', ...others} = tip;
+    const { name, tip = false, spin = false } = this.props;
+    const iconClass = classNames(`fa ${name}`, {
+      'cu-pointer': !!tip,
+      'fa-spin': spin
+    });
+    
+    if (tip && Object.keys(tip).length > 0) {
+      const { content, placement ='left', ...others } = tip;
       return (
         <ToolTip
           overlay={content}
@@ -29,6 +34,6 @@ export default class Icon extends Component {
         </ToolTip>
       );
     }
-    return <i className={`fa ${name}`} aria-hidden="true"></i>;
+    return <i className={iconClass} aria-hidden="true"></i>;
   }
 }

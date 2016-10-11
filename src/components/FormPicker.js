@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { FORMTITLE_TRUNCATE } from '../config';
 import isEmpty from 'lodash/isEmpty';
+import _unescape from 'lodash/unescape';
 import moment from 'moment';
 import * as Utils from '../utils';
 import '../styles/formpicker.scss';
 
+import SectionTitle from './SectionTitle';
+import SearchBar from './SearchBar';
 import List from './List';
+import CenterText from './CenterText';
 import Loading from './Loading';
 import Icon from './Icon';
 
@@ -21,14 +25,41 @@ class FormPicker extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      search: false,
+      searchKeyword: '',
+      allowScroll: true
+    };
   }
 
   selectForm(form) {
+    if (this.state.search) {
+      // console.log("search update");
+      this.setState({
+        search: false
+      }, () => {
+        // scroll to selected form
+        var offset = document.getElementById(form.id).offsetTop;
+        // console.log(offset);
+        // console.log(this.refs.list.getScrollBar());
+        // console.log(this.refs.list.getScrollBarScrollHeight());
+        // console.log(this.refs.list.getScrollHeight());
+        // console.log(this.refs.list.getScrollBarScrollerHeight());
+        this.refs.list.setScrollBarToOffset(offset);
+        setTimeout(() => {
+          this.setState({
+            allowScroll: true
+          });
+        }, 500);
+      });
+    }
+
     this.props.actions.toggleForm(form);
   }
 
   formaPrimaryText(form) {
-    return Utils.truncate(form.title, FORMTITLE_TRUNCATE);
+    return _unescape(Utils.truncate(form.title, FORMTITLE_TRUNCATE));
   }
 
   formatSecondaryText(form) {
@@ -75,21 +106,94 @@ class FormPicker extends Component {
     }
   }
 
+  onSearch(searchKeyword) {
+    // console.log("Searching keyword", searchKeyword);
+    this.setState({
+      searchKeyword
+    });
+  }
+
+  onSearchClose() {
+    this.setState({
+      search: false
+    });
+  }
+
+  enableSearchMode(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    // call search cb
+    this.setState({
+      search: true,
+      allowScroll: false
+    });
+  }
+
   render() {
     const { forms } = this.props;
+
+    let header = (!this.state.search) ? (
+      <SectionTitle
+        title="Form List"
+        rightIcons={[{
+            icon: 'fa-search',
+            tip: {
+              content: 'Search a Form. For now only the forms that are currently loaded.',
+              placement: 'bottom'
+            },
+            onClick: (e) => this.enableSearchMode(e)
+          }, {
+            icon: 'fa-refresh',
+            spin: true,
+            showOn: forms.isFetching
+          }, {
+            icon: 'fa-refresh',
+            showOn: !forms.isFetching,
+            onClick: (e) => this.refreshFormList(e),
+            tip: {
+              content: 'Refresh',
+              placement: 'bottom'
+            }
+          },{
+            icon: 'fa-th-list'
+          }
+        ]}
+      />
+    ) : (
+      <SearchBar
+        ref={(search) => this.searchref = search}
+        searchPlaceholder="Type to search a form"
+        defaultSearch={this.state.searchKeyword}
+        onSearchClose={() => this.onSearchClose()}
+        onSearch={(keyword) => this.onSearch(keyword)}
+      />
+    );
+
+    let formItems = [...forms.items];
+    // modify form items for search mode
+    if (this.state.search && !isEmpty(this.state.searchKeyword)) {
+      let value = this.state.searchKeyword.toLowerCase();
+      formItems = formItems.filter((item) => {
+        return !!~item.title.toLowerCase().indexOf(value);
+      });
+    }
+
     let content = <Loading text="Loading Forms" spinnerName="three-bounce"/>;
-    if (!isEmpty(forms.items)) {
+    if (!isEmpty(formItems)) {
       content = (
         <List
           ref="list"
           name="formpicker"
-          items={forms.items}
+          items={formItems}
+          itemId={(form) => form.id}
           selected={forms.selected}
           primaryProp={(form) => this.formaPrimaryText(form)}
           secondaryProp={(form) => this.formatSecondaryText(form)}
           onItemSelect={(form) => this.selectForm(form)}
           rightIcon={(form) => this.setRightIcon(form)}
           infiniteScroll={{
+            enabled: this.state.allowScroll,
             start: 1,
             isFetching: forms.isFetching,
             onLoadMore: this.props.onLoadMore,
@@ -97,30 +201,18 @@ class FormPicker extends Component {
           }}
         />
       );
+    } else {
+      content = (
+        <CenterText
+          text="No forms to display"
+          icon={ <Icon name="fa-warning" /> }
+        />
+      );
     }
 
     return (
       <div className="division formpicker-cont" id="formpicker">
-          <div className="section-title">
-            Form List
-            <span className="icon-container right">
-              <div className="icon">
-                { forms.isFetching && <i className="fa fa-circle-o-notch fa-spin"></i> }
-                { !forms.isFetching && <a href='#' className="link" onClick={ (e) => this.refreshFormList(e) }>
-                  <Icon
-                    name="fa fa-refresh"
-                    tip={{
-                      content: 'Refresh',
-                      placement: 'left'
-                    }}
-                  />
-                </a> }
-              </div>
-              <div className="icon">
-                <i className="fa fa-th-list" aria-hidden="true"></i>
-              </div>
-            </span>
-          </div>
+        { header }
         { content }
       </div>
     );

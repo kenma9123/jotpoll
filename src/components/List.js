@@ -12,6 +12,7 @@ class List extends Component {
     name: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired,
     onItemSelect: PropTypes.func,
+    itemId: PropTypes.func,
     selected: PropTypes.object,
     primaryProp: PropTypes.func.isRequired,
     secondaryProp: PropTypes.func.isRequired,
@@ -70,7 +71,8 @@ class List extends Component {
       // this.setState({
       //   selected
       // }, () => {
-        this.props.onItemSelect(selected);
+      const { onItemSelect = false } = this.props;
+      onItemSelect && onItemSelect(selected);
       // });
     } else {
       console.log(selected, 'is not supported');
@@ -102,7 +104,7 @@ class List extends Component {
     // if no infinitescroll prop object
     // or is in infinitescroll state
     // do not call load more
-    if (!infiniteScroll || state.infiniteScroll) {
+    if (!infiniteScroll || state.infiniteScroll || !infiniteScroll.enabled) {
       return false;
     }
 
@@ -134,6 +136,12 @@ class List extends Component {
     });
   }
 
+  hideLoadingOverlay() {
+    this.setState({
+      showLoader: false
+    });
+  }
+
   willLoadLoader() {
     return this.state.infiniteScroll || this.state.showLoader;
   }
@@ -146,14 +154,35 @@ class List extends Component {
     );
   }
 
+  getScrollBar() {
+    return this.scrollbar;
+  }
+
+  getScrollBarScrollOffset() {
+    return this.getScrollBar().refs.view.scrollTop;
+  }
+
+  getScrollBarScrollHeight() {
+    return this.getScrollBar().refs.view.scrollHeight;
+  }
+
+  getScrollBarScrollerHeight() {
+    return this.getScrollBar().refs.thumbVertical.clientHeight;
+  }
+
+  setScrollBarToOffset(offset) {
+    this.getScrollBar().refs.view.scrollTop = offset;
+  }
+
   render() {
-    const { items, name, selected, scroll, primaryProp, secondaryProp, rightIcon = false } = this.props;
+    const { items, name, selected, scroll, itemId, primaryProp, secondaryProp, rightIcon = false } = this.props;
     const listClassName = classNames(name + '-list', 'list');
 
     return (
       <div className="list-container">
         { this.willLoadLoader() && this.getLoadingComponent(this.state.loaderMessage) }
         <Scrollbars
+          ref={(scrollbar) => this.scrollbar = scrollbar}
           onScroll={ (e) => this.handleScroll(e) }
           style={{height: this.state.height}}>
           <ul className={listClassName}>
@@ -173,7 +202,8 @@ class List extends Component {
                 <ListItem
                   className={listItemClass}
                   key={index}
-                  onClick={ () => this.selectItem(item) }
+                  onClick={ (e) => this.selectItem(item) }
+                  id={itemId && itemId(item)}
                 >
                   <div className="left-icon">
                     <i className={ iconClass }></i>
