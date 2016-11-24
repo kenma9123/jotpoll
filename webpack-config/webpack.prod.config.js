@@ -65,7 +65,8 @@ module.exports = {
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
       {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$/, loader: "file?name=[name].[ext]"},
-      {test: /\.json$/, loader: 'json-loader' }
+      {test: /\.json$/, loader: 'json-loader' },
+      {test: /\.js$/, loader: "strip-loader?strip[]=console.log"}
     ]
   },
   eslint: {

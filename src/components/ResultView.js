@@ -98,8 +98,9 @@ class ResultView extends Component {
             </table>
           </div>
           <div className="footer division">
-            <a href="https://www.jotform.com/">
-              <img id="footer-logo" width="130" src="https://cdn.jotfor.ms//images/logo@4x.png?v3"/>
+            <a href="https://www.jotform.com/" target="_blank" title="Powered by JotForm">
+              <span className="powered-by">Powered by</span>
+              <img id="footer-logo" width="130" src="https://cdn.jotfor.ms//images/logo@4x.png?v3" alt="Powered by JotForm"/>
             </a>
           </div>
         </div>

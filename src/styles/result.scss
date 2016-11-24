@@ -1,3 +1,9 @@
+@media print {
+  .jotform-feedback-link {
+    display: none;
+  }
+}
+
 .result-view {
   overflow-y: auto !important;
 
@@ -67,7 +73,17 @@
 
       .footer {
         text-align: right;
-        padding: 5px 10px 0px 10px;
+        padding: 3px 10px;
+
+        .powered-by {
+          display: inline-block;
+          color: #828282;
+          font-size: 15px;
+        }
+
+        #footer-logo {
+          vertical-align: middle;
+        }
       }
     }
 
@@ -79,8 +95,8 @@
 
     @media (max-width: 700px) {
         #page-wrap {
-            min-height:0;
-            margin-bottom: 0
+          min-height:0;
+          margin-bottom: 0
         }
     }
   }

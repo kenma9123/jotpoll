@@ -51,7 +51,7 @@ class FormPicker extends Component {
           this.setState({
             allowScroll: true
           });
-        }, 500);
+        }, 100);
       });
     }
 
@@ -115,7 +115,8 @@ class FormPicker extends Component {
 
   onSearchClose() {
     this.setState({
-      search: false
+      search: false,
+      allowScroll: true
     });
   }
 

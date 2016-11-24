@@ -1,7 +1,7 @@
 {
-  "name": "weebly-app",
-  "version": "2.1.5",
-  "description": "Weebly Application",
+  "name": "jotpoll",
+  "version": "2.1.9",
+  "description": "JotPoll Application Powered by JotForm",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack-config/webpack.dev.config.js --hot --progress --colors --port 3002 --inline",
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jotform/landing/tree/master/weebly"
+    "url": "https://github.com/kenma9123/jotpoll"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jotform/landing/tree/master/weeblyissues"
+    "url": "https://github.com/kenma9123/jotpoll/issues"
   },
-  "homepage": "https://github.com/jotform/landing/tree/master/weebly",
+  "homepage": "http://jotpoll.com/",
   "dependencies": {
     "chart.js": "^2.2.1",
     "classnames": "^2.2.3",
@@ -45,17 +45,6 @@
     "reqwest": "^2.0.5"
   },
   "devDependencies": {
-    "html-loader": "^0.4.3",
-    "json-loader": "^0.5.4",
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "raw-loader": "^0.5.1",
     "autoprefixer": "^6.3.5",
     "babel": "^6.5.2",
     "babel-core": "^6.13.2",
@@ -66,24 +55,36 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.11.6",
     "chai": "^3.5.0",
+    "css-loader": "^0.23.1",
     "csswring": "^4.2.2",
     "eslint": "^2.5.3",
     "eslint-config-airbnb": "^6.2.0",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-react": "^4.2.3",
     "expect": "^1.16.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
     "jsdom": "^8.2.0",
+    "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
     "node-libs-browser": "^1.0.0",
+    "node-sass": "^3.8.0",
+    "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.3.0",
     "react-hot-loader": "^1.3.0",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
+    "sass-loader": "^4.0.0",
     "should": "^8.3.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "stats-webpack-plugin": "^0.3.1",
+    "strip-loader": "^0.1.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
     "webpack-dashboard": "^0.1.2",
     "webpack-dev-server": "^1.14.1"
   }
