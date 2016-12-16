@@ -1,6 +1,6 @@
 {
   "name": "jotpoll",
-  "version": "2.1.9",
+  "version": "2.2.0",
   "description": "JotPoll Application Powered by JotForm",
   "main": "index.js",
   "scripts": {
